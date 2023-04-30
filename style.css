@@ -1,22 +1,110 @@
-body {
-    background-color: #18122B;
+:root {
+    --almost-black: #0d0917;
+    --dark-purple: #332a50;
+    --medium-purple: #443C68;
+    --light-purple: #635985;
+    --primary-text-color: #fff;
+    --secondary-text-color: #C9C2C2;
 }
 
-#navbars{
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--almost-black);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#screen{
     display: flex;
+    justify-content: space-between;
+    color: var(--primary-text-color);
+}
+
+#left-nav {
+    background-color: var(--dark-purple);
+    height: 100vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
-#playlists.side-nav{
-    background-color: #393053;
-    height: 100vh;
-    width: 20vw;
+#left-nav h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-#player.side-nav{
+#playlists-cards {
+    margin-top: 14vh;
+    margin-left: 6%;
+    margin-right: 6%;
+}
+
+.card-item {
+    padding: 5px 12px;
+    border-radius: 7px;
+    margin-top: 10px;
+    height: 40px;
+
+    color: var(--secondary-text-color);
+    background-color: var(--medium-purple);
+
     display: flex;
-    float: right;
-    background-color: #393053;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.card-item-selected {
+    background-color: var(--light-purple);
+    color: var(--primary-text-color);
+}
+
+.card-item img {
+    width: 26px;
+    height: 26px;
+}
+
+.card-item p {
+    margin-left: 12px;   
+}
+
+.options-item {
+    margin-left: 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.options-item img {
+    width: 26px;
+    height: 26px;
+}
+
+.options-item p {
+    margin-left: 10px;
+    margin-bottom: 0;
+    margin-top: 0px;
+}
+
+.options-item:last-child {
+    margin-bottom: 30px;
+}
+
+main {
+    flex: 1;
+}
+
+#right-nav {
+    background-color: var(--dark-purple);
     height: 100vh;
     width: 20vw;
 }
