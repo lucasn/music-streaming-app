@@ -1,23 +1,3 @@
-:root {
-    --almost-black: #0d0917;
-    --dark-purple: #332a50;
-    --medium-purple: #443C68;
-    --light-purple: #635985;
-    --primary-text-color: #fff;
-    --secondary-text-color: #C9C2C2;
-}
-
-* {
-    font-family: 'Roboto', sans-serif;
-}
-
-body {
-    background-color: var(--almost-black);
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
 #screen{
     display: flex;
     justify-content: space-between;
@@ -37,6 +17,7 @@ body {
     font-size: 2rem;
     text-align: center;
     margin-bottom: 30px;
+    font-weight: 300;
 }
 
 #playlists-cards {
@@ -103,8 +84,60 @@ main {
     flex: 1;
 }
 
+main h1 {
+    margin: 80px 0 50px 68px;
+    font-weight: 300;
+}
+
 #right-nav {
     background-color: var(--dark-purple);
     height: 100vh;
     width: 20vw;
 }
+
+.music-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 18px 37px 0 37px;
+
+    border: 1px solid var(--secondary-text-color);
+    border-radius: 10px;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.music-card img:first-child {
+    width: 80px;
+    height: 80px;
+}
+
+.music-card img:last-child {
+    width: 20px;
+    height: 20px;
+    margin-right: 35px;
+}   
+
+.music-card-song {
+    display:flex;
+}
+
+.music-card-song div {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 22px;
+}
+
+.music-card-song h5 {
+    margin: 0;
+    font-size: large;
+}
+
+.music-card-song h6 {
+    color: var(--secondary-text-color);
+    margin: 3px 0 0 0;
+}
+
