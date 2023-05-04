@@ -87,12 +87,6 @@ main h1 {
     margin: 80px 0 50px 68px;
 }
 
-#right-nav {
-    background-color: var(--dark-purple);
-    height: 100vh;
-    width: 20vw;
-}
-
 .music-card {
     display: flex;
     justify-content: space-between;
@@ -139,3 +133,57 @@ main h1 {
     margin: 3px 0 0 0;
 }
 
+#right-nav {
+    background-color: var(--dark-purple);
+    height: 100vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.music-player {
+    display: flex;
+    flex-direction: column;
+}
+
+.music-player-song{
+    width: 20vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.music-player-song img:first-child{
+    width: 20vw;
+}
+
+.music-player-song h1{
+    margin: 17px 0 0 0;
+    font-weight: 300;
+}
+
+.music-player-song h3{
+    color: var(--secondary-text-color);
+    margin: 5px 0 0 0;
+}
+
+.music-player-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.music-player-buttons img{
+    width: 35px;
+    cursor: pointer;
+}
+
+.queue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
