@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,700;0,900;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="artista.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Artista</title>
+</head>
+
+<body>
+    <div id="left-nav">
+        <div id="artist">
+            <img src="./images/eminem.png">
+            <h1>Eminem</h1>
+        </div>
+        <div id="cards">
+            <div class="card-item card-item-selected">
+                <img src="./images/estatisticas.png">
+                <p>Estatísticas</p>
+            </div>
+            <div class="card-item">
+                <img src="./images/botao-adicionar.png">
+                <p>Adicionar</p>
+            </div>
+            <div class="card-item">
+                <img src="./images/albuns.png">
+                <p>Álbuns</p>
+            </div>
+        </div>
+        <div id="options">
+            <div class="options-item">
+                <img src="./images/settings.png" alt="">
+                <p>Configurações</p>
+            </div>
+        </div>
+    </div>
+    <main>
+        <h1>Estatísticas</h1>
+        <div class="main-column">
+            <h3>Audiência</h3>
+            <p><b>125,625</b> ouvintes nas últimas 24 horas</p>
+            <h3>Gênero dos Ouvintes</h3>
+            <div id="chart-container">
+                <canvas id="gender-chart"></canvas>
+            </div>
+        </div>
+        <div class="main-column">
+            <h3>Músicas em Alta</h3>
+            <div class="music-card">
+                <div class="music-card-song">
+                    <img src="./images/eminem-album.png">
+                    <div>
+                        <h5>1. Superman</h5>
+                        <h6>Eminem</h6>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="music-card">
+                <div class="music-card-song">
+                    <img src="./images/eminem-album2.jpg">
+                    <div>
+                        <h5>2. Mockingbird</h5>
+                        <h6>Eminem</h6>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="music-card">
+                <div class="music-card-song">
+                    <img src="./images/eminem-album2.jpg">
+                    <div>
+                        <h5>3. Crazy in Love</h5>
+                        <h6>Eminem</h6>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </main>
+    <script src="charts.js"></script>
+</body>
+
+</html>

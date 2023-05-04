@@ -1,4 +1,4 @@
-body{
+body {
     display: flex;
     justify-content: space-between;
 }
@@ -12,17 +12,28 @@ body{
     justify-content: space-between;
 }
 
-#left-nav h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: 300;
+#artist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
 }
 
-#playlists-cards {
-    margin-top: 14vh;
+#artist h1 {
+    margin: 0;
+}
+
+#artist img {
+    width: 175px;
+    height: 175px;
+    border-radius: 100%;
+}
+
+#cards {
     margin-left: 6%;
     margin-right: 6%;
+    flex: 1;
+    margin-top: 10%;
 }
 
 .card-item {
@@ -45,6 +56,7 @@ body{
     color: var(--primary-text-color);
 }
 
+
 .card-item img {
     width: 26px;
     height: 26px;
@@ -53,6 +65,7 @@ body{
 .card-item p {
     margin-left: 12px;   
 }
+
 
 .options-item {
     margin-left: 20px;
@@ -81,16 +94,50 @@ body{
 
 main {
     flex: 1;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr;
 }
 
 main h1 {
-    margin: 80px 0 50px 68px;
+    grid-column-start: 1;
+    grid-column-end: 5;
+
+    margin: 68px 0 10px 85px;
+    
+    font-size: 40pt;
 }
 
-#right-nav {
-    background-color: var(--dark-purple);
-    height: 100vh;
-    width: 20vw;
+main div h3 {
+    font-size: 20pt;
+}
+
+main div p {
+    font-size: 15pt;
+}
+
+main .main-column:first-of-type {
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    margin-left: 85px;
+}
+
+main .main-column:last-of-type {
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+
+#chart-container {
+    width: 200px;
+    height: 200px;
+
+    margin-left: 40px
+}
+
+#chat_div {
+    background-color: black;
 }
 
 .music-card {
@@ -98,10 +145,10 @@ main h1 {
     justify-content: space-between;
     align-items: center;
 
-    margin: 18px 37px 0 37px;
-
     border: 1px solid var(--secondary-text-color);
     border-radius: 10px;
+
+    margin: 10px 37px 0 0;
 
     overflow: hidden;
     cursor: pointer;
@@ -111,12 +158,6 @@ main h1 {
     width: 80px;
     height: 80px;
 }
-
-.music-card img:last-child {
-    width: 20px;
-    height: 20px;
-    margin-right: 35px;
-}   
 
 .music-card-song {
     display:flex;
@@ -138,4 +179,3 @@ main h1 {
     color: var(--secondary-text-color);
     margin: 3px 0 0 0;
 }
-
