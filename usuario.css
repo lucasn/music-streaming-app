@@ -183,7 +183,48 @@ main h1 {
 }
 
 .queue {
+    margin-bottom: 20px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.queue-item {
+    width: 352px;
+    height: 70px;
+
+    margin-bottom: 27px;
+
+    display: flex;
+
+    color: var(--secondary-text-color);
+    background-color: var(--medium-purple);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    cursor: pointer;
+}
+
+.queue-item:last-child{
+    margin-bottom: 0;
+}
+
+.queue-item div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 22px;
+}
+
+.queue-item h3{
+    margin: 0;
+    color: var(--primary-text-color);
+}
+
+.queue-item h4{
+    color: var(--secondary-text-color);
+    margin: 3px 0 0 0;
 }
