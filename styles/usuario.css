@@ -91,9 +91,12 @@ body{
 }
 
 main {
-    flex: 1;
-    margin-left: 20vw;
-    margin-right: 20vw;
+    position: relative;
+    left: 20vw;
+    width: calc(60vw - 18px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 main h1 {
@@ -267,4 +270,45 @@ main h1 {
 .queue-item h4{
     color: var(--secondary-text-color);
     margin: 3px 0 0 0;
+}
+
+#login-signin-buttons {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    justify-content: center;
+    align-items: center;
+}
+
+#login-signin-buttons a {
+    display: flex;
+
+    width: 159px;
+    height: 50px;
+
+    color: var(--primary-text-color);
+    background-color: var(--medium-purple);
+
+    border: none;
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    align-items: center;
+    justify-content: center;
+}
+
+#login-signin-buttons a:hover {
+    background-color: var(--light-purple);
+}
+
+#login-signin-buttons {
+    text-align: center;
+    color: var(--secondary-text-color);
+}
+
+#not-logged-message {
+    text-align: center;
+    color: var(--secondary-text-color);
 }
