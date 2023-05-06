@@ -5,11 +5,14 @@ body {
 
 #left-nav {
     background-color: var(--dark-purple);
+    position: fixed;
+    z-index: 1;
     height: 100vh;
     width: 20vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-x: hidden;
 }
 
 #artist {
@@ -49,6 +52,7 @@ body {
     align-items: center;
 
     cursor: pointer;
+    text-decoration: none;
 }
 
 .card-item-selected {
@@ -98,6 +102,8 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 1fr;
+
+    margin-left: 20vw;
 }
 
 main h1 {
