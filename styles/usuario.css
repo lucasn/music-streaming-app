@@ -5,7 +5,9 @@ body{
 
 #left-nav {
     background-color: var(--dark-purple);
-    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
     width: 20vw;
     display: flex;
     flex-direction: column;
@@ -81,6 +83,8 @@ body{
 
 main {
     flex: 1;
+    margin-left: 20vw;
+    margin-right: 20vw;
 }
 
 main h1 {
@@ -135,8 +139,12 @@ main h1 {
 
 #right-nav {
     background-color: var(--dark-purple);
-    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
     width: 20vw;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

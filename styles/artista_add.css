@@ -1,0 +1,38 @@
+main {
+    margin-left: 20vw;
+
+    height: 100%;
+    flex: 1;
+}
+
+main h1 {
+    margin: 68px 0 10px 85px;
+    
+    font-size: 40pt;
+}
+
+form { 
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    margin-left: 85px;
+    margin-right: 35vw;
+    margin-top: 40px;
+}
+
+form > * {
+    height: 50px;
+
+    color: white;
+    background-color: var(--medium-purple);
+
+    border: none;
+    border-radius: 7px;
+}
+
+form > :not(#submit-form-button) {
+    padding: 0 0 0 10px;
+}
