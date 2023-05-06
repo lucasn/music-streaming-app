@@ -1,3 +1,12 @@
+:root {
+    --almost-black: #0d0917;
+    --dark-purple: #332a50;
+    --medium-purple: #443C68;
+    --light-purple: #635985;
+    --primary-text-color: #fff;
+    --secondary-text-color: #C9C2C2;
+}
+
 main {
     margin-left: 20vw;
 
