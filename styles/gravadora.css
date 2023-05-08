@@ -18,6 +18,7 @@ body {
     z-index: 1;
     width: 20vw;
     height: 100vh;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow-x: hidden;
@@ -38,4 +39,68 @@ body {
     width: 175px;
     height: 175px;
     border-radius: 100%;
+}
+
+#cards {
+    margin-left: 6%;
+    margin-right: 6%;
+    flex: 1;
+    margin-top: 10%;
+}
+
+.card-item {
+    padding: 5px 12px;
+    border-radius: 7px;
+    margin-top: 10px;
+    height: 40px;
+
+    color: var(--secondary-text-color);
+    background-color: var(--medium-purple);
+
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.card-item-selected {
+    background-color: var(--light-purple);
+    color: var(--primary-text-color);
+}
+
+
+.card-item img {
+    width: 26px;
+    height: 26px;
+}
+
+.card-item p {
+    margin-left: 12px;   
+}
+
+
+.options-item {
+    margin-left: 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.options-item img {
+    width: 26px;
+    height: 26px;
+}
+
+.options-item p {
+    margin-left: 10px;
+    margin-bottom: 0;
+    margin-top: 0px;
+}
+
+.options-item:last-child {
+    margin-bottom: 30px;
 }
