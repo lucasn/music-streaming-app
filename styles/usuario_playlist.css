@@ -1,0 +1,74 @@
+:root {
+    --almost-black: #0d0917;
+    --dark-purple: #332a50;
+    --medium-purple: #443C68;
+    --light-purple: #635985;
+    --primary-text-color: #fff;
+    --secondary-text-color: #C9C2C2;
+}
+
+.card-item-selected {
+    background-color: var(--light-purple);
+    color: var(--primary-text-color);
+}
+
+main {
+    position: relative;
+    left: 20vw;
+    width: calc(60vw - 18px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+main h1 {
+    margin: 80px 0 50px 68px;
+}
+
+.music-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 18px 37px 0 37px;
+
+    border: 1px solid var(--secondary-text-color);
+    border-radius: 10px;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.music-card img:first-child {
+    width: 80px;
+    height: 80px;
+
+    object-fit: cover;
+}
+
+.music-card img:last-child {
+    width: 20px;
+    height: 20px;
+    margin-right: 35px;
+}   
+
+.music-card-song {
+    display:flex;
+}
+
+.music-card-song div {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 22px;
+}
+
+.music-card-song h5 {
+    margin: 0;
+    font-size: large;
+}
+
+.music-card-song h6 {
+    color: var(--secondary-text-color);
+    margin: 3px 0 0 0;
+}
