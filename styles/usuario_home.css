@@ -21,7 +21,7 @@ main h1 {
     margin: 80px 0 50px 0;
 }
 
-#playlist-section {
+.playlist-section {
     display: flex;
     flex-direction: column;
     width: calc(60vw - 100px);
