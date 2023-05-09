@@ -120,6 +120,8 @@ main h1 {
 .music-card img:first-child {
     width: 80px;
     height: 80px;
+
+    object-fit: cover;
 }
 
 .music-card img:last-child {
@@ -180,6 +182,7 @@ main h1 {
 
 .music-player-song img:first-child{
     width: 20vw;
+    object-fit: cover;
 }
 
 .music-player-song h1{
@@ -253,6 +256,13 @@ main h1 {
 
 .queue-item:last-child{
     margin-bottom: 0;
+}
+
+.queue-item img {
+    width: 70px;
+    height: 70px;
+
+    object-fit: cover;
 }
 
 .queue-item div{

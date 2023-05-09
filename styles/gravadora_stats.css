@@ -15,7 +15,6 @@ main {
     grid-template-rows: auto 1fr;
 
     margin-left: 20vw;
-    padding-left: 68px;
 }
 
 main h1{
@@ -27,14 +26,14 @@ main h1{
     font-size: 40pt;
 }
 
-main .main-column:first-child {
+main .main-column:first-of-type {
     grid-column-start: 1;
     grid-column-end: 3;
     
     margin-left: 85px;
 }
 
-main .main-column:last-child {
+main .main-column:last-of-type {
     grid-column-start: 3;
     grid-column-end: 5;
 }
@@ -58,6 +57,15 @@ main div h3 {
     cursor: pointer;
 }
 
+.genre-card {
+    display: flex;
+    padding-left: 33px;
+}
+
+.genre-card h3 {
+    font-size: larger;
+}
+
 .artist-card {
     display: flex;
 }
@@ -66,13 +74,14 @@ main div h3 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     margin-left: 22px;
 }
 
 .artist-card img {
     width: 70px;
     height: 70px;
+
+    object-fit: cover;
 }
 
 .artist-card h3 {
