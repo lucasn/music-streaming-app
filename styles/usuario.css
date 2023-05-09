@@ -85,6 +85,17 @@ body{
     margin-bottom: 30px;
 }
 
+#high-contrast-button {
+    color: var(--primary-text-color);
+    background-color: var(--light-purple);
+    border: 0;
+    height: 35px;
+    width: 60%;
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
 #right-nav {
     background-color: var(--dark-purple);
     position: fixed;
