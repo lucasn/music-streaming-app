@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,700;0,900;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/gravadora.css">
+    <link rel="stylesheet" href="./styles/gravadora_artists.css">
+    <title>Gravadora</title>
+</head>
+<body>
+    <div id="left-nav">
+        <div id="record">
+            <img src="./images/warner-music-group.jpg" alt="Logo gravadora">
+            <h1>Warner Music</h1>
+        </div>
+
+        <div id="cards">
+            <a class="card-item" href="#">
+                <img src="./images/estatisticas.png" alt="">
+                <p>Estatísticas</p>
+            </a>
+            <a class="card-item" href="#">
+                <img src="./images/botao-adicionar.png" alt="">
+                <p>Adicionar</p>
+            </a>
+            <a class="card-item card-item-selected" href="#">
+                <img src="./images/artists.png" alt="">
+                <p>Artistas</p>
+            </a>
+        </div>
+        <div id="options">
+            <div class="options-item">
+                <button id="high-contrast-button">Ativar Alto Contraste</button>
+            </div>
+            <div class="options-item">
+                <img src="./images/settings.png" alt="">
+                <p>Configurações</p>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <h1>Artistas</h1>
+
+        <div id="artists-cards">
+            <div class="artist-card">
+                <img src="./images/paramore.jpeg" alt="">
+                <h4>Paramore</h4>
+            </div>
+            <div class="artist-card">
+                <img src="./images/bruno-mars.jpeg" alt="">
+                <h4>Bruno Mars</h4>
+            </div>
+            <div class="artist-card">
+                <img src="./images/ed-sheeran.jpg" alt="">
+                <h4>Ed Sheeran</h4>
+            </div>
+            
+        </div>
+    </main>
+    <script src="./scripts/high_contrast.js"></script>
+</body>
+</html>

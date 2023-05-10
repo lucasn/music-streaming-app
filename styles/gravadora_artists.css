@@ -1,0 +1,55 @@
+:root {
+    --almost-black: #0d0917;
+    --dark-purple: #332a50;
+    --medium-purple: #443C68;
+    --light-purple: #635985;
+    --primary-text-color: #fff;
+    --secondary-text-color: #C9C2C2;
+}
+
+main {
+    flex: 1;
+    margin-left: 20vw;
+
+    overflow: auto;
+}
+
+main h1 {
+    margin: 68px 0 10px 85px;
+    font-size: 40pt;
+}
+
+#artists-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0 20px 85px;
+}
+
+.artist-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 150px;
+    height: 210px;
+    
+    margin-top: 30px;
+    margin-right: 20px;
+
+    border-radius: 10px;
+    background-color: var(--medium-purple);
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.artist-card img {
+    width: 150px;
+    height: 150px;
+
+    object-fit: cover;
+}
+
+.artist-card h4 {
+    color: var(--primary-text-color);
+}

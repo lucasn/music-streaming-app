@@ -32,7 +32,7 @@ main h1 {
 .playlist-cards {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .playlist-card {
