@@ -1,0 +1,22 @@
+{
+  "name": "TI0080-desenvolvimento-aplicacoes-para-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "run-dev": "pnpm exec nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "ejs-lint": "^2.0.0",
+    "nodemon": "^2.0.22"
+  }
+}
