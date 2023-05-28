@@ -1,0 +1,33 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/usuario.css">
+    <link rel="stylesheet" href="./styles/usuario_home.css">
+    <link rel="stylesheet" href="./styles/usuario_playlist.css">
+    <title>SoundSpace</title>
+{% endblock %}
+
+{% block content %}
+
+    {% include "left_nav.njk" %}
+
+    <main>
+
+        {% if playlists %}
+            {% include "playlists_content.njk" %}
+        {% else %}
+            {% include "home.njk" %}
+        {% endif %}
+
+    </main>
+
+    {% if user %}
+        {% include "player.njk" %}
+    {% else %}
+        {% include "login_nav.njk" %}
+    {% endif %}
+
+    <script src="./scripts/high_contrast.js"></script>
+
+{% endblock %}
