@@ -12,4 +12,8 @@ nunjucks.configure('src/views', {
 app.use(express.static('public'));
 app.set('view engine', 'njk');
 
-export {app, PORT};
+function startServer() {
+    app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+}
+
+export {app, PORT, startServer};

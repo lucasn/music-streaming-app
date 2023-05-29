@@ -1,6 +1,5 @@
-import { app, PORT } from './src/configs/server.js'
-import { configureRoutes } from './src/routes/user_routes.js';
+import { startServer } from './src/configs/server.js'
+import configureRoutes from './src/configs/routes.js';
 
 configureRoutes();
-
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+startServer();
