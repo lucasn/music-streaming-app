@@ -1,7 +1,17 @@
-import { getUserPlaylist } from "../services/music_service.js";
+import { getUserPlaylists, getMusicsFromPlaylist } from "../services/music_service.js";
 
-export function getUserPlaylists(req, res) {
-    const user = req.params.user === 'user' ? true : false;
-    const playlists = req.params.playlists === 'playlists' ? true : false;
-    res.render('index', {user: user, playlists: playlists, musics: getUserPlaylist(user, playlists)});
+export function getHomePage(req, res) {
+    res.render('index', {musics: getUserPlaylists('user_id')});
+}
+
+export function getPlaylistByName(req, res) {
+    const playlistName = req.params.playlistName;
+    const musics = getMusicsFromPlaylist(playlistName);
+
+    const data = {
+        playlistName: playlistName,
+        musics: musics
+    }
+
+    res.render('components/playlists_content', data);
 }

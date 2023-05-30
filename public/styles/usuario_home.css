@@ -7,11 +7,7 @@
     --secondary-text-color: #C9C2C2;
 }
 
-main {
-    position: relative;
-    left: 20vw;
-    width: calc(60vw - 18px);
-
+#home-section {
     margin-bottom: 20px;
 
     padding-left: 68px;

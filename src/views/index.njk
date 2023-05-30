@@ -14,20 +14,16 @@
 
     <main>
 
-        {% if playlists %}
-            {% include "playlists_content.njk" %}
-        {% else %}
-            {% include "home.njk" %}
-        {% endif %}
+
+        {% include "home.njk" %}
+
 
     </main>
 
-    {% if user %}
-        {% include "player.njk" %}
-    {% else %}
-        {% include "login_nav.njk" %}
-    {% endif %}
+    {% include "player.njk" %}
+
 
     <script src="./scripts/high_contrast.js"></script>
+    <script src="./scripts/home_interface_builder.js"></script>
 
 {% endblock %}
