@@ -15,3 +15,7 @@ export function getPlaylistByName(req, res) {
 
     res.render('components/playlists_content', data);
 }
+
+export function getHomeContent(req, res) {
+    res.render('home');
+}
