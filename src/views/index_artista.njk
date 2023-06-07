@@ -14,7 +14,7 @@
         <h1>Estatísticas</h1>
         <div class="main-column">
             <h3>Audiência</h3>
-            <p><b>125,625</b> ouvintes nas últimas 24 horas</p>
+            <p><b>{{audience}}</b> ouvintes nas últimas 24 horas</p>
             <h3>Gênero dos Ouvintes</h3>
             <div id="chart-container">
                 <canvas id="gender-chart"></canvas>
@@ -22,19 +22,9 @@
         </div>
         <div class="main-column">
             <h3>Músicas em Alta</h3>
-                {% for song in songs %}
-                    <div class="music-card">
-                        <div class="music-card-song">
-                            <img src={{song.albumCover}} alt="">
-                            <div>
-                                <h5>{{song.id}}. {{song.title}}</h5>
-                                <h6>{{song.artist}}</h6>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                {% include "components/artist_topSongs.njk"%}
         </div>
     </main>
-    <script src="./scripts/charts.js"></script>
-    <script src="./scripts/high_contrast.js"></script>
+    <script src="/scripts/charts.js"></script>
+    <script src="/scripts/high_contrast.js"></script>
 {% endblock %}

@@ -19,3 +19,8 @@ export function getArtistTopSongs(artistId){
         {id: 3, title: 'Crazy in Love', artist: 'Eminem', albumCover: '/images/eminem-album2.jpg'}
     ]
 }
+
+export function getArtistAudience(artistId){
+    const audienceLast24h = 125625;
+    return audienceLast24h.toLocaleString();
+}
