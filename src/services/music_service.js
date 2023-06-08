@@ -1,8 +1,13 @@
-export function getUserPlaylists(userId) {
-    return [
-        {id: 1, name: 'Músicas Curtidas'},
-        {id: 2, name: 'Playlist 1'}
-    ]
+import prisma from "../configs/database.js";
+
+export async function getUserPlaylists(userId) {
+    const playlists = await prisma.playlist.findMany({
+        where: {
+            userId: userId
+        }
+    });
+
+    return playlists;
 }
 
 export function getMusicsFromPlaylist(playlistId) {

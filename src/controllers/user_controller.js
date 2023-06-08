@@ -1,7 +1,9 @@
 import { getUserPlaylists, getMusicsFromPlaylist } from "../services/music_service.js";
 
-export function getHomePage(req, res) {
-    res.render('index', {musics: getUserPlaylists('user_id')});
+export async function getHomePage(req, res) {
+    const userId = req.params.user;
+
+    res.render('index', {playlists: await getUserPlaylists(userId)});
 }
 
 export function getPlaylistByName(req, res) {

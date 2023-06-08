@@ -6,18 +6,14 @@
 
     <div id="playlists-cards">
         <h1>Playlists</h1>
-        <div class="card-item">
-            <img src="./images/music.png" alt="music icon">
-            <p>Músicas Curtidas</p>
-        </div>
-        <div class="card-item">
-            <img src="./images/music.png" alt="music icon">
-            <p>Playlist 1</p>
-        </div>
-        <div class="card-item">
-            <img src="./images/music.png" alt="music icon">
-            <p>Playlist 2</p>
-        </div>
+
+        {% for playlist in playlists %}
+            <div class="card-item">
+                <img src="./images/music.png" alt="music icon">
+                <p>{{ playlist.title }}</p>
+            </div>
+        {% endfor %}
+        
     </div>
     <div id="options">
         <div class="options-item">

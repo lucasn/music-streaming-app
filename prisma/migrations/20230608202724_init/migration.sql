@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "Song" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "title" TEXT NOT NULL,
+    "audioFile" BLOB NOT NULL,
+    "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
