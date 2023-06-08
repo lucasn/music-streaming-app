@@ -1,0 +1,9 @@
+{% block artistAlbums %}
+    {% for album in albums %}
+        <div class="album-card">
+            <img src={{album.albumCover}} alt="">
+            <h6>{{album.title}}</h6>
+            <p>{{album.year}}</p>
+        </div>
+    {% endfor %}
+{% endblock  %}

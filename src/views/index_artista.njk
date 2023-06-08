@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}     
-    {% include "artist_left_nav.njk" %}
+    {% include "artista_left_nav.njk" %}
     
     <main>
         <h1>Estatísticas</h1>
@@ -25,6 +25,8 @@
                 {% include "components/artist_topSongs.njk"%}
         </div>
     </main>
+
     <script src="/scripts/charts.js"></script>
     <script src="/scripts/high_contrast.js"></script>
+    <script src="/scripts/artist_home_interface_builder.js"></script>
 {% endblock %}

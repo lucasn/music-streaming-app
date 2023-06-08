@@ -1,0 +1,20 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/styles/artista.css">
+    <link rel="stylesheet" href="/styles/artista_albuns.css">
+    <title>SoundSpace</title>
+{% endblock  %}
+
+{% block content %}
+    {% include "artista_left_nav.njk" %}
+    <main>
+        <h1>Meus Álbuns</h1>
+        <div class="albuns-grid">
+            {% include "components/artist_albums.njk" %}
+        </div>
+    </main>
+
+    <script src="/scripts/high_contrast.js"></script>
+    <script src="/scripts/artist_home_interface_builder.js"></script>
+{% endblock  %}
