@@ -3,18 +3,44 @@ import prisma from "../configs/database.js";
 export async function getUserPlaylists(userId) {
     const playlists = await prisma.playlist.findMany({
         where: {
-            userId: userId
+            authorId: userId
         }
     });
 
     return playlists;
 }
 
-export function getMusicsFromPlaylist(playlistId) {
-    return [
-        {id: 1, title: 'Die For You', artist: 'The Weeknd'},
-        {id:2, title: 'Call Out My Name', artist: 'The Weeknd'}
-    ]
+export async function getSongsFromPlaylist(playlistId) {
+
+    const playlist = await prisma.playlist.findUnique({
+        where: {
+            id: playlistId
+        },
+        select: {
+            title: true,
+            songs: {
+                select: {
+                    id: true,
+                    title: true,
+                    updatedAt: true,
+                    albumId: true,
+                    album: {
+                        select: {
+                            name: true,
+                            artistId: true,
+                            artist: {
+                                select: {
+                                    name: true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    return playlist;
 }
 
 export function getArtistTopSongs(artistId){

@@ -1,21 +1,17 @@
-import { getUserPlaylists, getMusicsFromPlaylist } from "../services/music_service.js";
+import { getUserPlaylists, getSongsFromPlaylist } from "../services/music_service.js";
 
 export async function getHomePage(req, res) {
-    const userId = req.params.user;
+    const userId = parseInt(req.params.user_id);
 
     res.render('index', {playlists: await getUserPlaylists(userId)});
 }
 
-export function getPlaylistByName(req, res) {
-    const playlistName = req.params.playlistName;
-    const musics = getMusicsFromPlaylist(playlistName);
+export async function getPlaylistByName(req, res) {
+    const playlistId = parseInt(req.params.playlist_id);
 
-    const data = {
-        playlistName: playlistName,
-        musics: musics
-    }
+    const playlist = await getSongsFromPlaylist(playlistId);
 
-    res.render('components/playlists_content', data);
+    res.render('components/playlists_content', {playlist: playlist});
 }
 
 export function getHomeContent(req, res) {

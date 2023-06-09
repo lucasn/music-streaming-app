@@ -6,13 +6,9 @@ homeButton.addEventListener('click', handleHomeButtonClick);
 
 const playlistsCards = document.getElementById('playlists-cards');
 
-Array.from(playlistsCards.children).forEach(element => {
-    element.addEventListener('click', handlePlaylistCardClick);
-});
+function handlePlaylistCardClick(playlistId) {
 
-function handlePlaylistCardClick(event) {
-    const playlistTitle = event.currentTarget.querySelector('p').innerHTML;
-    fetch(`${serverURL}/playlists/${playlistTitle}`)
+    fetch(`${serverURL}/playlists/${playlistId}`)
         .then(response => {
             return response.text()
         })
