@@ -1,0 +1,63 @@
+:root {
+    --almost-black: #0d0917;
+    --dark-purple: #332a50;
+    --medium-purple: #443C68;
+    --light-purple: #635985;
+    --primary-text-color: #fff;
+    --secondary-text-color: #C9C2C2;
+}
+
+body {
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: calc(100vh - 60px);
+}
+
+form {
+    background-color: var(--dark-purple);
+    width: 500px;
+    height: 500px;
+    padding: 0 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+
+    box-sizing: border-box;
+}
+
+form label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+form input {
+    padding: 0 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--light-purple);
+    color: var(--primary-text-color);
+
+    height: 30px;
+
+}
+
+form input:last-child {
+    align-self: center;
+
+    width: 130px;
+    height: 30px;
+    margin-top: 25px;
+
+    background-color: var(--light-purple);
+    color: var(--primary-text-color);
+
+    cursor: pointer;
+}

@@ -1,5 +1,5 @@
 {
-  "name": "TI0080-desenvolvimento-aplicacoes-para-web",
+  "name": "ti0080-desenvolvimento-aplicacoes-para-web",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -19,5 +19,8 @@
   "devDependencies": {
     "nodemon": "^2.0.22",
     "prisma": "^4.15.0"
+  },
+  "nodemonConfig": {
+    "ext": "js,mjs,json,njk"
   }
 }

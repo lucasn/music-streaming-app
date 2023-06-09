@@ -1,0 +1,55 @@
+:root {
+    --almost-black: #0d0917;
+    --dark-purple: #332a50;
+    --medium-purple: #443C68;
+    --light-purple: #635985;
+    --primary-text-color: #fff;
+    --secondary-text-color: #C9C2C2;
+}
+
+nav {
+    background-color: var(--dark-purple);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 30px;
+
+    height: 60px;
+}
+
+nav > div {
+    display: flex;
+    justify-content: space-between;
+    width: 215px;
+}
+
+nav a {
+    display: flex;
+
+    width: 100px;
+    height: 30px;
+
+    color: var(--primary-text-color);
+    background-color: var(--medium-purple);
+
+    border: none;
+    border-radius: 7px;
+
+    text-decoration: none;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+nav > a {
+    width: 150px;
+
+    display: flex;
+
+    text-decoration: none;
+    background: none;
+
+    font-size: 1.5em;
+}

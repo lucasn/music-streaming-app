@@ -1,5 +1,17 @@
 import { getUserPlaylists, getSongsFromPlaylist } from "../services/music_service.js";
 
+export function getIndexPage(req, res) {
+    res.render('index');
+}
+
+export function getSigninPage(req, res) {
+    res.render('signin');
+}
+
+export function getLoginPage(req, res) {
+    res.render('login');
+}
+
 export async function getHomePage(req, res) {
     const userId = parseInt(req.params.user_id);
 
