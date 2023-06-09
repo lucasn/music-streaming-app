@@ -1,18 +1,18 @@
 <div id="left-nav">
     <div id="artist">
         <img src="/images/eminem.png" alt="">
-        <h1>Eminem</h1>
+        <h1>{{artist.name}}</h1>
     </div>
     <div id="cards">
-        <a class="card-item card-item-selected" href="#">
+        <a class="card-item {% if statsPage %} card-item-selected {% endif %}" href="/artist/{{artist.id}}/">
             <img src="/images/estatisticas.png" alt="">
             <p>Estatísticas</p>
         </a>
-        <a class="card-item" href="#">
+        <a class="card-item {% if addPage %} card-item-selected {% endif %}" href="/artist/{{artist.id}}/add">
             <img src="/images/botao-adicionar.png" alt="">
             <p>Adicionar</p>
         </a>
-        <a class="card-item" href="#">
+        <a class="card-item {% if albumsPage %} card-item-selected {% endif %}" href="/artist/{{artist.id}}/albums">
             <img src="/images/albuns.png" alt="">
             <p>Álbuns</p>
         </a>

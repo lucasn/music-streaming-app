@@ -1,3 +1,19 @@
+import prisma from "../configs/database.js"
+
+export async function getArtistInfo(artistId){
+    const artist = await prisma.artist.findUnique({
+        where: {
+            id: artistId
+        },
+        select: {
+            id: true,
+            name: true
+        }
+    });
+    console.log(artist);
+    return artist;
+}
+
 export function getArtistTopSongs(artistId){
     return [
         {id: 1, title: 'Superman', artist: 'Eminem', albumCover: '/images/eminem-album.png'},

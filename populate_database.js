@@ -33,12 +33,22 @@ async function populate_database() {
     //     }
     // });
 
-    await prisma.playlist.create({
-        data: {
-            title: 'Playlist 1',
-            authorId: 1
-        }
-    })
+    // await prisma.playlist.create({
+    //     data: {
+    //         title: 'Playlist 1',
+    //         authorId: 1
+    //     }
+    // })
+
+    // await prisma.artist.create({
+    //     data: {
+    //         name: 'Eminem',
+    //         password: '1234'
+    //     }
+    // })
+
+    const allArtists = await prisma.artist.findMany()
+    console.log(allArtists)
 }
   
 populate_database()
