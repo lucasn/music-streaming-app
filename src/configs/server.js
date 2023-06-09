@@ -1,5 +1,6 @@
 import express from "express";
 import nunjucks from "nunjucks";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = 8080;
@@ -10,10 +11,17 @@ nunjucks.configure('src/views', {
     express: app
 });
 
-app.use(express.static('public'));
 app.set('view engine', 'njk');
 
+app.use(cookieParser());
+
+app.use(express.static('public'));
+
 app.use(corsMiddleware);
+
+app.use(express.urlencoded({
+    extended: true
+}));
 
 function corsMiddleware(req, res, next) {
     res.set({

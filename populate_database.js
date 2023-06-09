@@ -40,15 +40,21 @@ async function populate_database() {
     //     }
     // })
 
-    // await prisma.artist.create({
-    //     data: {
-    //         name: 'Eminem',
-    //         password: '1234'
-    //     }
-    // })
+    try {
+        const res = await prisma.artist.create({
+            data: {
+                name: 'Eminem'        
+            }
+        })
+    } catch (err) {
+        console.log(err.message);
+    }
+    
 
-    const allArtists = await prisma.artist.findMany()
-    console.log(allArtists)
+    //console.log(res);
+
+    // const allArtists = await prisma.artist.findMany()
+    // console.log(allArtists)
 }
   
 populate_database()

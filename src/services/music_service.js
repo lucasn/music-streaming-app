@@ -42,3 +42,37 @@ export async function getSongsFromPlaylist(playlistId) {
 
     return playlist;
 }
+
+export async function createUser(user) {
+    const createdUser = await prisma.user.create({
+        data: {
+            ...user,
+            playlists: {
+                create: {
+                    title: 'Músicas Curtidas'
+                }
+            }
+        }
+    });
+
+    return createdUser;
+}
+
+export async function getUserByEmail(email) {
+    const user = await prisma.user.findUnique({
+        where: {email: email}
+    });
+
+    return user;
+}
+
+export async function getUserById(id) {
+    const user = await prisma.user.findUnique({
+        where: {id: id},
+        include: {
+            playlists: true
+        }
+    });
+
+    return user;
+}

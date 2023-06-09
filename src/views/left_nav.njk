@@ -24,7 +24,7 @@
             <img src="/images/home.png" alt="">
             <p>Página Inicial</p>
         </div>
-        <div class="options-item">
+        <div class="options-item" onClick="logout()">
             <img src="/images/user.png" alt="">
             <p>Usuário</p>
         </div>
@@ -34,3 +34,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    function logout(){
+        document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.replace("http://localhost:8080");
+    }
+</script>

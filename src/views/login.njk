@@ -11,24 +11,13 @@
 
     <main>
 
-        {% if userCreated %}
-            <div>
-                <h1>Usuário criado com sucesso!</h1>
-                <h2>Agora você pode se conectar</h2>
-            </div>
-        {% else %}
-            <form action="/user" method="post">
+        <form action="/login" method="post">
             <label for="email">Email:</label>
             <input type="email" name="email" id="email">
-            <label for="name">Nome:</label>
-            <input type="text" name="name" id="name">
             <label for="password">Senha:</label>
             <input type="password" name="password" id="password">
-            <input type="submit" value="Criar Conta">
+            <input type="submit" value="Entrar">
         </form>
-        {% endif %}
-
-        
 
     </main>
 
