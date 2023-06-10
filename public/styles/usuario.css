@@ -71,6 +71,9 @@ body{
 #playlists-cards {
     margin-left: 6%;
     margin-right: 6%;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .card-item {
@@ -95,6 +98,87 @@ body{
 
 .card-item p {
     margin-left: 12px;   
+}
+
+#add-playlist-button {
+    border: none;
+    background: none;
+
+    margin-top: 10px;
+
+    cursor: pointer;
+}
+
+#add-playlist-button img {
+    width: 35px;
+    height: 35px;
+}
+
+.modal {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 20vw;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.modal-content {
+    background-color: var(--medium-purple);
+    margin: auto;
+    padding: 20px;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content form input {
+    background-color: var(--light-purple);
+    border-radius: 7px;
+    border: none;
+    color: var(--primary-text-color);
+
+    margin: 0 10px;
+
+    width: 170px;
+    height: 20px;
+
+    padding: 5px;
+}
+
+.modal-content form input:last-child {
+    padding: 0;
+    width: 50px;
+    height: 25px;
+
+    margin-top: 10px;
+
+    cursor: pointer;
+}
+
+.modal-content form input::placeholder {
+    color: var(--primary-text-color);
+}
+
+.close-modal {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--secondary-text-color);
 }
 
 .options-item {

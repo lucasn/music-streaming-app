@@ -12,8 +12,9 @@
                 <img src="/images/music.png" alt="music icon">
                 <p>{{ playlist.title }}</p>
             </div>
-            
         {% endfor %}
+
+        <button id="add-playlist-button"><img src="/images/add.png" alt=""></button>
         
     </div>
     <div id="options">
@@ -26,12 +27,22 @@
         </div>
         <div class="options-item" onClick="logout()">
             <img src="/images/user.png" alt="">
-            <p>Usuário</p>
+            <p>Sair</p>
         </div>
         <div class="options-item">
             <img src="/images/settings.png" alt="">
             <p>Configurações</p>
         </div>
+    </div>
+</div>
+
+<div class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <form method="post" id="modal-form">
+            <input type="text" name="playlist_name" value="" placeholder="Nome da Playlist">
+            <input type="submit" value="Criar" id="submit-create-playlist">
+        </form>
     </div>
 </div>
 
@@ -41,3 +52,5 @@
         window.location.replace("http://localhost:8080");
     }
 </script>
+
+<script src="/scripts/left_nav_modal.js"></script>
