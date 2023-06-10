@@ -1,6 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+import { readFileSync, writeFileSync } from 'fs'
 
 const prisma = new PrismaClient();
+
+async function getImageAsByte(file) {
+    return Buffer.from(new Uint8Array(await readFileSync(file)), 'base64');
+}
 
 async function populate_database() {
 
@@ -9,11 +14,20 @@ async function populate_database() {
     //     password: '123'
     // }
 
-    // const album = {
-    //     name: 'After Hours',
-    //     artist: {create: artist}        
-    // }
+    const album = {
+        name: 'Encore',
+        year: 2004,
+        cover: await getImageAsByte('./public/images/eminem-album2.jpg'),
+        artistId: 4        
+    };
 
+    try{
+        await prisma.album.create({
+            data: album
+        })
+    } catch(err) {
+        console.log(err);
+    }
     // const song = {
     //     title: 'Die For You',
     //     audioFile: Buffer.from('teste', 'utf8'),
@@ -40,21 +54,21 @@ async function populate_database() {
     //     }
     // })
 
-    try {
-        const res = await prisma.artist.create({
-            data: {
-                name: 'Eminem'        
-            }
-        })
-    } catch (err) {
-        console.log(err.message);
-    }
-    
+    // try {
+    //     const res = await prisma.artist.create({
+    //         data: {
+    //             name: 'Paramore',
+    //             password: 'abcd',
+    //             profilePicture: await getImageAsByte('./public/images/paramore.jpeg')
+    //         }
+    //     })
+    // } catch (err) {
+    //     console.log(err.message);
+    // }
 
+    
     //console.log(res);
 
-    // const allArtists = await prisma.artist.findMany()
-    // console.log(allArtists)
 }
   
 populate_database()

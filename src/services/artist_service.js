@@ -7,10 +7,12 @@ export async function getArtistInfo(artistId){
         },
         select: {
             id: true,
-            name: true
+            name: true,
+            profilePicture: true
         }
     });
-    console.log(artist);
+    artist.profilePicture = artist.profilePicture.toString('base64');
+    
     return artist;
 }
 
@@ -27,13 +29,26 @@ export function getArtistAudience(artistId){
     return audienceLast24h.toLocaleString();
 }
 
-export function getArtistAlbums(artistId){
-    return [
-        {id: 1, title: 'The Marshall Matters', year: 2000, albumCover: '/images/eminem-album.png'},
-        {id: 2, title: 'Encore', year: 2004, albumCover: '/images/eminem-album2.jpg'},
-        {id: 3, title: 'The Marshall Matters', year: 2000, albumCover: '/images/eminem-album.png'},
-        {id: 4, title: 'Encore', year: 2004, albumCover: '/images/eminem-album2.jpg'},
-        {id: 5, title: 'The Marshall Matters', year: 2000, albumCover: '/images/eminem-album.png'},
-        {id: 6, title: 'Encore', year: 2004, albumCover: '/images/eminem-album2.jpg'}
-    ]
+export async function getArtistAlbums(artistId){
+    const artistAlbums = await prisma.album.findMany({
+        where: {
+            artistId: artistId
+        },
+        select: {
+            name: true,
+            year: true,
+            cover: true,
+            artist: {
+                select:{
+                    name: true
+                }
+            }
+        }
+    });
+
+    artistAlbums.forEach(album => {
+        album.cover = album.cover.toString('base64');
+    });
+    
+    return artistAlbums;
 }

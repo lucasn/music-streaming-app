@@ -15,6 +15,7 @@ model Song {
   title String
   audioFile Bytes
   updatedAt DateTime @default(now())
+  plays Int @default(0)
   playlists Playlist[]
   album Album @relation(fields: [albumId], references: [id])
   albumId Int
@@ -40,7 +41,7 @@ model User {
 model Album {
   id Int @id @default(autoincrement())
   name String
-  releaseAt DateTime?
+  year Int
   cover Bytes?
   songs Song[]
   artist Artist @relation(fields: [artistId], references: [id])
@@ -51,6 +52,7 @@ model Artist {
   id Int @id @default(autoincrement())
   name String
   password String
+  profilePicture Bytes?
   albuns Album[]
   recordCompany RecordCompany? @relation(fields: [recordCompanyId], references: [id])
   recordCompanyId Int?

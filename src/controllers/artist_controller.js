@@ -15,5 +15,7 @@ export async function getArtistAddPage(req, res) {
 export async function getArtistAlbumsPage(req, res) {
     const artistId = parseInt(req.params.artistId);
     const artist = await getArtistInfo(artistId);
-    res.render('artista_albuns', {albumsPage: true, artist: artist, albums: getArtistAlbums('artistId')});
+    const albums = await getArtistAlbums(artistId);
+
+    res.render('artista_albuns', {albumsPage: true, artist: artist, albums: albums});
 }

@@ -10,7 +10,7 @@ function handlePlaylistCardClick(playlistId) {
 
     fetch(`${serverURL}/playlists/${playlistId}`)
         .then(response => {
-            return response.text()
+            return response.text();
         })
         .then(body => {
             updatePageContent(body);
