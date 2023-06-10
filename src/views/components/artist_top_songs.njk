@@ -1,12 +1,12 @@
 {%block artistTopSongs%}
 
-{% for song in songs %}
+{% for song in topSongs %}
     <div class="music-card">
         <div class="music-card-song">
-            <img src={{song.albumCover}} alt="">
+            <img src="data:image/png;base64,{{song.album.cover}}" alt="">
             <div>
-                <h5>{{song.id}}. {{song.title}}</h5>
-                <h6>{{song.artist}}</h6>
+                <h5>{{loop.index}}. {{song.title}}</h5>
+                <h6>{{song.album.artist.name}}</h6>
             </div>
         </div>
     </div>

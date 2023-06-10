@@ -3,7 +3,9 @@ import { getArtistInfo, getArtistTopSongs, getArtistAudience, getArtistAlbums } 
 export async function getArtistHomePage(req, res) {
     const artistId = parseInt(req.params.artistId);
     const artist = await getArtistInfo(artistId);
-    res.render('index_artista', {statsPage: true, artist: artist, songs: getArtistTopSongs(artistId), audience: getArtistAudience(artistId)});
+    const topSongs = await getArtistTopSongs(artistId)
+
+    res.render('index_artista', {statsPage: true, artist: artist, topSongs: topSongs, audience: getArtistAudience(artistId)});
 }
 
 export async function getArtistAddPage(req, res) {

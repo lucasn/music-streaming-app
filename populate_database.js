@@ -14,25 +14,26 @@ async function populate_database() {
     //     password: '123'
     // }
 
-    const album = {
-        name: 'Encore',
-        year: 2004,
-        cover: await getImageAsByte('./public/images/eminem-album2.jpg'),
-        artistId: 4        
+    // const album = {
+    //     name: 'Encore',
+    //     year: 2004,
+    //     cover: await getImageAsByte('./public/images/eminem-album2.jpg'),
+    //     artistId: 4        
+    // };
+
+    const song = {
+        title: 'Mockingbird',
+        audioFile: Buffer.from('teste', 'utf8'),
+        albumId: 2
     };
 
-    try{
-        await prisma.album.create({
-            data: album
-        })
-    } catch(err) {
+    try {
+        await prisma.song.create({
+            data: song
+        });
+    } catch (err) {
         console.log(err);
     }
-    // const song = {
-    //     title: 'Die For You',
-    //     audioFile: Buffer.from('teste', 'utf8'),
-    //     album: {create: album}
-    // }
 
     // const playlist = {
     //     title: 'Músicas Curtidas',

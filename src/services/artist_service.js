@@ -12,16 +12,41 @@ export async function getArtistInfo(artistId){
         }
     });
     artist.profilePicture = artist.profilePicture.toString('base64');
-    
+
     return artist;
 }
 
-export function getArtistTopSongs(artistId){
-    return [
-        {id: 1, title: 'Superman', artist: 'Eminem', albumCover: '/images/eminem-album.png'},
-        {id: 2, title: 'Mockingbird', artist: 'Eminem', albumCover: '/images/eminem-album2.jpg'},
-        {id: 3, title: 'Crazy in Love', artist: 'Eminem', albumCover: '/images/eminem-album2.jpg'}
-    ]
+export async function getArtistTopSongs(artistId){
+    const artistTopSongs = await prisma.song.findMany({
+        where: {
+            album: {
+                artistId: artistId
+            }
+        },
+        orderBy: {
+            plays: "desc"
+        },
+        select: {
+            title: true,
+            album: {
+                select: {
+                    cover: true,
+                    artist: {
+                        select: {
+                            name: true
+                        }
+                    }
+                }
+            }
+        },
+        take: 3
+    })
+
+    artistTopSongs.forEach(song => {
+        song.album.cover = song.album.cover.toString('base64');
+    });
+
+    return artistTopSongs;
 }
 
 export function getArtistAudience(artistId){
