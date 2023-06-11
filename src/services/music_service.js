@@ -87,3 +87,22 @@ export async function createPlaylist(userId, playlistName) {
 
     return playlist;
 }
+
+export async function getSongsByName(songName) {
+    const songs = await prisma.song.findMany({
+        where: {
+            title: {
+                contains: songName
+            }
+        },
+        include: {
+            album: {
+                include: {
+                    artist: true
+                }
+            }
+        }
+    })
+
+    return songs;
+}

@@ -9,7 +9,8 @@ import {
     createUser, 
     performLogin,
     createPlaylistByClient,
-    getMusic
+    getMusic,
+    searchSongs
 } from '../controllers/user_controller.js';
 
 export default function configureUserRoutes() {
@@ -23,5 +24,6 @@ export default function configureUserRoutes() {
     app.get('/home-content', getHomeContent);
     app.post('/user', createUser);
     app.get('/music', getMusic);
+    app.get('/search', searchSongs);
 }
     

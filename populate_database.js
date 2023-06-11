@@ -9,17 +9,17 @@ async function getImageAsByte(file) {
 
 async function populate_database() {
 
-    // const artist = {
-    //     name: 'The Weeknd',
-    //     password: '123'
-    // }
+    const artist = {
+        name: 'The Weeknd',
+        password: '123'
+    }
 
-    // const album = {
-    //     name: 'Encore',
-    //     year: 2004,
-    //     cover: await getImageAsByte('./public/images/eminem-album2.jpg'),
-    //     artistId: 4        
-    // };
+    const album = {
+        name: 'Encore',
+        year: 2004,
+        cover: await getImageAsByte('./public/images/eminem-album2.jpg'),
+        artistId: 4        
+    };
 
     const song = {
         title: 'Mockingbird',
@@ -35,40 +35,41 @@ async function populate_database() {
         console.log(err);
     }
 
-    // const playlist = {
-    //     title: 'Músicas Curtidas',
-    //     songs: {create: song}
-    // }
+    const playlist = {
+        title: 'Músicas Curtidas',
+        songs: {create: song}
+    }
 
-    // await prisma.user.create({
-    //     data: {
-    //         name: 'Lucas',
-    //         password: 'senha',
-    //         playlists: {create: playlist}
-    //     }
-    // });
+    await prisma.user.create({
+        data: {
+            name: 'Lucas',
+            email: 'lucasnoronha@gmail.com',
+            password: 'senha',
+            playlists: {create: playlist}
+        }
+    });
 
-    // await prisma.playlist.create({
-    //     data: {
-    //         title: 'Playlist 1',
-    //         authorId: 1
-    //     }
-    // })
+    await prisma.playlist.create({
+        data: {
+            title: 'Playlist 1',
+            authorId: 1
+        }
+    })
 
-    // try {
-    //     const res = await prisma.artist.create({
-    //         data: {
-    //             name: 'Paramore',
-    //             password: 'abcd',
-    //             profilePicture: await getImageAsByte('./public/images/paramore.jpeg')
-    //         }
-    //     })
-    // } catch (err) {
-    //     console.log(err.message);
-    // }
+    try {
+        const res = await prisma.artist.create({
+            data: {
+                name: 'Paramore',
+                password: 'abcd',
+                profilePicture: await getImageAsByte('./public/images/paramore.jpeg')
+            }
+        })
+    } catch (err) {
+        console.log(err.message);
+    }
 
     
-    //console.log(res);
+    console.log(res);
 
 }
   

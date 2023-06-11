@@ -4,7 +4,8 @@ import {
     createUser as createUserInDatabase,
     getUserByEmail,
     getUserById,
-    createPlaylist as createPlaylistInDatabase
+    createPlaylist as createPlaylistInDatabase,
+    getSongsByName
 } from "../services/music_service.js";
 
 import fs from 'fs/promises';
@@ -98,4 +99,16 @@ export async function createPlaylistByClient(req, res) {
 export async function getMusic(req, res) {
     const song = await fs.readFile('public/musica.mp3');
     res.end(song);
+}
+
+export async function searchSongs(req, res) {
+    const searchString = req.query.search_string;
+
+    if (!searchString) {
+        return res.json([]);
+    }
+
+    const songs = await getSongsByName(searchString);
+
+    res.json(songs);
 }

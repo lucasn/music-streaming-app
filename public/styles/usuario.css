@@ -68,6 +68,43 @@ body{
     height: 20px;
 }
 
+#dropdown {
+    position: fixed;
+    top: 50px;
+    left: 50px;
+    z-index: 2;
+
+    background-color: var(--light-purple);
+    width: 14vw;
+
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    display: none;
+}
+
+#dropdown a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 30px;
+
+    margin: 0;
+    text-decoration: none;
+    color: var(--secondary-text-color);
+}
+
+#dropdown a:hover {
+    background-color: var(--medium-purple);
+    transition: 200ms;
+}
+
 #playlists-cards {
     margin-left: 6%;
     margin-right: 6%;
