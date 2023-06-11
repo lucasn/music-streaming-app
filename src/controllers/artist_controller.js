@@ -1,4 +1,5 @@
 import { getArtistInfo, getArtistTopSongs, getArtistAudience, getArtistAlbums } from "../services/artist_service.js"
+import multipart from 'lambda-multipart-parser'
 
 export async function getArtistHomePage(req, res) {
     const artistId = parseInt(req.params.artistId);
@@ -20,4 +21,11 @@ export async function getArtistAlbumsPage(req, res) {
     const albums = await getArtistAlbums(artistId);
 
     res.render('artista_albuns', {albumsPage: true, artist: artist, albums: albums});
+}
+
+export async function createAlbum(req, res) {
+    const artistId = parseInt(req.params.artistId);
+    const artist = await getArtistInfo(artistId);
+    console.log(req.body);
+    res.render('artista_add', {addPage: true, artist: artist});
 }
