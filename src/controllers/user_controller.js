@@ -6,6 +6,8 @@ import {
     getUserById
 } from "../services/music_service.js";
 
+import fs from 'fs/promises';
+
 export async function getIndexPage(req, res) {
 
     const userId = parseInt(req.cookies.user_id);
@@ -74,4 +76,24 @@ export async function createUser(req, res) {
     }
 
     res.render('signin', {userCreated: true});
+}
+
+export async function createPlaylist(req, res) {
+    const userId = parseInt(req.params.user_id);
+
+    console.log(userId);
+
+    const user = await getUserById(userId);
+
+    if (user) {
+        res.render('partials/left_nav', {playlists: user.playlists});
+        return;
+    }
+
+    res.render('error');
+}
+
+export async function getMusic(req, res) {
+    const song = await fs.readFile('public/musica.mp3');
+    res.end(song);
 }
