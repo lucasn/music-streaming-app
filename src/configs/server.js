@@ -23,6 +23,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+app.use(express.json());
+
 function corsMiddleware(req, res, next) {
     res.set({
         'Access-Control-Allow-Origin': '*',

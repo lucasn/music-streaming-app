@@ -8,7 +8,7 @@ import {
     getLoginPage, 
     createUser, 
     performLogin,
-    createPlaylist,
+    createPlaylistByClient,
     getMusic
 } from '../controllers/user_controller.js';
 
@@ -18,7 +18,7 @@ export default function configureUserRoutes() {
     app.get('/login', getLoginPage);
     app.post('/login', performLogin);
     app.get('/user/:user_id', getHomePage);
-    app.post('/user/:user_id/playlists', createPlaylist);
+    app.post('/user/:user_id/playlists', createPlaylistByClient);
     app.get('/playlists/:playlist_id', getPlaylistById);
     app.get('/home-content', getHomeContent);
     app.post('/user', createUser);

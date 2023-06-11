@@ -74,6 +74,8 @@ body{
 
     display: flex;
     flex-direction: column;
+
+    overflow-y: auto;
 }
 
 .card-item {
@@ -150,7 +152,7 @@ body{
 
     margin: 0 10px;
 
-    width: 170px;
+    width: 12vw;
     height: 20px;
 
     padding: 5px;

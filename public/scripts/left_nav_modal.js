@@ -1,38 +1,45 @@
-const openModalButton = document.querySelector('#add-playlist-button');
+const playlistsCardsContainer = document.querySelector('#playlists-cards');
 const closeModalButton = document.querySelector('.close-modal');
 const modal = document.querySelector('.modal');
 
-const createPlaylistForm = document.querySelector('#modal-form');
-const createPlaylistButton = document.querySelector('#submit-create-playlist');
+let playlistForm;
 
-createPlaylistForm.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-
-    const formData = new FormData(createPlaylistForm);
-
-    const userId = document.cookie.split('=')[1];
-
-    fetch(`http://127.0.0.1:8080/user/${userId}/playlists`, {
-        method: 'post',
-        body: formData
-    }).then(response => {
-        return response.text();
-    }).then(responseBody => {
-        console.log(responseBody);
-
-        modal.style.display = 'none';
-
-        const body = document.querySelector('body');
-        const leftNav = document.querySelector('#left-nav');
-        body.replaceChild(responseBody, leftNav);
-    })
-});
-
-openModalButton.onclick = () => {
-    modal.style.display = 'flex';
+function retrievePlaylistform(){
+    playlistForm = document.querySelector('#modal-form');
+    playlistForm.addEventListener('submit', createPlaylistAndRetrievePlaylistsContent);
 }
+
+retrievePlaylistform();
+
+playlistsCardsContainer.addEventListener('click',  (event) => {
+    if (!event.target.closest('#add-playlist-button')) return;
+    modal.style.display = 'flex';
+});
 
 closeModalButton.onclick = () => {
     modal.style.display = 'none';
+}
+
+function createPlaylistAndRetrievePlaylistsContent(event) {
+        event.preventDefault();
+    
+        const data = {};
+        new FormData(document.querySelector('#modal-form')).forEach((value, key) => data[key] = value);
+    
+        const userId = document.cookie.split('=')[1];
+    
+        fetch(`http://127.0.0.1:8080/user/${userId}/playlists`, {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.text();
+        }).then(body => {
+            modal.style.display = 'none';
+            document.querySelector('#playlists-cards').innerHTML = body;
+            retrievePlaylistform();
+        })
 }
 

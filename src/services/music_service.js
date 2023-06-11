@@ -76,3 +76,14 @@ export async function getUserById(id) {
 
     return user;
 }
+
+export async function createPlaylist(userId, playlistName) {
+    const playlist = await prisma.playlist.create({
+        data: {
+            title: playlistName,
+            authorId: userId
+        }
+    });
+
+    return playlist;
+}

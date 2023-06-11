@@ -3,7 +3,8 @@ import {
     getSongsFromPlaylist, 
     createUser as createUserInDatabase,
     getUserByEmail,
-    getUserById
+    getUserById,
+    createPlaylist as createPlaylistInDatabase
 } from "../services/music_service.js";
 
 import fs from 'fs/promises';
@@ -78,15 +79,16 @@ export async function createUser(req, res) {
     res.render('signin', {userCreated: true});
 }
 
-export async function createPlaylist(req, res) {
+export async function createPlaylistByClient(req, res) {
     const userId = parseInt(req.params.user_id);
+    const playlistName = req.body.playlist_name;
 
-    console.log(userId);
-
-    const user = await getUserById(userId);
+    let user = await getUserById(userId);
 
     if (user) {
-        res.render('partials/left_nav', {playlists: user.playlists});
+        await createPlaylistInDatabase(userId, playlistName);
+        user = await getUserById(userId)
+        res.render('partials/playlists_cards', {playlists: user.playlists});
         return;
     }
 

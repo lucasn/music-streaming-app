@@ -5,17 +5,7 @@
     </div>
 
     <div id="playlists-cards">
-        <h1>Playlists</h1>
-
-        {% for playlist in playlists %}
-            <div class="card-item" onClick="handlePlaylistCardClick({{ playlist.id }})">
-                <img src="/images/music.png" alt="music icon">
-                <p>{{ playlist.title }}</p>
-            </div>
-        {% endfor %}
-
-        <button id="add-playlist-button"><img src="/images/add.png" alt=""></button>
-        
+        {% include "./playlists_cards.njk" %}
     </div>
     <div id="options">
         <div class="options-item">
