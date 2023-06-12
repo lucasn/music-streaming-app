@@ -1,5 +1,5 @@
-import { getArtistInfo, getArtistTopSongs, getArtistAudience, getArtistAlbums } from "../services/artist_service.js"
-import multipart from 'lambda-multipart-parser'
+import { getArtistInfo, getArtistTopSongs, getArtistAudience, getArtistAlbums, createAlbumInDatabase } from "../services/artist_service.js"
+import { getImageAsByte } from '../services/image_service.js'
 
 export async function getArtistHomePage(req, res) {
     const artistId = parseInt(req.params.artistId);
@@ -25,7 +25,22 @@ export async function getArtistAlbumsPage(req, res) {
 
 export async function createAlbum(req, res) {
     const artistId = parseInt(req.params.artistId);
-    const artist = await getArtistInfo(artistId);
-    console.log(req.body);
-    res.render('artista_add', {addPage: true, artist: artist});
+
+    let cover;
+
+    if(req.file){
+        cover = await getImageAsByte(req.file.path);
+    } else {
+        cover = null;
+    }
+
+    const album = {
+        name: req.body.name,
+        year: parseInt(req.body.year),
+        artistId: artistId, 
+        cover: cover
+    };
+    
+    await createAlbumInDatabase(album);
+    await getArtistAlbumsPage(req, res);
 }

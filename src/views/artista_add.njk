@@ -13,6 +13,7 @@
         <h1>Adicionar</h1>
         <form action="/artist/{{artist.id}}/album" method="post" id="album-form" enctype="multipart/form-data">
             <input name="name" type="text" value="" placeholder="Nome do álbum" required>
+            <input name="year" type="number" placeholder="Ano de lançamento" required>
             <input name="cover" type="file" value="" alt="">
             <input id="submit-form-button" type="submit" value="Criar Álbum">
         </form>

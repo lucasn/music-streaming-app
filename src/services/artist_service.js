@@ -1,5 +1,12 @@
 import prisma from "../configs/database.js"
 
+export async function createAlbumInDatabase(album){
+    const createdAlbum = await prisma.album.create({
+        data: album
+    });
+    return createdAlbum;
+}
+
 export async function getArtistInfo(artistId){
     const artist = await prisma.artist.findUnique({
         where: {
@@ -59,6 +66,9 @@ export async function getArtistAlbums(artistId){
         where: {
             artistId: artistId
         },
+        orderBy: {
+            year: "asc"
+        },
         select: {
             name: true,
             year: true,
@@ -72,7 +82,9 @@ export async function getArtistAlbums(artistId){
     });
 
     artistAlbums.forEach(album => {
-        album.cover = album.cover.toString('base64');
+        if(album.cover){
+            album.cover = album.cover.toString('base64');
+        }
     });
     
     return artistAlbums;
