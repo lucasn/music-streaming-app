@@ -1,6 +1,9 @@
 <div id="title-wrapper">
     <h1>{{ playlist.title }}</h1>
-    <span>Remover Playlist</span>
+
+    {% if playlist.title != "Músicas Curtidas" %}
+        <span onClick="removePlaylist({{playlist.id}})">Remover Playlist</span>
+    {% endif %}
 </div>
 
 {% for song in playlist.songs %}

@@ -36,3 +36,7 @@ function handleHomeButtonClick(event) {
 function updatePageContent(htmlContent) {
     document.querySelector('main').innerHTML = htmlContent;
 }
+
+function removePlaylist(playlistId) {
+    console.log(playlistId);
+}

@@ -17,6 +17,7 @@ export async function getSongsFromPlaylist(playlistId) {
             id: playlistId
         },
         select: {
+            id: true,
             title: true,
             songs: {
                 select: {
