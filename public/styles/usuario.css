@@ -256,6 +256,21 @@ body{
     cursor: pointer;
 }
 
+.acessibility-button {
+    color: var(--primary-text-color);
+    background-color: var(--light-purple);
+    border: 0;
+    height: 35px;
+    width: 25%;
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.acessibility-button:first-child {
+    margin-right: 10%;
+}
+
 #right-nav {
     background-color: var(--dark-purple);
     position: fixed;

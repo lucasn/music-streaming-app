@@ -21,8 +21,30 @@ main {
     overflow-x: hidden;
 }
 
-main h1 {
+main > h1 {
     margin: 80px 0 50px 68px;
+}
+
+#title-wrapper {
+    margin: 80px 0 50px 68px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#title-wrapper h1 {
+    margin: 0;
+}
+
+#title-wrapper span {
+    margin-right: 20px;
+    background-color: var(--dark-purple);
+    border-radius: 7px;
+
+    padding: 10px;
+
+    cursor: pointer;
 }
 
 .music-card {
