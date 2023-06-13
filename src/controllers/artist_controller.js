@@ -1,4 +1,11 @@
-import { getArtistInfo, getArtistTopSongs, getArtistAudience, getArtistAlbums, createAlbumInDatabase } from "../services/artist_service.js"
+import { 
+    getArtistInfo, 
+    getArtistTopSongs, 
+    getArtistAudience, 
+    getArtistAlbums, 
+    createAlbumInDatabase ,
+    getAlbumById
+} from "../services/artist_service.js"
 import { getImageAsByte } from '../services/image_service.js'
 
 export async function getArtistHomePage(req, res) {
@@ -43,4 +50,11 @@ export async function createAlbum(req, res) {
     
     await createAlbumInDatabase(album);
     await getArtistAlbumsPage(req, res);
+}
+
+export async function getAlbum(req, res) {
+    const albumId = parseInt(req.params.albumId);
+    const album = await getAlbumById(albumId);
+
+    res.render('components/album_content', {album: album});
 }

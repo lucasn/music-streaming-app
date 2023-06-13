@@ -1,10 +1,5 @@
 const serverURL = 'http://127.0.0.1:8080'
 
-const homeButton = document.querySelector('#options > .options-item:nth-child(2)')
-
-homeButton.addEventListener('click', handleHomeButtonClick);
-
-
 function handlePlaylistCardClick(playlistId) {
 
     fetch(`${serverURL}/playlists/${playlistId}`)

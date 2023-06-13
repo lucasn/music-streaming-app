@@ -19,7 +19,7 @@ export async function getIndexPage(req, res) {
         const user = await getUserById(userId);
 
         if (user) {
-            res.render('index_user', {playlists: user.playlists});
+            res.render('index_user', {playlists: user.playlists, user: user});
             return;
         }
     }
@@ -52,7 +52,9 @@ export async function performLogin(req, res) {
 export async function getHomePage(req, res) {
     const userId = parseInt(req.params.user_id);
 
-    res.render('index', {playlists: await getUserPlaylists(userId)});
+    const user = await getUserById(userId);
+
+    res.render('index', {playlists: await getUserPlaylists(userId), user: user});
 }
 
 export async function getPlaylistById(req, res) {

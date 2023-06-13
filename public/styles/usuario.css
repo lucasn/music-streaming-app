@@ -46,7 +46,10 @@ body{
     border: none;
     
     height: 33px;
+
+    color: var(--primary-text-color);
     
+    padding-left: 10px;
 }
 
 #search input::placeholder {
@@ -98,6 +101,8 @@ body{
     margin: 0;
     text-decoration: none;
     color: var(--secondary-text-color);
+
+    cursor: pointer;
 }
 
 #dropdown a:hover {

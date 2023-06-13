@@ -89,3 +89,17 @@ export async function getArtistAlbums(artistId){
     
     return artistAlbums;
 }
+
+export async function getAlbumById(albumId) {
+    const album = await prisma.album.findUnique({
+        where: {
+            id: albumId
+        },
+        include: {
+            songs: true,
+            artist: true
+        }
+    });
+
+    return album;
+}

@@ -17,13 +17,30 @@ function searchSongs(event) {
             songs.forEach(song => {
                 const songTag = document.createElement('a');
                 songTag.innerHTML = song.title;
+                songTag.onclick = () => retrieveAlbumContent(song.albumId);
                 dropdown.appendChild(songTag);
             });
 
             dropdown.style.display = 'block';
         } else {
-            console.log('aqui');
             dropdown.style.display = 'none';
         }
     })
+}
+
+function retrieveAlbumContent(albumId) {
+    fetch(`http://localhost:8080/album/${albumId}`)
+    .then(response => response.text())
+    .then(body => {
+        updatePageContent(body);
+        cleanDropdown();
+    })
+}
+
+function cleanDropdown() {
+    Array.from(dropdown.children).forEach(child => {
+        child.remove();
+    });
+
+    searchBar.value = '';
 }
