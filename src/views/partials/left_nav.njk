@@ -35,7 +35,7 @@
 <div class="modal">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
-        <form method="post" id="modal-form">
+        <form method="post" id="modal-form" onsubmit="createPlaylistAndRetrievePlaylistsContent(event)">
             <input type="text" name="playlist_name" value="" placeholder="Nome da Playlist">
             <input type="submit" value="Criar" id="submit-create-playlist">
         </form>

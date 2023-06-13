@@ -90,7 +90,7 @@ export async function createPlaylist(userId, playlistName) {
 }
 
 export async function getSongsByName(songName) {
-    const songs = await prisma.song.findMany({
+    const deletePlaylist = await prisma.song.findMany({
         where: {
             title: {
                 contains: songName
@@ -105,5 +105,13 @@ export async function getSongsByName(songName) {
         }
     })
 
-    return songs;
+    return deletePlaylist;
+}
+
+export async function deletePlaylistById(playlistId) {
+    const res = await prisma.playlist.delete({
+        where: {
+            id: playlistId
+        }
+    });
 }

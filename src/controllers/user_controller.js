@@ -5,7 +5,8 @@ import {
     getUserByEmail,
     getUserById,
     createPlaylist as createPlaylistInDatabase,
-    getSongsByName
+    getSongsByName,
+    deletePlaylistById
 } from "../services/music_service.js";
 
 import fs from 'fs/promises';
@@ -111,4 +112,20 @@ export async function searchSongs(req, res) {
     const songs = await getSongsByName(searchString);
 
     res.json(songs);
+}
+
+export async function deletePlaylist(req, res) {
+    const playlistId = parseInt(req.params.playlist_id);
+
+    await deletePlaylistById(playlistId);
+
+    res.status(204).end();
+}
+
+export async function getPlaylistsByUserId(req, res) {
+    const userId = parseInt(req.params.user_id);
+
+    const playlists = await getUserPlaylists(userId);
+
+    res.render('partials/playlists_cards', {playlists: playlists});
 }

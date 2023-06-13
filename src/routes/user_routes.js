@@ -10,7 +10,9 @@ import {
     performLogin,
     createPlaylistByClient,
     getMusic,
-    searchSongs
+    searchSongs,
+    deletePlaylist,
+    getPlaylistsByUserId
 } from '../controllers/user_controller.js';
 
 export default function configureUserRoutes() {
@@ -25,5 +27,7 @@ export default function configureUserRoutes() {
     app.post('/user', createUser);
     app.get('/music', getMusic);
     app.get('/search', searchSongs);
+    app.delete('/playlists/:playlist_id', deletePlaylist);
+    app.get('/user/:user_id/playlists', getPlaylistsByUserId);
 }
     

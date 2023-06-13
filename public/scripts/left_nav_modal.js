@@ -2,14 +2,6 @@ const playlistsCardsContainer = document.querySelector('#playlists-cards');
 const closeModalButton = document.querySelector('.close-modal');
 const modal = document.querySelector('.modal');
 
-let playlistForm;
-
-function retrievePlaylistform(){
-    playlistForm = document.querySelector('#modal-form');
-    playlistForm.addEventListener('submit', createPlaylistAndRetrievePlaylistsContent);
-}
-
-retrievePlaylistform();
 
 playlistsCardsContainer.addEventListener('click',  (event) => {
     if (!event.target.closest('#add-playlist-button')) return;
@@ -39,7 +31,5 @@ function createPlaylistAndRetrievePlaylistsContent(event) {
         }).then(body => {
             modal.style.display = 'none';
             document.querySelector('#playlists-cards').innerHTML = body;
-            retrievePlaylistform();
         })
 }
-

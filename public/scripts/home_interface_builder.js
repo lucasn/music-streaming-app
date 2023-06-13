@@ -4,7 +4,6 @@ const homeButton = document.querySelector('#options > .options-item:nth-child(2)
 
 homeButton.addEventListener('click', handleHomeButtonClick);
 
-const playlistsCards = document.getElementById('playlists-cards');
 
 function handlePlaylistCardClick(playlistId) {
 
@@ -20,7 +19,7 @@ function handlePlaylistCardClick(playlistId) {
         });
 }
 
-function handleHomeButtonClick(event) {
+function handleHomeButtonClick() {
     fetch(`${serverURL}/home-content`)
         .then(response => {
             return response.text()
@@ -38,5 +37,24 @@ function updatePageContent(htmlContent) {
 }
 
 function removePlaylist(playlistId) {
-    console.log(playlistId);
+    fetch(`http://localhost:8080/playlists/${playlistId}`, {
+        method: 'delete'
+    }).then(response => {
+        handleHomeButtonClick();
+        retrievePlaylistsCardsContent();
+    })
+}
+
+function retrievePlaylistsCardsContent() {
+    const userId = document.cookie.split('=')[1];
+
+    fetch(`http://localhost:8080/user/${userId}/playlists/`)
+    .then(response => response.text())
+    .then(body => {
+        updatePlaylistsCardsContent(body)
+    });
+}
+
+function updatePlaylistsCardsContent(htmlContent) {
+    document.getElementById('playlists-cards').innerHTML = htmlContent;
 }
