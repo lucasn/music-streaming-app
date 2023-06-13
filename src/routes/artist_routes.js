@@ -1,10 +1,29 @@
 import { app } from '../configs/server.js';
-import {getArtistHomePage, getArtistAddPage, getArtistAlbumsPage, getAddSongPage, createSong, createAlbum, getAlbum, getAlbumPage} from '../controllers/artist_controller.js';
+import {
+    getArtistIndexPage,
+    getArtistLoginPage,
+    performArtistLogin,
+    getArtistSigninPage,
+    createArtist,
+    getArtistHomePage, 
+    getArtistAddPage, 
+    getArtistAlbumsPage,
+    getAddSongPage,
+    createSong,
+    createAlbum, 
+    getAlbum, 
+    getAlbumPage
+} from '../controllers/artist_controller.js';
 import multer from 'multer'
 
 let upload = multer({ dest:'uploads/' });
 
 export default function configureArtistRoutes() {
+    app.get('/artist/', getArtistIndexPage);
+    app.get('/artist/login', getArtistLoginPage);
+    app.post('/artist/login', performArtistLogin);
+    app.get('/artist/signin', getArtistSigninPage);
+    app.post('/artist/', upload.single('profilePicture'), createArtist);
     app.get('/artist/:artistId', getArtistHomePage);
     app.get('/artist/:artistId/add', getArtistAddPage);
     app.get('/artist/:artistId/albums', getArtistAlbumsPage);

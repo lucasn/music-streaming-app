@@ -1,0 +1,31 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/styles/artista.css">
+    <link rel="stylesheet" href="/styles/artista_stats.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>SoundSpace</title>
+{% endblock %}
+
+{% block content %}     
+    {% include "artista_left_nav.njk" %}
+    
+    <main>
+        <h1>Estatísticas</h1>
+        <div class="main-column">
+            <h3>Audiência</h3>
+            <p><b>{{audience}}</b> ouvintes nas últimas 24 horas</p>
+            <h3>Gênero dos Ouvintes</h3>
+            <div id="chart-container">
+                <canvas id="gender-chart"></canvas>
+            </div>
+        </div>
+        <div class="main-column">
+            <h3>Músicas em Alta</h3>
+                {% include "components/artist_top_songs.njk" %}
+        </div>
+    </main>
+
+    <script src="/scripts/charts.js"></script>
+    <script src="/scripts/high_contrast.js"></script>
+{% endblock %}

@@ -1,5 +1,13 @@
 import prisma from "../configs/database.js"
 
+export async function createArtistInDatabase(artist){
+    const createdArtist = await prisma.artist.create({
+        data: artist
+    });
+
+    return createdArtist;
+}
+
 export async function createAlbumInDatabase(album){
     const createdAlbum = await prisma.album.create({
         data: album
@@ -14,7 +22,7 @@ export async function createSongInDatabase(song){
     return createdSong;
 }
 
-export async function getArtistInfo(artistId){
+export async function getArtistById(artistId){
     const artist = await prisma.artist.findUnique({
         where: {
             id: artistId
@@ -26,6 +34,20 @@ export async function getArtistInfo(artistId){
         }
     });
     artist.profilePicture = artist.profilePicture.toString('base64');
+
+    return artist;
+}
+
+export async function getArtistByEmail(email){
+    const artist = await prisma.artist.findUnique({
+        where: {
+            email: email
+        },
+        select: {
+            id: true,
+            password: true
+        }
+    });
 
     return artist;
 }

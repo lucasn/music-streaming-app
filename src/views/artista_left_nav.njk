@@ -19,11 +19,22 @@
     </div>
     <div id="options">
         <div class="options-item">
-            <button id="high-contrast-button">Ativar Alto Contraste</button>
+            <button id="high-contrast-button" class="high-contrast" onClick="changeHighContrastColors(event)">Ativar Alto Contraste</button>
         </div>
         <div class="options-item">
             <img src="/images/settings.png" alt="">
             <p>Configurações</p>
         </div>
+        <div class="options-item" onClick="logout()">
+            <img src="/images/user.png" alt="">
+            <p>Sair</p>
+        </div>
     </div>
 </div>
+
+<script>
+    function logout(){
+        document.cookie = "artist_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.replace("http://localhost:8080/artist");
+    }
+</script>
