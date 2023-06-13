@@ -1,0 +1,6 @@
+<h1>Adicionar</h1>
+<form action="/artist/{{artist.id}}/album/{{albumId}}/song" method="post" id="song-form" enctype="multipart/form-data">
+    <input name="title" type="text" value="" placeholder="Nome da Música" required>
+    <input name="audio" type="file" value="" alt="">
+    <input id="submit-form-button" type="submit" value="Adicionar música">
+</form>

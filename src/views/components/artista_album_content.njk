@@ -1,5 +1,6 @@
 <div id="title-wrapper">
     <h1>{{ album.name }}</h1>
+    <h2>{{ album.year }}</h2>
 </div>
 
 {% for song in album.songs %}
@@ -11,6 +12,14 @@
                 <h6>{{ song.album.artist.name }}</h6>
             </div>
         </div>
-        <img src="/images/play.png" alt="">
     </div>
 {% endfor %}
+
+<div id="music-add-card" class="music-card" onclick="handleAddSongButtonClick({{artistId}},{{album.id}})">
+    <div class="music-card-song">
+        <img src="/images/add.png" alt="">
+        <div>
+            <h5>Adicionar música</h5>
+        </div>
+    </div>
+</div>

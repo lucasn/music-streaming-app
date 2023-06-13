@@ -36,9 +36,11 @@ main > h1 {
 #title-wrapper h1 {
     margin: 0;
 }
+
 #title-wrapper h2 {
     color: var(--secondary-text-color);
 }
+
 #title-wrapper span {
     margin-right: 20px;
     background-color: var(--dark-purple);
@@ -95,4 +97,13 @@ main > h1 {
 .music-card-song h6 {
     color: var(--secondary-text-color);
     margin: 3px 0 0 0;
+}
+
+#music-add-card.music-card {
+    border: none;
+}
+#music-add-card.music-card img{
+    height: 50px;
+    width: 50px;
+    padding: 15px;
 }

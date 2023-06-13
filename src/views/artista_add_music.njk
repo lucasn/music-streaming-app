@@ -1,0 +1,22 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/styles/artista.css">
+    <link rel="stylesheet" href="/styles/artista_add.css">
+    <title>SoundSpace</title>
+{% endblock  %}
+
+{% block content %}
+    {% include "artista_left_nav.njk" %}
+
+    <main>
+        <h1>Adicionar</h1>
+        <form action="/artist/{{artist.id}}/album/{{albumId}}/addSong" method="post" id="song-form" enctype="multipart/form-data">
+            <input name="name" type="text" value="" placeholder="Nome da Música" required>
+            <input name="audio" type="file" value="" alt="">
+            <input id="submit-form-button" type="submit" value="Adicionar música">
+        </form>
+    </main>
+
+    <script src="/scripts/high_contrast.js"></script>
+{% endblock  %}

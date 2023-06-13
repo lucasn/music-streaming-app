@@ -7,6 +7,13 @@ export async function createAlbumInDatabase(album){
     return createdAlbum;
 }
 
+export async function createSongInDatabase(song){
+    const createdSong = await prisma.song.create({
+        data: song
+    });
+    return createdSong;
+}
+
 export async function getArtistInfo(artistId){
     const artist = await prisma.artist.findUnique({
         where: {
@@ -70,6 +77,7 @@ export async function getArtistAlbums(artistId){
             year: "asc"
         },
         select: {
+            id: true,
             name: true,
             year: true,
             cover: true,
@@ -100,6 +108,10 @@ export async function getAlbumById(albumId) {
             artist: true
         }
     });
+
+    if(album.cover){
+        album.cover = album.cover.toString('base64')
+    }
 
     return album;
 }

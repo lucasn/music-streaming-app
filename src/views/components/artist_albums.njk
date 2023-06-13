@@ -1,6 +1,6 @@
 {% block artistAlbums %}
     {% for album in albums %}
-        <div class="album-card">
+        <div class="album-card" onclick="handleAlbumCardClick({{artist.id}},{{album.id}})">
             {% if album.cover %}
                 <img src="data:image/png;base64,{{album.cover}}" alt="">
             {% else %}
