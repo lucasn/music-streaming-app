@@ -6,7 +6,8 @@ import {
     getUserById,
     createPlaylist as createPlaylistInDatabase,
     getSongsByName,
-    deletePlaylistById
+    deletePlaylistById,
+    addSongToPlaylistById
 } from "../services/music_service.js";
 
 import fs from 'fs/promises';
@@ -130,4 +131,21 @@ export async function getPlaylistsByUserId(req, res) {
     const playlists = await getUserPlaylists(userId);
 
     res.render('partials/playlists_cards', {playlists: playlists});
+}
+
+export async function searchPlaylistsByUserId(req, res) {
+    const userId = parseInt(req.params.user_id);
+
+    const playlists = await getUserPlaylists(userId);
+
+    res.json(playlists);
+}
+
+export async function addSongToPlaylist(req, res) {
+    const songId = req.body.songId;
+    const playlistId = req.body.playlistId;
+    
+    await addSongToPlaylistById(songId, playlistId);
+
+    return res.status(200).end();
 }

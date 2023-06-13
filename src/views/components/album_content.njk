@@ -11,6 +11,12 @@
                 <h6>{{ song.album.artist.name }}</h6>
             </div>
         </div>
-        <img src="/images/play.png" alt="">
+        <img src="/images/add.png" alt="" onClick="addSongModal({{song.id}})">
+    </div>
+
+    <div id="add-song-modal">
+        <div id="add-song-modal-content">
+            <span id="add-song-modal-close" onClick="closeAddSongModal()">&times;</span>
+        </div>
     </div>
 {% endfor %}

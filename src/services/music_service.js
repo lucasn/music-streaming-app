@@ -4,6 +4,9 @@ export async function getUserPlaylists(userId) {
     const playlists = await prisma.playlist.findMany({
         where: {
             authorId: userId
+        },
+        include: {
+            songs: true
         }
     });
 
@@ -114,4 +117,37 @@ export async function deletePlaylistById(playlistId) {
             id: playlistId
         }
     });
+}
+
+export async function addSongToPlaylistById(songId, playlistId) {
+
+    const playlist = await prisma.playlist.findUnique({
+        where: {
+            id: playlistId
+        },
+        include: {
+            songs: true
+        }
+    });
+
+    const song = await prisma.song.findUnique({
+        where: {
+            id: songId
+        }
+    });
+
+    const updatedPlaylist = await prisma.playlist.update({
+        where: {
+            id: playlistId
+        },
+        data: {
+            songs: {
+                connect: {
+                    id: songId
+                }
+            }
+        }
+    });
+
+    return updatedPlaylist;
 }

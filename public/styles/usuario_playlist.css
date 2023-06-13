@@ -29,8 +29,8 @@ main > h1 {
     margin: 80px 0 50px 68px;
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #title-wrapper h1 {
@@ -71,8 +71,8 @@ main > h1 {
 }
 
 .music-card img:last-child {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     margin-right: 35px;
 }   
 
