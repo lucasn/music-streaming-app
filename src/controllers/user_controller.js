@@ -7,7 +7,8 @@ import {
     createPlaylist as createPlaylistInDatabase,
     getSongsByName,
     deletePlaylistById,
-    addSongToPlaylistById
+    addSongToPlaylistById,
+    removeSongFromPlaylistById
 } from "../services/music_service.js";
 
 import fs from 'fs/promises';
@@ -148,4 +149,13 @@ export async function addSongToPlaylist(req, res) {
     await addSongToPlaylistById(songId, playlistId);
 
     return res.status(200).end();
+}
+
+export async function removeSongFromPlaylist(req, res) {
+    const songId = req.body.songId;
+    const playlistId = req.body.playlistId;
+
+    await removeSongFromPlaylistById(playlistId, songId);
+
+    res.status(200).end();
 }

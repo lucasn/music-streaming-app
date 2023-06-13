@@ -103,3 +103,17 @@ function addSongInPlaylist(playlistId, songId) {
 function closeAddSongModal() {
     document.querySelector('#add-song-modal').style.display = 'none';
 }
+
+function removeSongFromPlaylist(playlistId, songId) {
+    fetch(`http://localhost:8080/playlists/song/remove`, {
+        method: 'post',
+        body: JSON.stringify({
+            playlistId: playlistId,
+            songId: songId
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(() => handlePlaylistCardClick(playlistId));
+}

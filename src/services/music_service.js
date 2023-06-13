@@ -121,21 +121,6 @@ export async function deletePlaylistById(playlistId) {
 
 export async function addSongToPlaylistById(songId, playlistId) {
 
-    const playlist = await prisma.playlist.findUnique({
-        where: {
-            id: playlistId
-        },
-        include: {
-            songs: true
-        }
-    });
-
-    const song = await prisma.song.findUnique({
-        where: {
-            id: songId
-        }
-    });
-
     const updatedPlaylist = await prisma.playlist.update({
         where: {
             id: playlistId
@@ -143,6 +128,23 @@ export async function addSongToPlaylistById(songId, playlistId) {
         data: {
             songs: {
                 connect: {
+                    id: songId
+                }
+            }
+        }
+    });
+
+    return updatedPlaylist;
+}
+
+export async function removeSongFromPlaylistById(playlistId, songId) {
+    const updatedPlaylist = await prisma.playlist.update({
+        where: {
+            id: playlistId
+        },
+        data: {
+            songs: {
+                disconnect:{
                     id: songId
                 }
             }

@@ -15,6 +15,9 @@
                 <h6>{{ song.album.artist.name }}</h6>
             </div>
         </div>
-        <img src="/images/play.png" alt="">
+        <div>
+            <img src="/images/play.png" alt="">
+            <img src="/images/remove.png" alt="" onClick="removeSongFromPlaylist({{playlist.id}}, {{song.id}})">
+        </div>
     </div>
 {% endfor %}

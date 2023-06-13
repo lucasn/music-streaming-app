@@ -70,10 +70,10 @@ main > h1 {
     object-fit: cover;
 }
 
-.music-card img:last-child {
-    width: 30px;
-    height: 30px;
-    margin-right: 35px;
+.music-card div:last-child > img {
+    width: 25px;
+    height: 25px;
+    margin-right: 25px;
 }   
 
 .music-card-song {

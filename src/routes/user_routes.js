@@ -14,7 +14,8 @@ import {
     deletePlaylist,
     getPlaylistsByUserId,
     searchPlaylistsByUserId,
-    addSongToPlaylist
+    addSongToPlaylist,
+    removeSongFromPlaylist
 } from '../controllers/user_controller.js';
 
 export default function configureUserRoutes() {
@@ -33,5 +34,6 @@ export default function configureUserRoutes() {
     app.get('/user/:user_id/playlists', getPlaylistsByUserId);
     app.get('/user/:user_id/playlists/search', searchPlaylistsByUserId);
     app.post('/playlists/song', addSongToPlaylist);
+    app.post('/playlists/song/remove', removeSongFromPlaylist);
 }
     
