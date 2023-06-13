@@ -1,8 +1,17 @@
-document.getElementById('high-contrast-button').addEventListener('click', changeHighContrastColors);  
+if (localStorage.getItem('highContrast') === 'true') {
+    setColor('highContrast', document.querySelector('.high-contrast'));
+}
 
 function changeHighContrastColors(event) {
-    const rootElement = document.querySelector(':root');
+    if (localStorage.getItem('highContrast') !== 'true') {
+        setColor('highContrast', event.target)
+    }
+    else {
+        setColor('standard', event.target);
+    }
+}
 
+function setColor(color, targetButton) {
     const highConstrastColors = [
         ['--almost-black', '#100102'],
         ['--dark-purple', '#D14415'],
@@ -11,7 +20,7 @@ function changeHighContrastColors(event) {
         ['--primary-text-color', '#ffffff'],
         ['--secondary-text-color', '#ffffff']
     ];
-
+    
     const standardContrastColors = [
         ['--almost-black', '#0d0917'],
         ['--dark-purple', '#332a50'],
@@ -21,14 +30,15 @@ function changeHighContrastColors(event) {
         ['--secondary-text-color', '#C9C2C2']
     ];
 
-    if (localStorage.getItem('highContrast') !== 'true') {
-        highConstrastColors.forEach(color => rootElement.style.setProperty(color[0], color[1]));
-        event.target.innerHTML = 'Desativar Alto Contraste'
-        localStorage.setItem('highContrast', 'true');
-    }
-    else {
+    const rootElement = document.querySelector(':root');
+
+    if (color === 'standard') {
         standardContrastColors.forEach(color => rootElement.style.setProperty(color[0], color[1]));
-        event.target.innerHTML = 'Ativar Alto Contraste'
+        targetButton.innerHTML = 'Ativar Alto Contraste'
         localStorage.setItem('highContrast', 'false');
+    } else if (color === 'highContrast'){
+        highConstrastColors.forEach(color => rootElement.style.setProperty(color[0], color[1]));
+        targetButton.innerHTML = 'Desativar Alto Contraste'
+        localStorage.setItem('highContrast', 'true');
     }
 }
