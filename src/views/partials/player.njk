@@ -1,5 +1,5 @@
 <div id="right-nav">
-    <audio></audio>
+    <audio preload="auto"></audio>
     <div class="music-player">
         <div class="music-player-song">
             <img src="/images/album.jpg" alt="Album cover">
@@ -8,11 +8,16 @@
         </div>
         <div class="music-player-controls">
             <div class="music-progress-bar">
-                <div class="music-progressed-bar"></div>
+                <span id="current-time" class="time">00:00</span>
+                <input type="range" id="seek-slider" max="100" value="0">
+                <span id="duration" class="time">00:00</span>
             </div>
             <div class="music-player-buttons">
                 <img src="/images/player-controls/previous.png" alt="Previous">
-                <img src="/images/player-controls/pause.png" alt="Pause" id="play-pause-button">
+                <div id="play-pause-button">
+                    <img src="/images/player-controls/play.png" alt="Pause" class="play-pause">
+                    <img src="/images/player-controls/pause.png" alt="Pause" class="play-pause">
+                </div>
                 <img src="/images/player-controls/next.png" alt="Next">
             </div>
         </div>

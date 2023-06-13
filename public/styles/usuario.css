@@ -317,15 +317,18 @@ body{
 
 .music-progress-bar {
     width: 18vw;
-    height: 5px;
-
     margin-top: 20px;
-
     border-radius: 15px;
-    background-color: var(--light-purple);
-
     overflow: hidden;
+
+    display: flex;
+    justify-content: center;
 }
+
+.music-progress-bar input[type='range'] {
+    flex: 1;
+}
+
 
 .music-progressed-bar {
     width: 40%;
@@ -345,7 +348,12 @@ body{
 
 .music-player-buttons img{
     width: 35px;
+    height: 35px;
     cursor: pointer;
+}
+
+.music-player-buttons > div > img:last-child{
+    display: none;
 }
 
 .queue {
