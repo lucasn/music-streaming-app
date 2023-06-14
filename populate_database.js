@@ -25,11 +25,11 @@ async function populate_database() {
                             create: [
                                 {
                                     title: 'Mockingbird',
-                                    audioFile: Buffer.from('teste', 'utf8'),
+                                    audioFile: readFileSync('./public/mockingbird.mp3'),
                                 },
                                 {
                                     title: 'Crazy in Love',
-                                    audioFile: Buffer.from('teste', 'utf8'),
+                                    audioFile: readFileSync('./public/crazy_in_love.mp3'),
                                 }
 
                             ]
@@ -43,7 +43,7 @@ async function populate_database() {
                             create: [
                                 {
                                     title: 'The Real Slim Shady',
-                                    audioFile: Buffer.from('teste', 'utf8'),
+                                    audioFile: readFileSync('./public/the_real_slim_shady.mp3'),
                                 }
                             ]
                         }
@@ -51,7 +51,7 @@ async function populate_database() {
                 ]
             }
         }
-    })
+    });
 }
 
 populate_database()

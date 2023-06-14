@@ -36,13 +36,20 @@ export async function getSongsFromPlaylist(playlistId) {
                                 select: {
                                     name: true
                                 }
-                            }
+                            },
+                            cover: true
                         }
                     }
                 }
             }
         }
     });
+
+    playlist.songs.forEach(song => {
+        if (song.album.cover) {
+            song.album.cover = song.album.cover.toString('base64');
+        }
+    })
 
     return playlist;
 }
@@ -152,4 +159,42 @@ export async function removeSongFromPlaylistById(playlistId, songId) {
     });
 
     return updatedPlaylist;
+}
+
+export async function retrieveSong(songId) {
+    const song = await prisma.song.findUnique({
+        where: {
+            id: songId
+        },
+        select: {
+            title: true,
+            id: true,
+            album: {
+                select: {
+                    name: true,
+                    cover: true,
+                    artist: true
+                }
+            }
+        }
+    });
+
+    if (song.album.cover){
+        song.album.cover = song.album.cover.toString('base64');
+    }
+
+    return song;
+}
+
+export async function retrieveSongFile(songId) {
+    const songFile = await prisma.song.findUnique({
+        where: {
+            id: songId
+        },
+        select: {
+            audioFile: true
+        }
+    });
+
+    return songFile.audioFile;
 }

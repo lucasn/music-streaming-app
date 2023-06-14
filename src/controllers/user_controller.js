@@ -8,7 +8,9 @@ import {
     getSongsByName,
     deletePlaylistById,
     addSongToPlaylistById,
-    removeSongFromPlaylistById
+    removeSongFromPlaylistById,
+    retrieveSong,
+    retrieveSongFile
 } from "../services/music_service.js";
 
 import fs from 'fs/promises';
@@ -158,4 +160,19 @@ export async function removeSongFromPlaylist(req, res) {
     await removeSongFromPlaylistById(playlistId, songId);
 
     res.status(200).end();
+}
+
+export async function getSongInfo(req, res) {
+    const songId = parseInt(req.params.song_id);
+
+    const song = await retrieveSong(songId);
+
+    return res.json(song);
+}
+
+export async function getSongFile(req, res) {
+    const songId = parseInt(req.params.song_id);
+    const file = await retrieveSongFile(songId);
+
+    return res.end(file);
 }

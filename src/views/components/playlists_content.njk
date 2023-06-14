@@ -9,14 +9,14 @@
 {% for song in playlist.songs %}
     <div class="music-card">
         <div class="music-card-song">
-            <img src="/images/album.jpg" alt="">
+            <img src="data:image/png;base64,{{song.album.cover}}" alt="">
             <div>
                 <h5>{{ song.title }}</h5>
                 <h6>{{ song.album.artist.name }}</h6>
             </div>
         </div>
         <div>
-            <img src="/images/play.png" alt="">
+            <img src="/images/play.png" alt="" onClick="retrieveSongInfo({{song.id}})">
             <img src="/images/remove.png" alt="" onClick="removeSongFromPlaylist({{playlist.id}}, {{song.id}})">
         </div>
     </div>

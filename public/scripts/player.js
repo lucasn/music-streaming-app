@@ -25,14 +25,41 @@ function playPauseChangeState() {
     }
 }
 
-function retrieveSong(shouldPlay) {
-    fetch(`http://127.0.0.1:8080/music`)
-    .then(response => {
-        return response.arrayBuffer();
-    })
+// function retrieveSong(shouldPlay) {
+//     fetch(`http://127.0.0.1:8080/music`)
+//     .then(response => {
+//         return response.arrayBuffer();
+//     })
+//     .then(bytes => {
+//         audioTag.src = URL.createObjectURL(new Blob([bytes]));
+//     });
+// }
+
+function retrieveSongInfo(songId) {
+    fetch(`http://localhost:8080/song/${songId}`)
+    .then(response => response.json())
+    .then(body => {
+        updateSongInfo(body);
+        retrieveSongFile(songId);
+    });
+}
+
+function retrieveSongFile(songId) {
+    fetch(`http://localhost:8080/song/${songId}/file`)
+    .then(response => response.arrayBuffer())
     .then(bytes => {
         audioTag.src = URL.createObjectURL(new Blob([bytes]));
-    });
+    })
+}
+
+function updateSongInfo(song) {
+    const songTitle = document.querySelector('.music-player-song h1');
+    const artistName = document.querySelector('.music-player-song h3');
+    const albumCover = document.querySelector('.music-player-song img');
+
+    songTitle.innerHTML = song.title;
+    artistName.innerHTML = song.album.artist.name;
+    albumCover.src = `data:image/png;base64,${song.album.cover}`;
 }
 
 function buildProgressbar() {
@@ -56,4 +83,4 @@ function convertSecondsToMinutes(seconds) {
     return `${(minutes < 10) ? `0${minutes}` : minutes}:${(secondsOfMinute < 10) ? `0${secondsOfMinute}` : secondsOfMinute}`;
 }
 
-retrieveSong();
+// retrieveSong();

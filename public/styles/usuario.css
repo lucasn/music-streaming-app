@@ -360,6 +360,8 @@ body{
 .music-player-song h1{
     margin: 17px 0 0 0;
     font-weight: 300;
+
+    text-align: center;
 }
 
 .music-player-song h3{
