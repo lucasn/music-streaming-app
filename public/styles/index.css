@@ -1,0 +1,50 @@
+:root {
+    --almost-black: #0d0917;
+    --dark-purple: #332a50;
+    --medium-purple: #443C68;
+    --light-purple: #635985;
+    --primary-text-color: #fff;
+    --secondary-text-color: #C9C2C2;
+}
+
+body {
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: calc(100vh - 60px);
+}
+
+main div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main div h1 {
+    font-size: 70pt;
+    margin: 0;
+}
+
+main div h2 {
+    font-size: 20pt;
+}
+
+main div h1, main div h2 {
+    text-align: center;
+}
+
+footer a {
+    color: var(--primary-text-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--secondary-text-color);
+}
