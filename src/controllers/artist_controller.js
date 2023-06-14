@@ -63,7 +63,6 @@ export async function performArtistLogin(req, res){
 
 export async function getArtistIndexPage(req, res){
     const artistId = parseInt(req.cookies.artist_id);
-
     if(artistId) {
         const artist = await getArtistById(artistId);
         
@@ -109,6 +108,7 @@ export async function getAddSongPage(req, res) {
 }
 
 export async function createSong(req, res) {
+    const artistId = parseInt(req.cookies.artist_id);
     const albumId = parseInt(req.params.albumId);
 
     let audio;
@@ -126,7 +126,7 @@ export async function createSong(req, res) {
     }
 
     await createSongInDatabase(song);
-    await getArtistAlbumsPage(req, res);
+    res.redirect(`/artist/${artistId}/albums`);
 }
 export async function createAlbum(req, res) {
     const artistId = parseInt(req.params.artistId);
@@ -136,7 +136,7 @@ export async function createAlbum(req, res) {
     if(req.file){
         cover = await getFileAsByte(req.file.path);
     } else {
-        cover = null;
+        cover = await getFileAsByte('public/images/default_cover.png');
     }
 
     const album = {
@@ -147,7 +147,7 @@ export async function createAlbum(req, res) {
     };
     
     await createAlbumInDatabase(album);
-    await getArtistAlbumsPage(req, res);
+    res.redirect(`/artist/${artistId}/albums`);
 }
 
 export async function getAlbumPage(req, res){
