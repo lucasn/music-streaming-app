@@ -45,7 +45,8 @@ export async function performLogin(req, res) {
     const user = await getUserByEmail(email);
 
     if (!user || user.password !== password) {
-        res.render('error', {message: 'Usuário ou Senha incorretos'});
+        res.redirect('/');
+        return;
     }
 
     res.cookie('user_id', user.id);

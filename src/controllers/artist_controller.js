@@ -9,7 +9,7 @@ import {
     createSongInDatabase,
     getAlbumById
 } from "../services/artist_service.js"
-import { getFileAsByte } from '../services/image_service.js'
+import { getFileAsByte, getDefaultCoverImage } from '../services/image_service.js'
 
 export function getArtistLoginPage(req, res){
     res.render('artista_login');
@@ -136,7 +136,7 @@ export async function createAlbum(req, res) {
     if(req.file){
         cover = await getFileAsByte(req.file.path);
     } else {
-        cover = await getFileAsByte('public/images/default_cover.png');
+        cover = await getDefaultCoverImage();
     }
 
     const album = {

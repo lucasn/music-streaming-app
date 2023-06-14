@@ -5,3 +5,8 @@ export async function getFileAsByte(filePath) {
     unlinkSync(filePath);
     return bytes;
 }
+
+export async function getDefaultCoverImage() {
+    const bytes = Buffer.from(new Uint8Array(await readFileSync('./public/images/default_cover.png')), 'base64');
+    return bytes;
+}
