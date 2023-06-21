@@ -24,3 +24,12 @@ export async function getUser(req, res, next) {
 
     return user ? res.status(200).json(user) : res.status(404).end();
 }
+
+export async function createPlaylist(req, res, next){
+    const playlistTitle = req.body.title;
+    const authorId = parseInt(req.body.authorId);
+
+    const playlistCreated = await userService.createPlaylist(playlistTitle, authorId);
+
+    return res.status(201).json(playlistCreated);
+}

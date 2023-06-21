@@ -31,9 +31,21 @@ async function getAllUsers(filters) {
     return users;
 }
 
+async function createPlaylist(playlistTitle, authorId){
+    const playlist = await prisma.playlist.create({
+        data: {
+            title: playlistTitle,
+            authorId: authorId
+        }
+    });
+
+    return playlist;
+}
+
 const userService = {
     createUser,
     getUser,
-    getAllUsers
+    getAllUsers,
+    createPlaylist
 };
 export default userService;
