@@ -96,7 +96,7 @@ export async function getArtistAlbums(artistId){
             artistId: artistId
         },
         orderBy: {
-            year: "asc"
+            year: "desc"
         },
         select: {
             id: true,
