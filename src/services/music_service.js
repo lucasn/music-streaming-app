@@ -1,4 +1,3 @@
-import prisma from "../configs/database.js";
 
 export async function getUserPlaylists(userId) {
     const playlists = await prisma.playlist.findMany({
@@ -55,15 +54,9 @@ export async function getSongsFromPlaylist(playlistId) {
 }
 
 export async function createUser(user) {
-    const createdUser = await prisma.user.create({
-        data: {
-            ...user,
-            playlists: {
-                create: {
-                    title: 'Músicas Curtidas'
-                }
-            }
-        }
+    const createdUser = await fetch(`localhost:8081/user`, {
+        method: 'post',
+        body: JSON.stringify(user)
     });
 
     return createdUser;

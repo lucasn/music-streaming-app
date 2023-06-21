@@ -1,4 +1,3 @@
-import prisma from "../configs/database.js"
 
 export async function createArtistInDatabase(artist){
     const createdArtist = await prisma.artist.create({

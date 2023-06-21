@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm exec nodemon server.js",
+    "api": "pnpm exec nodemon ./src/api/api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,7 +16,6 @@
     "@prisma/client": "4.15.0",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
-    "lambda-multipart-parser": "^1.0.1",
     "multer": "1.4.5-lts.1",
     "nunjucks": "^3.2.4"
   },
