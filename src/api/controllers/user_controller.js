@@ -25,6 +25,42 @@ export async function getUser(req, res, next) {
     return user ? res.status(200).json(user) : res.status(404).end();
 }
 
+export async function getUserPlaylists(req, res, next){
+    const userId = parseInt(req.params.userId);
+
+    if(userId){
+        try{
+            const playlists = await userService.getUserPlaylists(userId);
+            
+            if(playlists){
+                return res.status(200).json(playlists).end();
+            }
+
+        } 
+        catch(err) {
+            return res.status(err.status).json(err).end();
+        }
+        
+    }
+}
+
+export async function getSongsFromPlaylist(req, res, next){
+    const playlistId = parseInt(req.params.playlistId);
+    
+    if(playlistId){
+        try {
+            const playlist = await userService.getSongsFromPlaylist(playlistId);
+            
+            if(playlist){
+                return res.status(200).json(playlist).end();
+            }
+        }
+        catch(err) {
+            return res.status(err.status).json(err).end();
+        }
+    }
+}
+
 export async function createPlaylist(req, res, next){
     const playlistTitle = req.body.title;
     const authorId = parseInt(req.body.authorId);
@@ -54,25 +90,56 @@ export async function deletePlaylist(req, res, next){
 
 export async function modifyPlaylist(req, res, next) {
     //TODO: transformar função para adicionar ou excluir músicas da playlist
-    const songId = parseInt(req.body.songId);
+    const action = req.body.action;
     const playlistId = parseInt(req.body.playlistId);
+    let updatedPlaylist;
     
-    if(songId && playlistId){
-        const updatedPlaylist = await userService.addSongToPlaylist(songId, playlistId);
-
-        if(updatedPlaylist){
-            return res.status(200).json(updatedPlaylist).end();
-        } else {
-            return res.status(500).json({error: "Algo deu errado"}).end();
+    if(playlistId){
+        if(action === 'add' || action === 'remove'){
+            const songId = parseInt(req.body.songId);
+    
+            if(songId){
+                if(action === 'add'){
+                    updatedPlaylist = await userService.addSongToPlaylist(songId, playlistId);
+                }
+                else if(action === 'remove'){
+                    updatedPlaylist = await userService.removeSongFromPlaylist(songId, playlistId);
+                }
+        
+                if(updatedPlaylist){
+                    return res.status(200).json(updatedPlaylist).end();
+                } else {
+                    return res.status(500).json({error: "Algo deu errado"}).end();
+                }
+            } 
+    
+            else if(!songId) {
+                return res.status(400).json({error: "songId não fornecida"}).end();
+            }
         }
-    } else if(!songId && !playlistId) {
-        return res.status(400).json({error: "songId e playlistId não fornecidas"}).end();
-    } else {
-        if(!songId) {
-            return res.status(400).json({error: "songId não fornecida"}).end();
-        } else if(!playlistId) {
-            return res.status(400).json({error: "playlistId não fornecida"}).end();
+        
+        else if(action === 'rename'){
+            const newTitle = req.body.newTitle;
+            
+            if(newTitle){
+                updatedPlaylist = await userService.renamePlaylist(newTitle, playlistId);
+        
+                if(updatedPlaylist){
+                    return res.status(200).json(updatedPlaylist).end();
+                }
+                else {
+                    return res.status(500).json({error: "Algo deu errado"}).end();
+                }
+            }
+            else {
+                return res.status(400).json({error: "newTitle não fornecido"}).end();
+            }
         }
     }
+    else{
+        return res.status(400).json({error: "playlistId não fornecida"}).end();
+    }
+    
+
 
 }
