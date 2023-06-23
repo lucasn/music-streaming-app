@@ -42,10 +42,41 @@ async function createPlaylist(playlistTitle, authorId){
     return playlist;
 }
 
+async function deletePlaylist(playlistId){
+    try {
+        const deletedPlaylist = await prisma.playlist.delete({
+            where: {id: playlistId}
+        });
+    
+        return deletedPlaylist;
+    } catch(err) {
+        return null;
+    }
+}
+
+async function addSongToPlaylist(songId, playlistId) {
+    const updatedPlaylist = await prisma.playlist.update({
+        where: {
+            id: playlistId
+        },
+        data: {
+            songs: {
+                connect: {
+                    id: songId
+                }
+            }
+        }
+    });
+
+    return updatedPlaylist;
+}
+
 const userService = {
     createUser,
     getUser,
     getAllUsers,
-    createPlaylist
+    createPlaylist,
+    deletePlaylist,
+    addSongToPlaylist
 };
 export default userService;
