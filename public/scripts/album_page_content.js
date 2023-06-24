@@ -1,7 +1,5 @@
-const serverURL = 'http://127.0.0.1:8080';
-
 function handleAlbumCardClick(artistId, albumId){
-    fetch(`${serverURL}/artist/${artistId}/album/${albumId}`)
+    fetch(`${serverBaseURL}/artist/${artistId}/album/${albumId}`)
     .then(response => {
         return response.text();
     })
@@ -15,7 +13,7 @@ function handleAlbumCardClick(artistId, albumId){
 }   
 
 function handleAddSongButtonClick(artistId, albumId){
-    fetch(`${serverURL}/artist/${artistId}/album/${albumId}/addSong`)
+    fetch(`${serverBaseURL}/artist/${artistId}/album/${albumId}/addSong`)
     .then(response => {
         return response.text();
     })

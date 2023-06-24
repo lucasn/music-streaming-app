@@ -36,7 +36,7 @@ function playPauseChangeState() {
 // }
 
 function retrieveSongInfo(songId) {
-    fetch(`http://localhost:8080/song/${songId}`)
+    fetch(`${serverBaseURL}/song/${songId}`)
     .then(response => response.json())
     .then(body => {
         updateSongInfo(body);
@@ -45,7 +45,7 @@ function retrieveSongInfo(songId) {
 }
 
 function retrieveSongFile(songId) {
-    fetch(`http://localhost:8080/song/${songId}/file`)
+    fetch(`${serverBaseURL}/song/${songId}/file`)
     .then(response => response.arrayBuffer())
     .then(bytes => {
         audioTag.src = URL.createObjectURL(new Blob([bytes]));
@@ -82,5 +82,3 @@ function convertSecondsToMinutes(seconds) {
 
     return `${(minutes < 10) ? `0${minutes}` : minutes}:${(secondsOfMinute < 10) ? `0${secondsOfMinute}` : secondsOfMinute}`;
 }
-
-// retrieveSong();
