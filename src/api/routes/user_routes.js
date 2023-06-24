@@ -7,7 +7,10 @@ import {
     getSongsFromPlaylist,
     createPlaylist,
     deletePlaylist,
-    modifyPlaylist
+    modifyPlaylist, 
+    getSong, 
+    getSongAudio,
+    searchSongs
 } from '../controllers/user_controller.js';
 
 export default function configureUserRoutes() {
@@ -18,5 +21,8 @@ export default function configureUserRoutes() {
     app.post('/playlist', createPlaylist);
     app.delete('/playlist', deletePlaylist);
     app.patch('/playlist', modifyPlaylist);
-    app.get('/playlist/:playlistId/songs', getSongsFromPlaylist)
+    app.get('/playlist/:playlistId/songs', getSongsFromPlaylist);
+    app.get('/song/:songId', getSong);
+    app.get('/song/:songId/audio', getSongAudio);
+    app.get('/songs/', searchSongs);
 }
