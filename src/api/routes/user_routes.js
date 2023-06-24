@@ -3,11 +3,7 @@ import {
     createUser,
     getAllUsers,
     getUser,
-    getUserPlaylists,
-    getSongsFromPlaylist,
-    createPlaylist,
-    deletePlaylist,
-    modifyPlaylist
+    getUserPlaylists
 } from '../controllers/user_controller.js';
 
 export default function configureUserRoutes() {
@@ -15,8 +11,4 @@ export default function configureUserRoutes() {
     app.get('/user', getAllUsers);
     app.get('/user/:userId', getUser);
     app.get('/user/:userId/playlists', getUserPlaylists);
-    app.post('/playlist', createPlaylist);
-    app.delete('/playlist', deletePlaylist);
-    app.patch('/playlist', modifyPlaylist);
-    app.get('/playlist/:playlistId/songs', getSongsFromPlaylist)
 }
