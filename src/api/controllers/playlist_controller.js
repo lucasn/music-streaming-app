@@ -30,7 +30,7 @@ export async function createPlaylist(req, res, next) {
 }
 
 export async function deletePlaylist(req, res, next) {
-    const playlistId = parseInt(req.body.playlistId);
+    const playlistId = parseInt(req.params.playlistId);
 
     if (playlistId) {
         const deletedPlaylist = await playlistService.deletePlaylist(playlistId);

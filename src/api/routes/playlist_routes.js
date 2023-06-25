@@ -8,7 +8,7 @@ import {
 
 export default function configurePlaylistRoutes() {
     app.post('/playlist', createPlaylist);
-    app.delete('/playlist', deletePlaylist);
+    app.delete('/playlist/:playlistId', deletePlaylist);
     app.patch('/playlist', modifyPlaylist);
     app.get('/playlist/:playlistId/songs', getSongsFromPlaylist);
 }
