@@ -15,7 +15,7 @@ export async function createArtist(req, res, next){
             createdArtist.profilePicture = createdArtist.profilePicture.toString('base64');
         }
         
-        return res.status(200).json(createdArtist).end();
+        return res.status(201).json(createdArtist).end();
     }
     catch(err) {
         return res.status(err.status).json(err).end();
@@ -25,13 +25,18 @@ export async function createArtist(req, res, next){
 export async function getArtist(req, res, next) {
     const artistId = parseInt(req.params.artistId);
 
-    const artist = await artistService.getArtist(artistId);
+    try{
+        const artist = await artistService.getArtist(artistId);
 
-    if(artist.profilePicture){
-        artist.profilePicture = artist.profilePicture.toString('base64');
+        if(artist.profilePicture){
+            artist.profilePicture = artist.profilePicture.toString('base64');
+        }
+
+        return res.status(200).json(artist).end();
     }
-
-    return res.status(200).json(artist).end();
+    catch(err){
+        return res.status(err.status).json(err);
+    }
 }
 
 export async function getAllArtists(req, res, next) {
@@ -47,7 +52,7 @@ export async function getAllArtists(req, res, next) {
         artists.forEach(artist => {
             artist.profilePicture = artist.profilePicture.toString('base64');
         })
-
-        return res.status(200).json(artists).end();
     }
+
+    return res.status(200).json(artists).end();
 }

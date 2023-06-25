@@ -9,6 +9,7 @@ async function getSong(songId){
             select: {
                 title: true,
                 id: true,
+                plays: true,
                 album: {
                     select: {
                         name: true,
@@ -23,10 +24,6 @@ async function getSong(songId){
                 }
             }
         });
-    
-        if (song.album.cover){
-            song.album.cover = song.album.cover.toString('base64');
-        }
 
         return song;
     }
@@ -36,6 +33,36 @@ async function getSong(songId){
             message: `Song with id ${songId} not found`
         };
     }
+}
+
+async function getAllSongs(filters, top, orderByPlays){
+    //TODO: separar funções de pegar músicas e pegar as mais ouvidas
+    const songs = await prisma.song.findMany({
+        where: {...filters},
+        select: {
+            title: true,
+            id: true,
+            plays: true,
+            album: {
+                select: {
+                    name: true,
+                    cover: true,
+                    artist: {
+                        select: {
+                            id: true,
+                            name: true
+                        }
+                    }
+                }
+            }
+        },
+        orderBy: {
+            plays: orderByPlays
+        },
+        take: top
+    })
+
+    return songs;
 }
 
 async function getSongAudio(songId) {
@@ -88,7 +115,8 @@ async function searchSongs(songNameContains){
 }
 
 const songService = {
-    getSong, 
+    getSong,
+    getAllSongs,
     getSongAudio, 
     searchSongs
 };

@@ -32,11 +32,16 @@ async function getArtist(artistId) {
         return artist;
     }
     catch(err) {
-        console.log(err);
+        if(err.code === 'P2025'){
+            throw {
+                status: 404,
+                message: `Artist with id ${artistId} not found`
+            };
+        }
     }
 }
 
-export async function getAllArtists(filters) {
+async function getAllArtists(filters) {
     const artists = await prisma.artist.findMany({
         where: {...filters}
     });
@@ -44,10 +49,11 @@ export async function getAllArtists(filters) {
     return artists;
 }
 
+
 const artistService = {
     createArtist,
     getArtist,
-    getAllArtists
+    getAllArtists,
 };
 
 export default artistService;

@@ -5,11 +5,39 @@ export async function getSong(req, res, next) {
 
     try {
         const song = await songService.getSong(songId);
+
+        if (song.album.cover){
+            song.album.cover = song.album.cover.toString('base64');
+        }
+
         return res.status(200).json(song);
     }
     catch (err) {
         return res.status(err.status).json(err).end();
     }
+}
+
+export async function getAllSongs(req, res, next){
+    const filters = {
+        album: {
+            id: req.query.album_id ? parseInt(req.query.album_id) : undefined,
+            artist: {
+                id: req.query.artist_id ? parseInt(req.query.artist_id) : undefined
+            }
+        }
+    };
+
+    const top = req.query.top ? parseInt(req.query.top) : undefined;
+
+    const orderByPlays = req.query.order_by_plays ? "desc" : undefined
+    const songs = await songService.getAllSongs(filters, top, orderByPlays);
+
+    songs.forEach(song => {
+        if(song.album.cover){
+            song.album.cover = song.album.cover.toString('base64');
+        }
+    })
+    return res.status(200).json(songs).end();
 }
 
 export async function getSongAudio(req, res, next) {
