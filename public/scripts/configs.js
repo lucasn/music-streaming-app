@@ -1,0 +1,1 @@
+const serverBaseURL = 'http://localhost:8080';

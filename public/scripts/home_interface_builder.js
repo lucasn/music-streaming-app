@@ -1,8 +1,6 @@
-const serverURL = 'http://127.0.0.1:8080'
-
 function handlePlaylistCardClick(playlistId) {
 
-    fetch(`${serverURL}/playlists/${playlistId}`)
+    fetch(`${serverBaseURL}/playlists/${playlistId}`)
         .then(response => {
             return response.text();
         })
@@ -15,7 +13,7 @@ function handlePlaylistCardClick(playlistId) {
 }
 
 function handleHomeButtonClick() {
-    fetch(`${serverURL}/home-content`)
+    fetch(`${serverBaseURL}/home-content`)
         .then(response => {
             return response.text()
         })
@@ -32,7 +30,7 @@ function updatePageContent(htmlContent) {
 }
 
 function removePlaylist(playlistId) {
-    fetch(`http://localhost:8080/playlists/${playlistId}`, {
+    fetch(`${serverBaseURL}/playlists/${playlistId}`, {
         method: 'delete'
     }).then(response => {
         handleHomeButtonClick();
@@ -43,7 +41,7 @@ function removePlaylist(playlistId) {
 function retrievePlaylistsCardsContent() {
     const userId = document.cookie.split('=')[1];
 
-    fetch(`http://localhost:8080/user/${userId}/playlists/`)
+    fetch(`${serverBaseURL}/user/${userId}/playlists/`)
         .then(response => response.text())
         .then(body => {
             updatePlaylistsCardsContent(body)
@@ -57,7 +55,7 @@ function updatePlaylistsCardsContent(htmlContent) {
 function addSongModal(songId) {
     const userId = document.cookie.split('=')[1];
 
-    fetch(`http://localhost:8080/user/${userId}/playlists/search`)
+    fetch(`${serverBaseURL}/user/${userId}/playlists/search`)
         .then(response => response.json())
         .then(body => {
             const filteredPlaylists = body.filter(playlist => {
@@ -87,7 +85,7 @@ function insertPlaylistsInModal(playlists, songId) {
 }
 
 function addSongInPlaylist(playlistId, songId) {
-    fetch('http://localhost:8080/playlists/song', {
+    fetch(`${serverBaseURL}/playlists/song`, {
         method: 'post',
         body: JSON.stringify({
             playlistId: playlistId,
@@ -105,7 +103,7 @@ function closeAddSongModal() {
 }
 
 function removeSongFromPlaylist(playlistId, songId) {
-    fetch(`http://localhost:8080/playlists/song/remove`, {
+    fetch(`${serverBaseURL}/playlists/song/remove`, {
         method: 'post',
         body: JSON.stringify({
             playlistId: playlistId,

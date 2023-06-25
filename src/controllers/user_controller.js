@@ -13,7 +13,6 @@ import {
     retrieveSongFile
 } from "../services/music_service.js";
 
-import fs from 'fs/promises';
 
 export async function getIndexPage(req, res) {
 
@@ -23,7 +22,10 @@ export async function getIndexPage(req, res) {
         const user = await getUserById(userId);
 
         if (user) {
-            res.render('index_user', {playlists: user.playlists, user: user});
+            
+            const playlists = await getUserPlaylists(userId);
+
+            res.render('index_user', {playlists: playlists, user: user});
             return;
         }
     }
@@ -39,21 +41,6 @@ export function getLoginPage(req, res) {
     res.render('login');
 }
 
-export async function performLogin(req, res) {
-    const { email, password } = req.body;
-
-    const user = await getUserByEmail(email);
-
-    if (!user || user.password !== password) {
-        res.redirect('/');
-        return;
-    }
-
-    res.cookie('user_id', user.id);
-
-    res.redirect('/');
-}
-
 export async function getHomePage(req, res) {
     const userId = parseInt(req.params.user_id);
 
@@ -61,6 +48,23 @@ export async function getHomePage(req, res) {
 
     res.render('index', {playlists: await getUserPlaylists(userId), user: user});
 }
+
+export async function performLogin(req, res) {
+    const { email, password } = req.body;
+
+    const user = await getUserByEmail(email);
+
+    if (user.length === 0 || user[0].password !== password) {
+        res.redirect('/');
+        return;
+    }
+
+    res.cookie('user_id', user[0].id);
+
+    res.redirect('/');
+}
+
+
 
 export async function getPlaylistById(req, res) {
     const playlistId = parseInt(req.params.playlist_id);
@@ -88,25 +92,20 @@ export async function createUser(req, res) {
     res.render('signin', {userCreated: true});
 }
 
-export async function createPlaylistByClient(req, res) {
-    const userId = parseInt(req.params.user_id);
+export async function createPlaylist(req, res) {
+    const userId = parseInt(req.params.userId);
     const playlistName = req.body.playlist_name;
 
     let user = await getUserById(userId);
 
     if (user) {
         await createPlaylistInDatabase(userId, playlistName);
-        user = await getUserById(userId)
-        res.render('partials/playlists_cards', {playlists: user.playlists});
+        const playlists = await getUserPlaylists(userId);
+        res.render('partials/playlists_cards', {playlists: playlists});
         return;
     }
 
     res.render('error');
-}
-
-export async function getMusic(req, res) {
-    const song = await fs.readFile('public/musica.mp3');
-    res.end(song);
 }
 
 export async function searchSongs(req, res) {
@@ -122,7 +121,7 @@ export async function searchSongs(req, res) {
 }
 
 export async function deletePlaylist(req, res) {
-    const playlistId = parseInt(req.params.playlist_id);
+    const playlistId = parseInt(req.params.playlistId);
 
     await deletePlaylistById(playlistId);
 

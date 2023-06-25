@@ -1,95 +1,55 @@
+import { apiBaseURL } from "../configs/server.js";
 
 export async function getUserPlaylists(userId) {
-    const playlists = await prisma.playlist.findMany({
-        where: {
-            authorId: userId
-        },
-        include: {
-            songs: true
-        }
-    });
+    const playlists = await fetch(`${apiBaseURL}/user/${userId}/playlists`);
 
-    return playlists;
+    return playlists.json();
 }
 
 export async function getSongsFromPlaylist(playlistId) {
 
-    const playlist = await prisma.playlist.findUnique({
-        where: {
-            id: playlistId
-        },
-        select: {
-            id: true,
-            title: true,
-            songs: {
-                select: {
-                    id: true,
-                    title: true,
-                    updatedAt: true,
-                    albumId: true,
-                    album: {
-                        select: {
-                            name: true,
-                            artistId: true,
-                            artist: {
-                                select: {
-                                    name: true
-                                }
-                            },
-                            cover: true
-                        }
-                    }
-                }
-            }
-        }
-    });
+    const playlist = await fetch(`${apiBaseURL}/playlist/${playlistId}/songs`);
 
-    playlist.songs.forEach(song => {
-        if (song.album.cover) {
-            song.album.cover = song.album.cover.toString('base64');
-        }
-    })
-
-    return playlist;
+    return playlist.json();
 }
 
 export async function createUser(user) {
-    const createdUser = await fetch(`localhost:8081/user`, {
+    const createdUser = await fetch(`${apiBaseURL}/user`, {
         method: 'post',
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
+        headers: {'Content-Type': 'application/json'}
     });
 
     return createdUser;
 }
 
 export async function getUserByEmail(email) {
-    const user = await prisma.user.findUnique({
-        where: {email: email}
-    });
+    const user = await fetch(`${apiBaseURL}/user?email=${email}`);
 
-    return user;
+    return user.json();
 }
 
 export async function getUserById(id) {
-    const user = await prisma.user.findUnique({
-        where: {id: id},
-        include: {
-            playlists: true
-        }
-    });
+    const user = await fetch(`${apiBaseURL}/user/${id}`);
 
-    return user;
+    return user.json();
 }
 
 export async function createPlaylist(userId, playlistName) {
-    const playlist = await prisma.playlist.create({
-        data: {
+    const playlist = await fetch(`${apiBaseURL}/playlist`, {
+        method: 'post',
+        body: JSON.stringify({
             title: playlistName,
             authorId: userId
-        }
+        }),
+        headers: {'Content-Type': 'application/json'}
     });
 
-    return playlist;
+    if (playlist.status !== 201) {
+        console.log('Internal Error');
+    }
+
+    return playlist.json();
 }
 
 export async function getSongsByName(songName) {

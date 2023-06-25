@@ -7,7 +7,7 @@ searchBar.addEventListener('keyup', searchSongs);
 function searchSongs(event) {
     const searchString = event.currentTarget.value;
 
-    fetch(`http://localhost:8080/search?search_string=${searchString}`)
+    fetch(`${serverBaseURL}/search?search_string=${searchString}`)
     .then(response => response.json())
     .then(songs => {
         if (songs) {
@@ -29,7 +29,7 @@ function searchSongs(event) {
 }
 
 function retrieveAlbumContent(albumId) {
-    fetch(`http://localhost:8080/album/${albumId}`)
+    fetch(`${serverBaseURL}/album/${albumId}`)
     .then(response => response.text())
     .then(body => {
         updatePageContent(body);

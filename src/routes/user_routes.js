@@ -8,8 +8,7 @@ import {
     getLoginPage, 
     createUser, 
     performLogin,
-    createPlaylistByClient,
-    getMusic,
+    createPlaylist,
     searchSongs,
     deletePlaylist,
     getPlaylistsByUserId,
@@ -26,13 +25,12 @@ export default function configureUserRoutes() {
     app.get('/login', getLoginPage);
     app.post('/login', performLogin);
     app.get('/user/:user_id', getHomePage);
-    app.post('/user/:user_id/playlists', createPlaylistByClient);
+    app.post('/user/:userId/playlists', createPlaylist);
     app.get('/playlists/:playlist_id', getPlaylistById);
     app.get('/home-content', getHomeContent);
     app.post('/user', createUser);
-    app.get('/music', getMusic);
     app.get('/search', searchSongs);
-    app.delete('/playlists/:playlist_id', deletePlaylist);
+    app.delete('/playlists/:playlistId', deletePlaylist);
     app.get('/user/:user_id/playlists', getPlaylistsByUserId);
     app.get('/user/:user_id/playlists/search', searchPlaylistsByUserId);
     app.post('/playlists/song', addSongToPlaylist);

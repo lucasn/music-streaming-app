@@ -20,7 +20,7 @@ function createPlaylistAndRetrievePlaylistsContent(event) {
     
         const userId = document.cookie.split('=')[1];
     
-        fetch(`http://127.0.0.1:8080/user/${userId}/playlists`, {
+        fetch(`${serverBaseURL}/user/${userId}/playlists`, {
             method: 'post',
             body: JSON.stringify(data),
             headers: {
@@ -29,6 +29,7 @@ function createPlaylistAndRetrievePlaylistsContent(event) {
         }).then(response => {
             return response.text();
         }).then(body => {
+            console.log(body);
             modal.style.display = 'none';
             document.querySelector('#playlists-cards').innerHTML = body;
         })
