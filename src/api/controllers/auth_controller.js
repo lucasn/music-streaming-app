@@ -29,8 +29,8 @@ export function validateToken(req, res) {
         
         const body = {
             id: tokenData.id,
-            type: 'user',
-            name: tokenData.name
+            name: tokenData.name,
+            type: tokenData.type
         }
     
         res.json(body);

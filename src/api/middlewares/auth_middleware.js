@@ -14,14 +14,18 @@ export default async function authenticate(req, res, next) {
         return;
     }
     const token = splittedHeader[1];
-    const tokenData = authService.validateToken(token);
-
-    if (!tokenData) {
-        res.status(401).json({message: 'Access denied'}).end();
-        return;
+    try{
+        const tokenData = authService.validateToken(token);
+        req.credentials = tokenData;
+        next();
     }
 
-    req.credentials = tokenData;
+    catch(err) {
+        if(err instanceof AccessDeniedError)
+            return res.status(err.status).json(err.body).end();
 
-    next();
+        return res.status(500).end();
+    }
+
+
 }
