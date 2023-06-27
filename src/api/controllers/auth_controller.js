@@ -1,5 +1,5 @@
 import authService from "../services/auth_service.js";
-import { AccessDeniedError } from "../errors/auth_errors.js";
+import { AccessDeniedError } from "../errors/errors.js";
 
 export async function login(req, res) {
     const credentials = req.body;

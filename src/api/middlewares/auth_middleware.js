@@ -1,5 +1,5 @@
 import authService from "../services/auth_service.js";
-import { AccessDeniedError } from "../errors/auth_errors.js";
+import { AccessDeniedError } from "../errors/errors.js";
 
 export default async function authenticate(req, res, next) {
     const authorizationHeader = req.headers.authorization;

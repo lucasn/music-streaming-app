@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import userService from './user_service.js';
-import { AccessDeniedError } from "../errors/auth_errors.js";
+import { AccessDeniedError } from "../errors/errors.js";
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
 
