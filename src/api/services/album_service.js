@@ -10,7 +10,20 @@ async function createAlbum(album){
     return createdAlbum;
 }
 
-async function getAlbum(albumId) {
+async function getAlbum(albumId, includeSongs) {
+    let songs;
+    if (includeSongs){
+        songs = {
+            select: {
+                id: true,
+                title: true
+            }
+        };
+    }
+    else {
+        songs = false;
+    }
+
     try{
         const album = await prisma.album.findUniqueOrThrow({
             where: {
@@ -21,7 +34,8 @@ async function getAlbum(albumId) {
                 name: true,
                 year: true,
                 cover: true,
-                artistId: true
+                artistId: true,
+                songs: songs
             }
         });
 

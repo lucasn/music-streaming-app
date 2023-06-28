@@ -21,8 +21,14 @@ export async function createAlbum(req, res, next){
 export async function getAlbum(req, res, next){
     const albumId = parseInt(req.params.albumId);
     
+    let includeSongs;
+    if(req.query.include_songs)
+        includeSongs = (req.query.include_songs.toLowerCase() === 'true');
+    else
+        includeSongs = false;
+
     try {
-        const album = await albumService.getAlbum(albumId);
+        const album = await albumService.getAlbum(albumId, includeSongs);
         album.cover = base64FromBytes(album.cover);
 
         return res.status(200).json(album).end();
