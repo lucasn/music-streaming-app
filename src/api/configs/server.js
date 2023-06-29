@@ -11,7 +11,7 @@ const HOST = '127.0.0.1';
 
 app.use(cookieParser());
 app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 
 
 function startServer() {
