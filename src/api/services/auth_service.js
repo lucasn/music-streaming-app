@@ -14,9 +14,9 @@ async function login(credentials) {
         name: user[0].name,
         email: user[0].email
     };
-
+    
     const token = jwt.sign(tokenPayload, TOKEN_SECRET);
-
+    
     return token;
 }
 

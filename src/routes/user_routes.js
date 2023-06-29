@@ -25,7 +25,7 @@ export default function configureUserRoutes() {
     app.get('/login', getLoginPage);
     app.post('/login', performLogin);
     app.get('/user/:user_id', getHomePage);
-    app.post('/user/:userId/playlists', createPlaylist);
+    app.post('/user/playlists', createPlaylist);
     app.get('/playlists/:playlist_id', getPlaylistById);
     app.get('/home-content', getHomeContent);
     app.post('/user', createUser);

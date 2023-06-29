@@ -16,7 +16,7 @@ export function validateToken(req, res) {
     const token = req.body.token;
 
     const tokenData = authService.validateToken(token);
-
+    
     if (!tokenData) {
         res.status(401).end();
         return

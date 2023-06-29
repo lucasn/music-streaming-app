@@ -18,18 +18,18 @@ function createPlaylistAndRetrievePlaylistsContent(event) {
         const data = {};
         new FormData(document.querySelector('#modal-form')).forEach((value, key) => data[key] = value);
     
-        const userId = document.cookie.split('=')[1];
-    
-        fetch(`${serverBaseURL}/user/${userId}/playlists`, {
+        const token = document.cookie.split('=')[1];
+
+        fetch(`${serverBaseURL}/user/playlists`, {
             method: 'post',
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
             }
         }).then(response => {
             return response.text();
         }).then(body => {
-            console.log(body);
             modal.style.display = 'none';
             document.querySelector('#playlists-cards').innerHTML = body;
         })

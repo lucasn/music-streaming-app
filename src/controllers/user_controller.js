@@ -13,23 +13,16 @@ import {
     retrieveSongFile
 } from "../services/music_service.js";
 
+import userService from "../services/user_service.js";
+
 
 export async function getIndexPage(req, res) {
+    if (req.credentials) {
+        const playlists = await getUserPlaylists(req.credentials.id);
 
-    const userId = parseInt(req.cookies.user_id);
-
-    if (userId) {
-        const user = await getUserById(userId);
-
-        if (user) {
-            
-            const playlists = await getUserPlaylists(userId);
-
-            res.render('index_user', {playlists: playlists, user: user});
-            return;
-        }
+        res.render('index_user', {playlists: playlists, userName: req.credentials.name});
+        return;
     }
-
     res.render('index');
 }
 
@@ -52,14 +45,14 @@ export async function getHomePage(req, res) {
 export async function performLogin(req, res) {
     const { email, password } = req.body;
 
-    const user = await getUserByEmail(email);
-
-    if (user.length === 0 || user[0].password !== password) {
+    const token = await userService.login(email, password);
+    
+    if (!token) {
         res.redirect('/');
         return;
     }
 
-    res.cookie('user_id', user[0].id);
+    res.cookie('token', token);
 
     res.redirect('/');
 }
@@ -93,7 +86,7 @@ export async function createUser(req, res) {
 }
 
 export async function createPlaylist(req, res) {
-    const userId = parseInt(req.params.userId);
+    const userId = parseInt(req.credentials.id);
     const playlistName = req.body.playlist_name;
 
     let user = await getUserById(userId);

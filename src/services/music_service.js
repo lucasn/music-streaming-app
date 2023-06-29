@@ -2,7 +2,6 @@ import { apiBaseURL } from "../configs/server.js";
 
 export async function getUserPlaylists(userId) {
     const playlists = await fetch(`${apiBaseURL}/user/${userId}/playlists`);
-
     return playlists.json();
 }
 
