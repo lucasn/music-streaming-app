@@ -116,13 +116,13 @@ export async function searchSongs(req, res) {
 export async function deletePlaylist(req, res) {
     const playlistId = parseInt(req.params.playlistId);
 
-    await deletePlaylistById(playlistId);
+    await deletePlaylistById(req.token, playlistId);
 
     res.status(204).end();
 }
 
 export async function getPlaylistsByUserId(req, res) {
-    const userId = parseInt(req.params.user_id);
+    const userId = parseInt(req.credentials.id);
 
     const playlists = await getUserPlaylists(userId);
 

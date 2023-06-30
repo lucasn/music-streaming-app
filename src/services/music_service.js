@@ -70,11 +70,10 @@ export async function getSongsByName(songName) {
     return deletePlaylist;
 }
 
-export async function deletePlaylistById(playlistId) {
-    const res = await prisma.playlist.delete({
-        where: {
-            id: playlistId
-        }
+export async function deletePlaylistById(token, playlistId) {
+    const response = await fetch(`${apiBaseURL}/playlist/${playlistId}`, {
+        method: 'delete',
+        headers: {'Authorization': `Bearer ${token}`}
     });
 }
 

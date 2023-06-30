@@ -24,6 +24,7 @@ export default function configureUserRoutes() {
     app.get('/signin', getSigninPage);
     app.get('/login', getLoginPage);
     app.post('/login', performLogin);
+    app.get('/user/playlists', getPlaylistsByUserId);
     app.get('/user/:user_id', getHomePage);
     app.post('/user/playlists', createPlaylist);
     app.get('/playlists/:playlist_id', getPlaylistById);
@@ -31,7 +32,6 @@ export default function configureUserRoutes() {
     app.post('/user', createUser);
     app.get('/search', searchSongs);
     app.delete('/playlists/:playlistId', deletePlaylist);
-    app.get('/user/:user_id/playlists', getPlaylistsByUserId);
     app.get('/user/:user_id/playlists/search', searchPlaylistsByUserId);
     app.post('/playlists/song', addSongToPlaylist);
     app.post('/playlists/song/remove', removeSongFromPlaylist);

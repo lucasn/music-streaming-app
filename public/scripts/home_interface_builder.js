@@ -39,9 +39,11 @@ function removePlaylist(playlistId) {
 }
 
 function retrievePlaylistsCardsContent() {
-    const userId = document.cookie.split('=')[1];
+    const token = document.cookie.split('=')[1];
 
-    fetch(`${serverBaseURL}/user/${userId}/playlists/`)
+    fetch(`${serverBaseURL}/user/playlists/`, {
+        headers: {'Authorization': `Bearer ${token}`}
+    })
         .then(response => response.text())
         .then(body => {
             updatePlaylistsCardsContent(body)
