@@ -1,13 +1,22 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library.js";
 import prisma from "../configs/database.js";
-import { NotFoundError, InternalServerError } from "../errors/errors.js";
+import { NotFoundError, InternalServerError, BadRequestError } from "../errors/errors.js";
 
 async function createAlbum(album){
-    const createdAlbum = await prisma.album.create({
-        data: {...album}
-    })
+    try{
+        const createdAlbum = await prisma.album.create({
+            data: {...album}
+        })
 
-    return createdAlbum;
+        return createdAlbum;
+    }
+    catch(err) {
+        if(err instanceof PrismaClientKnownRequestError && err.code === 'P2003')
+            throw new NotFoundError(`Artist with id ${album.artistId} not found`)
+        
+        throw new InternalServerError();
+    }
+
 }
 
 async function getAlbum(albumId, includeSongs) {

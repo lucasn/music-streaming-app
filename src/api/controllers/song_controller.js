@@ -1,12 +1,12 @@
 import songService from "../services/song_service.js";
-import { bytesFromBase64 } from "../utils/utils.js";
+import { base64ToBytes } from "../utils/utils.js";
 import { NotFoundError, InternalServerError } from "../errors/errors.js";
 
 export async function createSong(req, res, next){
     const song = {
         title: req.body.title,
         albumId: parseInt(req.body.albumId),
-        audioFile:bytesFromBase64(req.body.audio)
+        audioFile:base64ToBytes(req.body.audio)
     }
 
     try {

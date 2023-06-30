@@ -17,7 +17,7 @@ model Song {
   updatedAt DateTime @default(now())
   plays Int @default(0)
   playlists Playlist[]
-  album Album @relation(fields: [albumId], references: [id])
+  album Album @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId Int
 }
 
@@ -25,7 +25,7 @@ model Playlist {
   id Int @id @default(autoincrement())
   title String
   createdAt DateTime @default(now())
-  author User @relation(fields: [authorId], references: [id])
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId Int
   songs Song[]
 }
@@ -44,7 +44,7 @@ model Album {
   year Int
   cover Bytes?
   songs Song[]
-  artist Artist @relation(fields: [artistId], references: [id])
+  artist Artist @relation(fields: [artistId], references: [id], onDelete: Cascade)
   artistId Int
 }
 
@@ -55,7 +55,7 @@ model Artist {
   password String
   profilePicture Bytes?
   albuns Album[]
-  recordCompany RecordCompany? @relation(fields: [recordCompanyId], references: [id])
+  recordCompany RecordCompany? @relation(fields: [recordCompanyId], references: [id], onDelete: SetNull)
   recordCompanyId Int?
 }
 
