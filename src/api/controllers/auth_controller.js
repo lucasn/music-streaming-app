@@ -1,32 +1,50 @@
 import authService from "../services/auth_service.js";
+import { AccessDeniedError } from "../errors/errors.js";
 
 export async function login(req, res) {
     const credentials = req.body;
-    const token = await authService.login(credentials);
 
-    if (!token) {
-        res.status(401).end();
-        return;
+    try {
+        const token = await authService.login(credentials);
+        return res.json({ token }).end();
+
+    }
+    catch (err) {
+        if (err instanceof AccessDeniedError) {
+            return res.status(err.status).json(err.body).end();
+        }
+
+        return res.status(500).end();
+
     }
 
-    res.json({token});
 }
 
 export function validateToken(req, res) {
     const token = req.body.token;
 
-    const tokenData = authService.validateToken(token);
-    
-    if (!tokenData) {
-        res.status(401).end();
-        return
+    try {
+        const tokenData = authService.validateToken(token);
+
+        if (!tokenData) {
+            res.status(401).end();
+            return
+        }
+
+        const body = {
+            id: tokenData.id,
+            name: tokenData.name,
+            type: tokenData.type
+        }
+
+        res.json(body);
+    }
+    catch (err) {
+        if (err instanceof AccessDeniedError) {
+            return res.status(err.status).json(err.body).end();
+        }
+
+        return res.status(500).end();
     }
 
-    const body = {
-        id: tokenData.id,
-        type: 'user',
-        name: tokenData.name
-    }
-
-    res.json(body);
 }

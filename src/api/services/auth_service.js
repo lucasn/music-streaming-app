@@ -1,18 +1,21 @@
 import jwt from "jsonwebtoken";
 import userService from './user_service.js';
+import { AccessDeniedError } from "../errors/errors.js";
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
 
 async function login(credentials) {
     const user = await userService.getAllUsers(credentials);
 
-    //TODO: melhorar tratamento de exceção
-    if (user.length === 0) return null;
+    if (user.length === 0) {
+        throw new AccessDeniedError();
+    }
     
     const tokenPayload = {
         id: user[0].id,
         name: user[0].name,
-        email: user[0].email
+        email: user[0].email,
+        type: 'user'
     };
     
     const token = jwt.sign(tokenPayload, TOKEN_SECRET);
@@ -26,7 +29,7 @@ function validateToken(token) {
         return tokenData;
     }
     catch (err) {
-        return null;
+        throw new AccessDeniedError();
     }
 }
 

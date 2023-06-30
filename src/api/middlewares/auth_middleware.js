@@ -1,25 +1,31 @@
 import authService from "../services/auth_service.js";
+import { AccessDeniedError } from "../errors/errors.js";
 
 export default async function authenticate(req, res, next) {
     const authorizationHeader = req.headers.authorization;
     if (!authorizationHeader) {
-        res.status(401).end();
+        res.status(401).json({message: 'Access denied'}).end();
         return;
     }
+
     const splittedHeader = authorizationHeader.split(' ');
     if (splittedHeader.length < 2) {
-        res.status(401).end();
+        res.status(401).json({message: 'Access denied'}).end();
         return;
     }
     const token = splittedHeader[1];
-    const tokenData = authService.validateToken(token);
-
-    if (!tokenData) {
-        res.status(401).end();
-        return;
+    try{
+        const tokenData = authService.validateToken(token);
+        req.credentials = tokenData;
+        next();
     }
 
-    req.credentials = tokenData;
+    catch(err) {
+        if(err instanceof AccessDeniedError)
+            return res.status(err.status).json(err.body).end();
 
-    next();
+        return res.status(500).end();
+    }
+
+
 }
