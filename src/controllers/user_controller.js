@@ -10,11 +10,11 @@ import {
     removeSongFromPlaylistById,
     retrieveSong,
     retrieveSongFileStream,
-    renamePlaylist as renamePlaylistInDatabase
+    renamePlaylist as renamePlaylistInDatabase,
+    deleteUser as deleteUserInDatabase
 } from "../services/music_service.js";
 
 import userService from "../services/user_service.js";
-import { PassThrough } from "stream";
 
 
 export async function getIndexPage(req, res) {
@@ -32,7 +32,7 @@ export function getSigninPage(req, res) {
 }
 
 export function getLoginPage(req, res) {
-    res.render('login');
+    res.render('login', {loginFailed: false});
 }
 
 export async function getHomePage(req, res) {
@@ -49,7 +49,7 @@ export async function performLogin(req, res) {
     const token = await userService.login(email, password);
     
     if (!token) {
-        res.redirect('/');
+        res.render('login', {loginFailed: true});
         return;
     }
 
@@ -196,4 +196,12 @@ export async function getSongFile(req, res) {
 
 export async function getConfigPage(req, res) {
     res.render('partials/user_config');
+}
+
+export async function deleteUser(req, res) {
+    const userId = req.credentials.id;
+
+    await deleteUserInDatabase(userId);
+
+    return res.status(200).end();
 }

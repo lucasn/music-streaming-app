@@ -123,3 +123,9 @@ export async function retrieveSongFileStream(songId) {
 
     return songStream;
 }
+
+export async function deleteUser(userId) {
+    const response = await fetch(`${apiBaseURL}/user/${userId}`, {
+        method: 'delete'
+    });
+}

@@ -68,3 +68,8 @@ form input:last-child {
 
     cursor: pointer;
 }
+
+#wrong-pass {
+    align-self: center;
+    color: #f83e3e
+}

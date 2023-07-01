@@ -18,7 +18,8 @@ import {
     getSongInfo,
     getSongFile,
     getConfigPage,
-    renamePlaylist
+    renamePlaylist,
+    deleteUser
 } from '../controllers/user_controller.js';
 
 export default function configureUserRoutes() {
@@ -40,6 +41,7 @@ export default function configureUserRoutes() {
     app.put('/playlists/:playlistId', renamePlaylist);
     app.get('/song/:song_id', getSongInfo);
     app.get('/song/:song_id/file', getSongFile);
-    app.get('/configs', getConfigPage)
+    app.get('/configs', getConfigPage);
+    app.delete('/user', deleteUser);
 }
     

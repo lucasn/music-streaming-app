@@ -13,7 +13,7 @@ function handlePlaylistCardClick(playlistId) {
 }
 
 function handleHomeButtonClick() {
-    const token = document.cookie.split('=')[1];
+    const token = getToken();
     fetch(`${serverBaseURL}/home-content`, {headers: {'Authorization': `Bearer ${token}`}})
         .then(response => {
             return response.text()
@@ -40,7 +40,7 @@ function removePlaylist(playlistId) {
 }
 
 function retrievePlaylistsCardsContent() {
-    const token = document.cookie.split('=')[1];
+    const token = getToken();
 
     fetch(`${serverBaseURL}/user/playlists/`, {
         headers: {'Authorization': `Bearer ${token}`}
@@ -56,7 +56,7 @@ function updatePlaylistsCardsContent(htmlContent) {
 }
 
 function addSongModal(songId) {
-    const token = document.cookie.split('=')[1];
+    const token = getToken();
 
     fetch(`${serverBaseURL}/user/playlists/search`, {
         headers: {'Authorization': `Bearer ${token}`}
@@ -122,7 +122,7 @@ function removeSongFromPlaylist(playlistId, songId) {
 }
 
 function retrieveConfigPage() {
-    const token = document.cookie.split('=')[1];
+    const token = getToken();
     fetch(`${serverBaseURL}/configs`, {
         headers: {'Authorization': `Bearer ${token}`}
     })
@@ -131,8 +131,15 @@ function retrieveConfigPage() {
 }
 
 function deleteUser() {
+    const token = getToken();
+
     const confirmation = confirm('Essa operação não é reversível. Deseja mesmo continuar?');
     if (!confirmation) return;
+
+    fetch(`${serverBaseURL}/user`, {
+        method: 'delete',
+        headers: {'Authorization': `Bearer ${token}`}
+    }).then(() => logout());
 }
 
 function watchRenamePlaylistInputChanges(event, playlistId, actualPlaylistName) {
@@ -164,4 +171,8 @@ function renamePlaylist(playlistId, playlistName) {
         headers: {'Content-Type': 'application/json'}
     })
     .then((response) => retrievePlaylistsCardsContent());
+}
+
+function getToken() {
+    return document.cookie.split('=')[1];
 }
