@@ -11,11 +11,36 @@ export class AccessDeniedError extends Error {
     }
 }
 
+export class ConflictError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "ConflictError";
+        this.status = 409;
+
+        this.body = {
+            status: this.status,
+            message: this.message
+        };
+    }
+}
 export class NotFoundError extends Error {
     constructor(message) {
         super(message);
         this.name = "NotFoundError";
         this.status = 404;
+
+        this.body = {
+            status: this.status,
+            message: this.message
+        };
+    }
+}
+
+export class BadRequestError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "BadRequestError";
+        this.status = 400;
 
         this.body = {
             status: this.status,

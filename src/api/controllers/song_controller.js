@@ -1,6 +1,48 @@
 import songService from "../services/song_service.js";
 import { Readable } from "stream";
 
+import { base64ToBytes } from "../utils/utils.js";
+import { NotFoundError, InternalServerError } from "../errors/errors.js";
+
+export async function createSong(req, res, next){
+    const song = {
+        title: req.body.title,
+        albumId: parseInt(req.body.albumId),
+        audioFile:base64ToBytes(req.body.audio)
+    }
+
+    try {
+        const songCreated = await songService.createSong(song);
+
+        const songResponse = {
+            id: songCreated.id,
+            title: songCreated.title,
+            plays: songCreated.plays,
+            albumId: songCreated.albumId
+        }
+        return res.status(201).json(songResponse).end();
+    }
+    catch(err) {
+        return res.status(500).json({status: 500, message: "Something gone wrong"}).end();
+    }
+}
+
+export async function deleteSong(req, res, next) {
+    const songId = parseInt(req.params.songId);
+    
+    try {
+        await songService.deleteSong(songId);
+        
+        return res.status(200).end();
+    } 
+    catch (err) {
+        if(err instanceof NotFoundError || err instanceof InternalServerError)
+            return res.status(err.status).json(err.body).end();
+        
+        return res.status(500).json({status: 500, message: "Something gone wrong"}).end();
+    }
+}
+
 export async function getSong(req, res, next) {
     const songId = parseInt(req.params.songId);
 

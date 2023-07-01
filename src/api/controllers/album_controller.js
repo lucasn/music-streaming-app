@@ -1,21 +1,27 @@
 import albumService from "../services/album_service.js";
 import { NotFoundError, InternalServerError } from "../errors/errors.js";
-import { base64FromBytes, bytesFromBase64 } from "../utils/utils.js";
+import { bytesToBase64, base64ToBytes } from "../utils/utils.js";
 
 export async function createAlbum(req, res, next){
     const album = {
         name: req.body.name,
         year: parseInt(req.body.year),
-        cover: bytesFromBase64(req.body.cover),
+        cover: base64ToBytes(req.body.cover),
         artistId: parseInt(req.body.artistId)
     };
 
-    const createdAlbum = await albumService.createAlbum(album);
-
-    if(createdAlbum)
+    try{
+        const createdAlbum = await albumService.createAlbum(album);
+        createdAlbum.cover = bytesToBase64(createdAlbum.cover);
         return res.status(201).json(createdAlbum);
-    
-    return res.status(500);
+
+    }
+    catch(err){
+        if(err instanceof NotFoundError || err instanceof InternalServerError)
+            return res.status(err.status).json(err.body).end();
+        
+        return res.status(500).json({status: 500, message: "Something gone wrong"}).end();
+    }
 }
 
 export async function getAlbum(req, res, next){
@@ -29,7 +35,7 @@ export async function getAlbum(req, res, next){
 
     try {
         const album = await albumService.getAlbum(albumId, includeSongs);
-        album.cover = base64FromBytes(album.cover);
+        album.cover = bytesToBase64(album.cover);
 
         return res.status(200).json(album).end();
     } catch (err) {
@@ -46,7 +52,7 @@ export async function getAlbumCover(req, res, next) {
 
     try {
         const album = await albumService.getAlbumCover(albumId);
-        album.cover = base64FromBytes(album.cover);
+        album.cover = bytesToBase64(album.cover);
 
         return res.status(200).json(album).end();
     } 
@@ -73,7 +79,7 @@ export async function getAllAlbums(req, res, next) {
     const albums = await albumService.getAllAlbums(filters);
 
     albums.forEach(album => {
-        album.cover = base64FromBytes(album.cover);
+        album.cover = bytesToBase64(album.cover);
     })
 
     return res.json(albums);

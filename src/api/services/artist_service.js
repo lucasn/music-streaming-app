@@ -1,4 +1,6 @@
 import prisma from "../configs/database.js"
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library.js";
+import { NotFoundError, InternalServerError, ConflictError } from "../errors/errors.js";
 
 async function createArtist(artist) {
     try{
@@ -9,10 +11,46 @@ async function createArtist(artist) {
         return createdArtist;
     }
     catch(err){
-        throw {
-            status: 409, // CONFLICT
-            message: `Artist with this ${err.meta.target[0]} already exists` 
-        }
+        if(err instanceof PrismaClientKnownRequestError && err.code === 'P2002')
+            throw new ConflictError(`Artist with this ${err.meta.target[0]} already exists`)
+        
+        throw new InternalServerError();
+    }
+}
+
+async function deleteArtist(artistId) {
+    try {
+        const artist = await prisma.artist.delete({
+            where: {
+                id: artistId
+            },
+            select: {
+                id: true,
+                name: true,
+                albuns: {
+                    select: {
+                        id: true,
+                        name: true,
+                        year: true,
+                        songs: {
+                            select: {
+                                id: true,
+                                title: true,
+                                plays: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        return artist;
+    } 
+    catch (err) {
+        if(err instanceof PrismaClientKnownRequestError && err.code === 'P2025')
+            throw new NotFoundError(`Artist with id ${artistId} not found`);
+        
+        throw new InternalServerError();
     }
 }
 
@@ -52,6 +90,7 @@ async function getAllArtists(filters) {
 
 const artistService = {
     createArtist,
+    deleteArtist,
     getArtist,
     getAllArtists,
 };
