@@ -66,38 +66,33 @@ export async function deletePlaylistById(token, playlistId) {
 }
 
 export async function addSongToPlaylistById(songId, playlistId) {
+    const response = await fetch(`${apiBaseURL}/playlist`, {
+        body: JSON.stringify({
+            action: 'add',
+            songId: songId,
+            playlistId: playlistId
+        }),
+        headers: {'Content-Type': 'application/json'},
+        method: 'PATCH'
+    })
 
-    const updatedPlaylist = await prisma.playlist.update({
-        where: {
-            id: playlistId
-        },
-        data: {
-            songs: {
-                connect: {
-                    id: songId
-                }
-            }
-        }
-    });
-
-    return updatedPlaylist;
+    if (response.status === 200) return (await response.json());
+    return null;
 }
 
 export async function removeSongFromPlaylistById(playlistId, songId) {
-    const updatedPlaylist = await prisma.playlist.update({
-        where: {
-            id: playlistId
-        },
-        data: {
-            songs: {
-                disconnect:{
-                    id: songId
-                }
-            }
-        }
+    const response = await fetch(`${apiBaseURL}/playlist`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+            action: 'remove',
+            playlistId: playlistId,
+            songId: songId
+        }),
+        headers: {'Content-Type': 'application/json'}
     });
 
-    return updatedPlaylist;
+    if (response.status === 200) return (await response.json());
+    return null;
 }
 
 export async function retrieveSong(songId) {
