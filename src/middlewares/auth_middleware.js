@@ -15,12 +15,13 @@ export default async function authenticationMiddleware(req, res, next) {
     });
 
     if (response.status === 401) {
+        res.cookie('token', null);
         next();
-        return;
-    }
-    const credentials = await response.json();
+    } else {
+        const credentials = await response.json();
 
-    req.credentials = credentials;
-    req.token = token;
-    next();
+        req.credentials = credentials;
+        req.token = token;
+        next();
+    }
 }

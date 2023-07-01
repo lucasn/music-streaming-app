@@ -9,7 +9,8 @@ import {
     addSongToPlaylistById,
     removeSongFromPlaylistById,
     retrieveSong,
-    retrieveSongFileStream
+    retrieveSongFileStream,
+    renamePlaylist as renamePlaylistInDatabase
 } from "../services/music_service.js";
 
 import userService from "../services/user_service.js";
@@ -68,7 +69,7 @@ export async function getPlaylistById(req, res) {
 }
 
 export function getHomeContent(req, res) {
-    res.render('home');
+    res.render('home', {userName: req.credentials.name});
 }
 
 export async function createUser(req, res) {
@@ -119,6 +120,19 @@ export async function deletePlaylist(req, res) {
     await deletePlaylistById(req.token, playlistId);
 
     res.status(204).end();
+}
+
+export async function renamePlaylist(req, res) {
+    const playlistId = req.params.playlistId;
+    const playlistName = req.body.playlistName;
+
+    if (playlistId && playlistName) {
+        await renamePlaylistInDatabase(playlistId, playlistName);
+        res.status(200).end();
+    }
+    else {
+        res.status(400).end();
+    }
 }
 
 export async function getPlaylistsByUserId(req, res) {
@@ -178,4 +192,8 @@ export async function getSongFile(req, res) {
         }
         res.write(value);
     }
+}
+
+export async function getConfigPage(req, res) {
+    res.render('partials/user_config');
 }

@@ -49,6 +49,14 @@ main > h1 {
     cursor: pointer;
 }
 
+#title-wrapper input {
+    background: none;
+    border: none;
+    color: var(--primary-text-color);
+
+    font-size: 2em;
+}
+
 .music-card {
     display: flex;
     justify-content: space-between;

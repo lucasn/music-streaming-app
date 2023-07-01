@@ -1,8 +1,14 @@
 <div id="title-wrapper">
-    <h1>{{ playlist.title }}</h1>
-
     {% if playlist.title != "Músicas Curtidas" %}
+        <input 
+            type="text" 
+            value="{{ playlist.title }}" 
+            onBlur="watchRenamePlaylistInputChanges(event, {{ playlist.id }}, '{{ playlist.title }}')" 
+            onKeyup="watchRenamePlaylistInputChanges(event, {{ playlist.id }}, '{{ playlist.title }}')"
+        >
         <span onClick="removePlaylist({{playlist.id}})">Remover Playlist</span>
+    {% else %}
+        <h1>{{ playlist.title }}</h1>
     {% endif %}
 </div>
 

@@ -13,7 +13,8 @@ function handlePlaylistCardClick(playlistId) {
 }
 
 function handleHomeButtonClick() {
-    fetch(`${serverBaseURL}/home-content`)
+    const token = document.cookie.split('=')[1];
+    fetch(`${serverBaseURL}/home-content`, {headers: {'Authorization': `Bearer ${token}`}})
         .then(response => {
             return response.text()
         })
@@ -118,4 +119,49 @@ function removeSongFromPlaylist(playlistId, songId) {
         }
     })
         .then(() => handlePlaylistCardClick(playlistId));
+}
+
+function retrieveConfigPage() {
+    const token = document.cookie.split('=')[1];
+    fetch(`${serverBaseURL}/configs`, {
+        headers: {'Authorization': `Bearer ${token}`}
+    })
+    .then(response => response.text())
+    .then(body => updatePageContent(body));
+}
+
+function deleteUser() {
+    const confirmation = confirm('Essa operação não é reversível. Deseja mesmo continuar?');
+    if (!confirmation) return;
+}
+
+function watchRenamePlaylistInputChanges(event, playlistId, actualPlaylistName) {
+    const playlistName = event.target.value;
+
+    if (event instanceof KeyboardEvent) {
+        if (event.code === 'Enter') {
+            event.target.blur();
+            if (!playlistName) {
+                event.target.value = actualPlaylistName;
+                return;
+            }
+            renamePlaylist(playlistId, playlistName);
+        }
+    }
+    else {
+        if (!playlistName) {
+            event.target.value = actualPlaylistName;
+            return;
+        }
+        renamePlaylist(playlistId, playlistName);
+    }
+}
+
+function renamePlaylist(playlistId, playlistName) {
+    fetch(`${serverBaseURL}/playlists/${playlistId}`, {
+        method: 'put',
+        body: JSON.stringify({playlistName}),
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then((response) => retrievePlaylistsCardsContent());
 }

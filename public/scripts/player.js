@@ -11,29 +11,38 @@ audioTag.ontimeupdate = updateCurrentTimeOnSlider;
 seekSlider.oninput = updateCurrentTimeInAudio;
 
 function playPauseChangeState() {
-    const [play, pause] = Array.from(playPauseButton.children);
+    const [play, _] = Array.from(playPauseButton.children);
 
     if (play.style.display === 'none') {
-        pause.style.display = 'none';
-        play.style.display = 'block';
-        audioTag.pause();
+        setPauseState();
     }
     else {
-        play.style.display = 'none';
-        pause.style.display = 'block';
-        audioTag.play();
+        setPlayState();
     }
 }
 
-// function retrieveSong(shouldPlay) {
-//     fetch(`http://127.0.0.1:8080/music`)
-//     .then(response => {
-//         return response.arrayBuffer();
-//     })
-//     .then(bytes => {
-//         audioTag.src = URL.createObjectURL(new Blob([bytes]));
-//     });
-// }
+function setPlayState() {
+    const [play, pause] = Array.from(playPauseButton.children);
+    
+    play.style.display = 'none';
+    pause.style.display = 'block';
+    audioTag.play();
+}
+
+function setPauseState() {
+    const [play, pause] = Array.from(playPauseButton.children);
+
+    pause.style.display = 'none';
+    play.style.display = 'block';
+    audioTag.pause();
+}
+
+function resetTimeBar() {
+    const [play, pause] = Array.from(playPauseButton.children);
+    pause.style.display = 'none';
+    play.style.display = 'block';
+    audioTag.currentTime = 0;
+}
 
 function retrieveSongInfo(songId) {
     fetch(`${serverBaseURL}/song/${songId}`)
@@ -64,6 +73,7 @@ function updateSongInfo(song) {
 
 function buildProgressbar() {
     duration.innerHTML = convertSecondsToMinutes(audioTag.duration);
+    resetTimeBar();
 }
 
 function updateCurrentTimeOnSlider() {

@@ -95,6 +95,21 @@ export async function removeSongFromPlaylistById(playlistId, songId) {
     return null;
 }
 
+export async function renamePlaylist(playlistId, playlistName) {
+    const response = await fetch(`${apiBaseURL}/playlist`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+            action: 'rename',
+            playlistId,
+            newTitle: playlistName
+        }),
+        headers: {'Content-Type': 'application/json'}
+    });
+
+    if (response.status === 200) return (await response.json());
+    return null;
+}
+
 export async function retrieveSong(songId) {
     const response = await fetch(`${apiBaseURL}/song/${songId}`);
     const songInfo = await response.json();
