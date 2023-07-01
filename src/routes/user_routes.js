@@ -32,7 +32,7 @@ export default function configureUserRoutes() {
     app.post('/user', createUser);
     app.get('/search', searchSongs);
     app.delete('/playlists/:playlistId', deletePlaylist);
-    app.get('/user/:user_id/playlists/search', searchPlaylistsByUserId);
+    app.get('/user/playlists/search', searchPlaylistsByUserId);
     app.post('/playlists/song', addSongToPlaylist);
     app.post('/playlists/song/remove', removeSongFromPlaylist);
     app.get('/song/:song_id', getSongInfo);

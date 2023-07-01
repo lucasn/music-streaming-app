@@ -1,4 +1,4 @@
-import prisma from "../api/configs/database.js";
+import { apiBaseURL } from "../configs/server.js";
 
 export async function createArtistInDatabase(artist){
     const createdArtist = await prisma.artist.create({
@@ -121,19 +121,8 @@ export async function getArtistAlbums(artistId){
 }
 
 export async function getAlbumById(albumId) {
-    const album = await prisma.album.findUnique({
-        where: {
-            id: albumId
-        },
-        include: {
-            songs: true,
-            artist: true
-        }
-    });
-
-    if(album.cover){
-        album.cover = album.cover.toString('base64')
-    }
+    const response = await fetch(`${apiBaseURL}/album/${albumId}?include_songs=true`);
+    const album = await response.json();
 
     return album;
 }

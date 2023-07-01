@@ -2,7 +2,6 @@ import {
     getUserPlaylists, 
     getSongsFromPlaylist, 
     createUser as createUserInDatabase,
-    getUserByEmail,
     getUserById,
     createPlaylist as createPlaylistInDatabase,
     getSongsByName,
@@ -10,10 +9,11 @@ import {
     addSongToPlaylistById,
     removeSongFromPlaylistById,
     retrieveSong,
-    retrieveSongFile
+    retrieveSongFileStream
 } from "../services/music_service.js";
 
 import userService from "../services/user_service.js";
+import { PassThrough } from "stream";
 
 
 export async function getIndexPage(req, res) {
@@ -130,7 +130,7 @@ export async function getPlaylistsByUserId(req, res) {
 }
 
 export async function searchPlaylistsByUserId(req, res) {
-    const userId = parseInt(req.params.user_id);
+    const userId = req.credentials.id;
 
     const playlists = await getUserPlaylists(userId);
 
@@ -165,7 +165,17 @@ export async function getSongInfo(req, res) {
 
 export async function getSongFile(req, res) {
     const songId = parseInt(req.params.song_id);
-    const file = await retrieveSongFile(songId);
+    const songStream = await retrieveSongFileStream(songId);
 
-    return res.end(file);
+    const reader = songStream.getReader();
+
+    let done = false, value;
+    while (!done) {
+        ({value, done} = await reader.read());
+        if (done) {
+            res.end();
+            return;
+        }
+        res.write(value);
+    }
 }

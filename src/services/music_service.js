@@ -1,7 +1,7 @@
 import { apiBaseURL } from "../configs/server.js";
 
 export async function getUserPlaylists(userId) {
-    const playlists = await fetch(`${apiBaseURL}/user/${userId}/playlists`);
+    const playlists = await fetch(`${apiBaseURL}/user/${userId}/playlists?include_songs=true`);
     return playlists.json();
 }
 
@@ -51,23 +51,11 @@ export async function createPlaylist(userId, playlistName) {
     return playlist.json();
 }
 
-export async function getSongsByName(songName) {
-    const deletePlaylist = await prisma.song.findMany({
-        where: {
-            title: {
-                contains: songName
-            }
-        },
-        include: {
-            album: {
-                include: {
-                    artist: true
-                }
-            }
-        }
-    })
+export async function getSongsByName(searchString) {
+    const response = await fetch(`${apiBaseURL}/songs?search=${searchString}`);
+    const songs = await response.json();
 
-    return deletePlaylist;
+    return songs;
 }
 
 export async function deletePlaylistById(token, playlistId) {
@@ -113,39 +101,15 @@ export async function removeSongFromPlaylistById(playlistId, songId) {
 }
 
 export async function retrieveSong(songId) {
-    const song = await prisma.song.findUnique({
-        where: {
-            id: songId
-        },
-        select: {
-            title: true,
-            id: true,
-            album: {
-                select: {
-                    name: true,
-                    cover: true,
-                    artist: true
-                }
-            }
-        }
-    });
+    const response = await fetch(`${apiBaseURL}/song/${songId}`);
+    const songInfo = await response.json();
 
-    if (song.album.cover){
-        song.album.cover = song.album.cover.toString('base64');
-    }
-
-    return song;
+    return songInfo;
 }
 
-export async function retrieveSongFile(songId) {
-    const songFile = await prisma.song.findUnique({
-        where: {
-            id: songId
-        },
-        select: {
-            audioFile: true
-        }
-    });
+export async function retrieveSongFileStream(songId) {
+    const response = await fetch(`${apiBaseURL}/song/${songId}/audio`);
+    const songStream = response.body;
 
-    return songFile.audioFile;
+    return songStream;
 }

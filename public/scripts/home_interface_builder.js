@@ -55,9 +55,11 @@ function updatePlaylistsCardsContent(htmlContent) {
 }
 
 function addSongModal(songId) {
-    const userId = document.cookie.split('=')[1];
+    const token = document.cookie.split('=')[1];
 
-    fetch(`${serverBaseURL}/user/${userId}/playlists/search`)
+    fetch(`${serverBaseURL}/user/playlists/search`, {
+        headers: {'Authorization': `Bearer ${token}`}
+    })
         .then(response => response.json())
         .then(body => {
             const filteredPlaylists = body.filter(playlist => {

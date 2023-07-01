@@ -76,7 +76,7 @@ async function getSongAudio(songId) {
             }
         });
     
-        return songFile.audioFile.toString('base64');
+        return songFile;
     }
     catch(err){
         throw {

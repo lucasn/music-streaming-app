@@ -27,12 +27,12 @@ export async function getUser(req, res, next) {
 
 export async function getUserPlaylists(req, res, next) {
     const userId = parseInt(req.params.userId);
+    const includeSongs = req.query.include_songs;
 
     if (userId) {
         try {
-            const playlists = await userService.getUserPlaylists(userId);
+            const playlists = await userService.getUserPlaylists(userId, includeSongs);
             return res.status(200).json(playlists).end();
-
         }
         catch (err) {
             return res.status(err.status).json(err).end();

@@ -17,7 +17,7 @@ function searchSongs(event) {
             songs.forEach(song => {
                 const songTag = document.createElement('a');
                 songTag.innerHTML = song.title;
-                songTag.onclick = () => retrieveAlbumContent(song.albumId);
+                songTag.onclick = () => retrieveAlbumContent(song.album.id);
                 dropdown.appendChild(songTag);
             });
 

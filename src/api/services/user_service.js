@@ -31,7 +31,7 @@ async function getAllUsers(filters) {
     return users;
 }
 
-async function getUserPlaylists(userId){
+async function getUserPlaylists(userId, includeSongs = false){
     let user;
 
     try{
@@ -50,6 +50,9 @@ async function getUserPlaylists(userId){
     const playlists = await prisma.playlist.findMany({
         where: {
             author: user
+        },
+        include: {
+            songs: includeSongs ? true : false
         }
     });
 

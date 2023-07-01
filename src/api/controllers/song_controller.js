@@ -1,4 +1,5 @@
 import songService from "../services/song_service.js";
+import { Readable } from "stream";
 
 export async function getSong(req, res, next) {
     const songId = parseInt(req.params.songId);
@@ -46,7 +47,14 @@ export async function getSongAudio(req, res, next) {
     try {
         const songAudio = await songService.getSongAudio(songId);
 
-        return res.status(200).json({audio: songAudio});
+        const stream = new Readable({
+            read() {
+                this.push(songAudio.audioFile);
+                this.push(null);
+            }
+        });
+
+        return stream.pipe(res);
     }
     catch (err) {
         return res.status(err.status).json(err).end();
