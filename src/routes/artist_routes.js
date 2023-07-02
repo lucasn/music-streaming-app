@@ -5,7 +5,6 @@ import {
     performArtistLogin,
     getArtistSigninPage,
     createArtist,
-    getArtistHomePage, 
     getArtistAddPage, 
     getArtistAlbumsPage,
     getAddSongPage,
@@ -24,9 +23,8 @@ export default function configureArtistRoutes() {
     app.post('/artist/login', performArtistLogin);
     app.get('/artist/signin', getArtistSigninPage);
     app.post('/artist/', upload.single('profilePicture'), createArtist);
-    app.get('/artist/:artistId', getArtistHomePage);
+    app.get('/artist/albums', getArtistAlbumsPage);
     app.get('/artist/:artistId/add', getArtistAddPage);
-    app.get('/artist/:artistId/albums', getArtistAlbumsPage);
     app.get('/artist/:artistId/album/:albumId', getAlbumPage)
     app.get('/artist/:artistId/album/:albumId/addSong', getAddSongPage)
     app.post('/artist/:artistId/album/:albumId/song', upload.single('audio'), createSong)

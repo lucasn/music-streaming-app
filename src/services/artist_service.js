@@ -23,19 +23,13 @@ export async function createSongInDatabase(song){
 }
 
 export async function getArtistById(artistId){
-    const artist = await prisma.artist.findUnique({
-        where: {
-            id: artistId
-        },
-        select: {
-            id: true,
-            name: true,
-            profilePicture: true
-        }
-    });
-    artist.profilePicture = artist.profilePicture.toString('base64');
+    const response = await fetch(`${apiBaseURL}/artist/${artistId}`);
 
-    return artist;
+    if (response.status == 200) {
+        const artist = await response.json();
+        return artist;
+    }
+    return null;
 }
 
 export async function getArtistByEmail(email){
@@ -91,33 +85,13 @@ export function getArtistAudience(artistId){
 }
 
 export async function getArtistAlbums(artistId){
-    const artistAlbums = await prisma.album.findMany({
-        where: {
-            artistId: artistId
-        },
-        orderBy: {
-            year: "desc"
-        },
-        select: {
-            id: true,
-            name: true,
-            year: true,
-            cover: true,
-            artist: {
-                select:{
-                    name: true
-                }
-            }
-        }
-    });
+    const response = await fetch(`${apiBaseURL}/album/?artist_id=${artistId}`);
 
-    artistAlbums.forEach(album => {
-        if(album.cover){
-            album.cover = album.cover.toString('base64');
-        }
-    });
-    
-    return artistAlbums;
+    if (response.status === 200) {
+        const album = response.json();
+        return album;
+    }
+    return null;
 }
 
 export async function getAlbumById(albumId) {

@@ -4,7 +4,7 @@
         <h1>{{artist.name}}</h1>
     </div>
     <div id="cards">
-        <a class="card-item {% if statsPage %} card-item-selected {% endif %}" href="/artist/{{artist.id}}/">
+        <a class="card-item {% if statsPage %} card-item-selected {% endif %}" href="/artist">
             <img src="/images/estatisticas.png" alt="">
             <p>Estatísticas</p>
         </a>
@@ -12,7 +12,7 @@
             <img src="/images/botao-adicionar.png" alt="">
             <p>Criar Álbum</p>
         </a>
-        <a class="card-item {% if albumsPage %} card-item-selected {% endif %}" href="/artist/{{artist.id}}/albums">
+        <a class="card-item {% if albumsPage %} card-item-selected {% endif %}" href="/artist/albums">
             <img src="/images/albuns.png" alt="">
             <p>Álbuns</p>
         </a>
@@ -42,4 +42,3 @@
         window.location.replace("http://localhost:8080/artist");
     }
 </script>
-<script src="/scripts/change_font.js"></script>

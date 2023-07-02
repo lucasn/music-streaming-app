@@ -48,7 +48,7 @@ export async function performLogin(req, res) {
 
     const token = await userService.login(email, password);
     
-    if (!token) {
+    if (!token || token.type === 'artist') {
         res.render('login', {loginFailed: true});
         return;
     }

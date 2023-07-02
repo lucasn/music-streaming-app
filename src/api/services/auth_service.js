@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import userService from './user_service.js';
+import artistService from './artist_service.js';
 import { AccessDeniedError } from "../errors/errors.js";
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
@@ -7,16 +8,29 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET;
 async function login(credentials) {
     const user = await userService.getAllUsers(credentials);
 
+    let tokenPayload;
     if (user.length === 0) {
-        throw new AccessDeniedError();
+        const artist = await artistService.getAllArtists(credentials);
+
+        if (artist.length === 0) {
+            throw new AccessDeniedError();
+        }
+
+        tokenPayload = {
+            id: artist[0].id,
+            name: artist[0].name,
+            email: artist[0].email,
+            type: 'artist'
+        };
+    } 
+    else {
+        tokenPayload = {
+            id: user[0].id,
+            name: user[0].name,
+            email: user[0].email,
+            type: 'user'
+        };
     }
-    
-    const tokenPayload = {
-        id: user[0].id,
-        name: user[0].name,
-        email: user[0].email,
-        type: 'user'
-    };
     
     const token = jwt.sign(tokenPayload, TOKEN_SECRET);
     

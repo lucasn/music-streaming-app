@@ -23,7 +23,6 @@ function changeFontSize(change) {
 
     localStorage.setItem('fontSize', fontSize);
     body.setAttribute('style', `font-size: ${fontSize}pt !important` );
-    console.log(fontSize);
 }
 
 function changeHighContrastColors(event) {
