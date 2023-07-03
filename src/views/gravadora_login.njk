@@ -1,0 +1,27 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/signin.css">
+    <title>Login</title>
+{% endblock %}
+
+{% block content %}
+    {% include "./partials/gravadora_nav.njk" %}
+
+    <main>
+
+        <form action="/record/login" method="post">
+            {% if loginFailed %}
+                <p id="wrong-pass">Email ou senha incorretos</p>            
+            {% endif %}
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email">
+            <label for="password">Senha:</label>
+            <input type="password" name="password" id="password">
+            <input type="submit" value="Entrar">
+        </form>
+
+    </main>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/signin.css">
+    <title>Sign In</title>
+{% endblock %}
+
+{% block content %}
+    {% include "./partials/gravadora_nav.njk" %}
+
+    <main>
+
+        {% if artistCreated %}
+            <div>
+                <h1>Usuário criado com sucesso!</h1>
+                <h2>Agora você pode se conectar</h2>
+            </div>
+        {% else %}
+            <form action="/record" method="post" enctype="multipart/form-data">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email">
+                <label for="name">Nome:</label>
+                <input type="text" name="name" id="name">
+                <label for="password">Senha:</label>
+                <input type="password" name="password" id="password">
+                <label for="profilePicture">Foto de perfil:</label>
+                <input type="file" name="profilePicture" value="" id="profilePicture" alt="">
+                <input type="submit" value="Criar Conta">
+            </form>
+        {% endif %}
+
+        
+
+    </main>
+
+{% endblock %}

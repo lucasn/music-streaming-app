@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import userService from './user_service.js';
 import artistService from './artist_service.js';
+import recordCompanyService from "./record_company_service.js";
 import { AccessDeniedError } from "../errors/errors.js";
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
@@ -13,15 +14,27 @@ async function login(credentials) {
         const artist = await artistService.getAllArtists(credentials);
 
         if (artist.length === 0) {
-            throw new AccessDeniedError();
-        }
+            const recordCompany = await recordCompanyService.getAllRecordCompanies(credentials);
+            
+            if(recordCompany.length === 0){
+                throw new AccessDeniedError();
+            }
 
-        tokenPayload = {
-            id: artist[0].id,
-            name: artist[0].name,
-            email: artist[0].email,
-            type: 'artist'
-        };
+            tokenPayload = {
+                id: recordCompany[0].id,
+                name: recordCompany[0].name,
+                email: recordCompany[0].email,
+                type: 'recordCompany'
+            };
+        }
+        else{
+            tokenPayload = {
+                id: artist[0].id,
+                name: artist[0].name,
+                email: artist[0].email,
+                type: 'artist'
+            };
+        }
     } 
     else {
         tokenPayload = {

@@ -1,0 +1,45 @@
+<div id="left-nav">
+    <div id="record">
+        <img src="/images/warner-music-group.jpg" alt="Logo gravadora">
+        <h1>Warner Music</h1>
+    </div>
+
+    <div id="cards">
+        <a class="card-item card-item-selected" href="/record">
+            <img src="/images/estatisticas.png" alt="">
+            <p>Estatísticas</p>
+        </a>
+        <a class="card-item" href="/record/add">
+            <img src="/images/botao-adicionar.png" alt="">
+            <p>Adicionar Artista</p>
+        </a>
+        <a class="card-item" href="/record/artists">
+            <img src="/images/artists.png" alt="">
+            <p>Artistas</p>
+        </a>
+    </div>
+    <div id="options">
+        <div class="options-item">
+            <button class="acessibility-button" onClick="changeFontSize('-')">A-</button>
+            <button class="acessibility-button" onClick="changeFontSize('+')">A+</button>
+        </div>
+        <div class="options-item">
+            <button id="high-contrast-button" class="high-contrast" onClick="changeHighContrastColors(event)">Ativar Alto Contraste</button>
+        </div>
+        <div class="options-item" onClick="retrieveConfigPage()">
+            <img src="/images/settings.png" alt="">
+            <p>Configurações</p>
+        </div>
+        <div class="options-item" onClick="logout()">
+            <img src="/images/user.png" alt="">
+            <p>Sair</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function logout(){
+        document.cookie = "artist_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.replace("http://localhost:8080/record");
+    }
+</script>
