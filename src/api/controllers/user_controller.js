@@ -67,7 +67,10 @@ export async function getUserPlaylists(req, res, next) {
             return res.status(200).json(playlists).end();
         }
         catch (err) {
-            return res.status(err.status).json(err).end();
+            if(err instanceof NotFoundError || err instanceof InternalServerError)
+                return res.status(err.status).json(err.body).end();
+    
+            return res.status(500).json({status: 500, message: "Something gone wrong"}).end();
         }
 
     }

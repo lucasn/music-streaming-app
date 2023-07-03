@@ -88,10 +88,10 @@ async function getUserPlaylists(userId, includeSongs = false){
             }
         });
     } catch(err) {
-        throw {
-            status: 404,
-            message: `User with id ${userId} not found`
-        }
+        if(err instanceof PrismaClientKnownRequestError && err.code === 'P2025')
+            throw new NotFoundError(`User with id ${userId} not found`);
+        
+        throw new InternalServerError();
     }
     
     const playlists = await prisma.playlist.findMany({

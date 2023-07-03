@@ -63,7 +63,8 @@ export async function getAllArtists(req, res, next) {
     const filters = {
         email: req.query.email,
         name: req.query.name,
-        password: req.query.password
+        password: req.query.password,
+        recordCompanyId: req.query.recordCompanyId
     }
 
     const artists = await artistService.getAllArtists(filters);

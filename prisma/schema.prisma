@@ -62,6 +62,8 @@ model Artist {
 model RecordCompany {
   id Int @id @default(autoincrement())
   name String
+  email String @unique
   password String
+  recordCompanyPicture Bytes?
   artists Artist[]
 }
