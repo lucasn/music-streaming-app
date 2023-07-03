@@ -47,36 +47,12 @@ export async function getArtistByEmail(email){
 }
 
 export async function getArtistTopSongs(artistId){
-    const artistTopSongs = await prisma.song.findMany({
-        where: {
-            album: {
-                artistId: artistId
-            }
-        },
-        orderBy: {
-            plays: "desc"
-        },
-        select: {
-            title: true,
-            album: {
-                select: {
-                    cover: true,
-                    artist: {
-                        select: {
-                            name: true
-                        }
-                    }
-                }
-            }
-        },
-        take: 3
-    })
+    const response = await fetch(`${apiBaseURL}/song?top=3&order_by_plays=true`);
 
-    artistTopSongs.forEach(song => {
-        song.album.cover = song.album.cover.toString('base64');
-    });
-
-    return artistTopSongs;
+    if (response.status === 200) {
+        const songs = await response.json();
+        return songs;
+    }
 }
 
 export function getArtistAudience(artistId){
@@ -99,4 +75,10 @@ export async function getAlbumById(albumId) {
     const album = await response.json();
 
     return album;
+}
+
+export async function deleteArtist(artistId) {
+    const response = await fetch(`${apiBaseURL}/artist/${artistId}`, {
+        method: 'delete'
+    });
 }

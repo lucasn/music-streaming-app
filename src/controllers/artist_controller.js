@@ -67,9 +67,14 @@ export async function getArtistIndexPage(req, res) {
         const artist = await getArtistById(artistId);
     
         if (artist) {
-            // const topSongs = await getArtistTopSongs(artistId);
-            res.render('artista_home', { statsPage: true, artist: artist })
-            // res.render('artista_home', { statsPage: true, artist: artist, topSongs: topSongs, audience: getArtistAudience(artistId) })
+            const topSongs = await getArtistTopSongs(artistId);
+            const renderData= {
+                statsPage: true, 
+                artist: artist,
+                topSongs: topSongs,
+                audience: getArtistAudience(artistId)
+            };
+            res.render('artista_home', renderData);
             return;
         }
         res.render('index_artista');

@@ -13,12 +13,12 @@ import {
     renamePlaylist as renamePlaylistInDatabase,
     deleteUser as deleteUserInDatabase
 } from "../services/music_service.js";
-
 import userService from "../services/user_service.js";
+import { deleteArtist as deleteArtistInDatabase } from "../services/artist_service.js";
 
-
+ 
 export async function getIndexPage(req, res) {
-    if (req.credentials) {
+    if (req.credentials && req.credentials.type === 'user') {
         const playlists = await getUserPlaylists(req.credentials.id);
 
         res.render('index_user', {playlists: playlists, userName: req.credentials.name});
@@ -57,8 +57,6 @@ export async function performLogin(req, res) {
 
     res.redirect('/');
 }
-
-
 
 export async function getPlaylistById(req, res) {
     const playlistId = parseInt(req.params.playlist_id);
@@ -199,9 +197,20 @@ export async function getConfigPage(req, res) {
 }
 
 export async function deleteUser(req, res) {
-    const userId = req.credentials.id;
+    if (req.credentials) {
+        if (req.credentials.type === 'user') {
+            const userId = req.credentials.id;
+            await deleteUserInDatabase(userId);
+        
+            return res.status(200).end();
+        }
+        else {
+            const artistId = req.credentials.id;
+            await deleteArtistInDatabase(artistId);
 
-    await deleteUserInDatabase(userId);
+            return res.status(200).end();
+        }
+    }
 
-    return res.status(200).end();
+    res.status(401).end();
 }
