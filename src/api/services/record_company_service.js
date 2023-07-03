@@ -82,8 +82,6 @@ async function getAllRecordCompanies(filters) {
 }
 
 async function getRecordCompanyArtists(recordCompanyId){
-    let user;
-
     try {
         const recordCompanyArtists = await prisma.recordCompany.findUniqueOrThrow({
             where: {
@@ -110,11 +108,90 @@ async function getRecordCompanyArtists(recordCompanyId){
     }
 }
 
+async function addArtistToRecordCompany(recordCompanyId, artistId){
+    try {
+        const recordCompany = await prisma.recordCompany.update({
+            where: {id: recordCompanyId},
+            data: {
+                artists: {
+                    connect: {
+                        id: artistId
+                    }
+                }
+            },
+            select: {
+                id: true,
+                name: true,
+                artists: {
+                    select: {
+                        id: true,
+                        name: true,
+                        profilePicture: true
+                    }
+                }
+            }
+        });
+
+        return recordCompany;
+    } 
+    catch (err) {
+        if(err instanceof PrismaClientKnownRequestError){
+            if(err.code === 'P2018')
+                throw new NotFoundError(`Artist with id ${artistId} not found`);
+            else if(err.code === 'P2025')
+                throw new NotFoundError(`Company with id ${recordCompanyId} not found`);
+        }
+
+        throw new InternalServerError();
+    }
+}
+
+async function removeArtistFromRecordCompany(recordCompanyId, artistId) {
+    try {
+        const recordCompany = await prisma.recordCompany.update({
+            where: {
+                id: recordCompanyId
+            },
+            data: {
+                artists: {
+                    disconnect: {
+                        id: artistId
+                    }
+                }
+            },
+            select: {
+                id: true,
+                name: true,
+                artists: {
+                    select: {
+                        id: true,
+                        name: true,
+                        profilePicture: true
+                    }
+                }
+            }
+        });
+
+        return recordCompany;
+    } 
+    catch (err) {
+        if(err instanceof PrismaClientKnownRequestError){
+            if(err.code === 'P2018')
+                throw new NotFoundError(`Artist with id ${artistId} not found`);
+            else if(err.code === 'P2025')
+                throw new NotFoundError(`Company with id ${recordCompanyId} not found`);
+        }
+
+        throw new InternalServerError();
+    }
+}
 const recordCompanyService = {
     createRecordCompany,
     deleteRecordCompany,
     getRecordCompany,
     getAllRecordCompanies,
-    getRecordCompanyArtists
+    getRecordCompanyArtists,
+    addArtistToRecordCompany,
+    removeArtistFromRecordCompany
 };
 export default recordCompanyService;

@@ -63,7 +63,8 @@ async function getArtist(artistId) {
             select: {
                 id: true,
                 name: true,
-                profilePicture: true
+                profilePicture: true,
+                recordCompanyId: true
             }
         });
     

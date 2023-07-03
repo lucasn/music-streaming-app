@@ -27,7 +27,7 @@ export async function deleteRecordCompany(req, res, next) {
     
     try{
         const deletedRecordCompany = await recordCompanyService.deleteRecordCompany(recordCompanyId);
-        return res.status(200).json(deletedRecordCompany);
+        return res.status(204).json(deletedRecordCompany);
     }
     catch(err) {
         if(err instanceof NotFoundError || err instanceof InternalServerError)
@@ -85,8 +85,56 @@ export async function getRecordCompanyArtists(req, res, next) {
             return res.status(200).json(recordCompanyArtists).end();
         }
         catch (err) {
-            return res.status(err.status).json(err).end();
+            if(err instanceof NotFoundError || err instanceof InternalServerError)
+                return res.status(err.status).json(err.body).end();
+    
+            return res.status(500).json({status: 500, message: "Something gone wrong"}).end();
         }
 
+    }
+}
+
+export async function addArtistToRecordCompany(req, res, next) {
+    const recordCompanyId = parseInt(req.params.recordCompanyId);
+    const artistId = parseInt(req.body.artistId);
+
+    try{
+        const recordCompany = await recordCompanyService.addArtistToRecordCompany(recordCompanyId, artistId);
+
+        recordCompany.artists.forEach(artist => {
+            if(artist.profilePicture)
+                artist.profilePicture = bytesToBase64(artist.profilePicture);
+        });
+
+        return res.status(200).json(recordCompany);
+    }
+    catch(err) {
+        if(err instanceof NotFoundError || err instanceof InternalServerError)
+            return res.status(err.status).json(err.body).end();
+    
+        return res.status(500).json({status: 500, message: "Something gone wrong"}).end();
+    }
+}
+
+export async function removeArtistFromRecordCompany(req, res, next){
+    const recordCompanyId = parseInt(req.params.recordCompanyId);
+    const artistId = parseInt(req.params.artistId);
+
+    try {
+        const recordCompany = await recordCompanyService.removeArtistFromRecordCompany(recordCompanyId, artistId);
+
+        recordCompany.artists.forEach(artist => {
+            if(artist.profilePicture)
+                artist.profilePicture = bytesToBase64(artist.profilePicture);
+        });
+
+        return res.status(200).json(recordCompany);
+    } 
+    catch (err) {
+        console.log(err);
+        if(err instanceof NotFoundError || err instanceof InternalServerError)
+            return res.status(err.status).json(err.body).end();
+    
+        return res.status(500).json({status: 500, message: "Something gone wrong"}).end();
     }
 }
