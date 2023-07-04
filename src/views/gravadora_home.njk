@@ -14,32 +14,7 @@
 
         <div class="main-column">
             <h3>Artista em Destaque</h3>
-            <div class="card">
-                <div class="artist-card">
-                    <img src="/images/paramore.jpeg" alt="">
-                    <div>
-                        <h3>1. Paramore</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="artist-card">
-                    <img src="/images/bruno-mars.jpeg" alt="">
-                    <div>
-                        <h3>2. Bruno Mars</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="artist-card">
-                    <img src="/images/ed-sheeran.jpg" alt="">
-                    <div>
-                        <h3>3. Ed Sheeran</h3>
-                    </div>
-                </div>
-            </div>
+            {% include "partials/gravadora_top_artists.njk" %}
         </div>
     </main>
 {% endblock %}

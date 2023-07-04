@@ -1,0 +1,23 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/styles/gravadora.css">
+    <link rel="stylesheet" href="/styles/gravadora_add.css">
+    <title>SoundSpace</title>
+{% endblock  %}
+
+{% block content %}
+    {% include "partials/gravadora_left_nav.njk" %}
+
+    <main>
+        <h1>Adicionar</h1>
+        <form id="search" action="/record/add/search" method="post">
+            <input name="name" type="text" placeholder="Pesquisar"></input>
+            <button type="submit"><img src="/images/search.png"></button>
+        </form>
+
+        {% if artists %}
+            {% include "partials/artists.njk" %}
+        {% endif %}
+    </main>
+{% endblock  %}

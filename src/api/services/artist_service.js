@@ -80,20 +80,38 @@ async function getArtist(artistId) {
     }
 }
 
-async function getAllArtists(filters) {
+async function getAllArtists(filters, top) {
     const artists = await prisma.artist.findMany({
-        where: {...filters}
+        where: {...filters},
+        take: top
     });
 
     return artists;
 }
 
+async function searchArtists(artistNameContains){
+    const artists = await prisma.artist.findMany({
+        where: {
+            name: {
+                contains: artistNameContains
+            }
+        },
+        select: {
+            id: true,
+            name: true,
+            profilePicture: true
+        }
+    });
+
+    return artists;
+}
 
 const artistService = {
     createArtist,
     deleteArtist,
     getArtist,
     getAllArtists,
+    searchArtists
 };
 
 export default artistService;

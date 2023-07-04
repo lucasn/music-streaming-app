@@ -64,10 +64,12 @@ export async function getAllArtists(req, res, next) {
         email: req.query.email,
         name: req.query.name,
         password: req.query.password,
-        recordCompanyId: req.query.recordCompanyId
+        recordCompanyId: parseInt(req.query.recordCompanyId)
     }
 
-    const artists = await artistService.getAllArtists(filters);
+    const top = req.query.top ? parseInt(req.query.top) : undefined;
+
+    const artists = await artistService.getAllArtists(filters, top);
 
     if(artists) {
         artists.forEach(artist => {
@@ -76,4 +78,25 @@ export async function getAllArtists(req, res, next) {
     }
 
     return res.status(200).json(artists).end();
+}
+
+export async function searchArtists(req, res, next) {
+    const searchString = req.query.search;
+
+    if(searchString) {
+        const artists = await artistService.searchArtists(searchString);
+
+        artists.forEach(artist => {
+            if(artist.profilePicture)
+                artist.profilePicture = bytesToBase64(artist.profilePicture);
+        });
+        return res.status(200).json(artists);
+    }
+    else {
+        const err = {
+            status: 400,
+            message: "No artist's name given"
+        }
+        return res.status(err.status).json(err).end();
+    }
 }

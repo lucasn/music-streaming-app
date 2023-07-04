@@ -3,7 +3,8 @@ import {
     createArtist,
     deleteArtist,
     getArtist,
-    getAllArtists
+    getAllArtists,
+    searchArtists
 } from '../controllers/artist_controller.js';
 
 export default function configureArtistRoutes() {
@@ -11,4 +12,5 @@ export default function configureArtistRoutes() {
     app.get('/artist', getAllArtists);
     app.get('/artist/:artistId', getArtist);
     app.delete('/artist/:artistId', deleteArtist);
+    app.get('/artists/', searchArtists);
 }

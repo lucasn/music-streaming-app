@@ -1,0 +1,10 @@
+{% for artist in topArtists %}
+<div class="card">
+    <div class="artist-card">
+        <img src="data:image/png;base64,{{artist.profilePicture}}" alt="">
+        <div>
+            <h3>{{loop.index}}. {{artist.name}}</h3>
+        </div>
+    </div>
+</div>
+{% endfor %}

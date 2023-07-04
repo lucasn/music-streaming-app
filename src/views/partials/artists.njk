@@ -1,0 +1,18 @@
+<div id="artists-cards">
+    {% for artist in artists %}
+        <div class="artist-card">
+            <img src="data:image/png;base64,{{artist.profilePicture}}" alt="">
+            <h4>{{artist.name}}</h4>
+            {% if addPage %}
+                <div class="overlay">
+                    <a href="/record/add/{{artist.id}}">
+                        <img src="/images/add.png" alt="">
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        
+    {% endfor %}
+    
+</div>
