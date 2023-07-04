@@ -12,10 +12,9 @@ async function login(credentials) {
     let tokenPayload;
     if (user.length === 0) {
         const artist = await artistService.getAllArtists(credentials);
-
+        
         if (artist.length === 0) {
             const recordCompany = await recordCompanyService.getAllRecordCompanies(credentials);
-            
             if(recordCompany.length === 0){
                 throw new AccessDeniedError();
             }
@@ -44,7 +43,7 @@ async function login(credentials) {
             type: 'user'
         };
     }
-    
+
     const token = jwt.sign(tokenPayload, TOKEN_SECRET);
     
     return token;

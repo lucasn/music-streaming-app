@@ -1,4 +1,8 @@
 import userService from "../services/user_service.js";
+import { 
+    getRecordCompany,
+    getRecordCompanyArtists
+} from "../services/record_company_service.js";
 
 export function getRecordCompanyLoginPage(req, res) {
     res.render('gravadora_login');
@@ -10,21 +14,22 @@ export function getRecordCompanySigninPage(req, res) {
 
 export async function getRecordCompanyIndexPage(req, res) {
     if (req.credentials && req.credentials.type === 'recordCompany') {
-        // const recordCompanyId = req.credentials.id;
-        // const artist = await getArtistById(artistId);
+        const recordCompanyId = req.credentials.id;
+        
+        const recordCompany = await getRecordCompany(recordCompanyId);
     
-        // if (artist) {
-        //     const topSongs = await getArtistTopSongs(artistId);
-        //     const renderData= {
-        //         statsPage: true, 
-        //         artist: artist,
-        //         topSongs: topSongs,
-        //         audience: getArtistAudience(artistId)
-        //     };
-        //     res.render('gravadora_home', renderData);
-        //     return;
-        // }
-        res.render('gravadora_home', renderData);
+        if (recordCompany) {
+            // const topSongs = await getArtistTopSongs(artistId);
+            const renderData= {
+                statsPage: true, 
+                recordCompany: recordCompany
+                // topSongs: topSongs,
+                // audience: getArtistAudience(artistId)
+            };
+            res.render('gravadora_home', renderData);
+            return;
+        }
+        res.render('gravadora_home');
         //res.render('index_gravadora');
     }
     else res.render('index_gravadora');
@@ -44,4 +49,14 @@ export async function performRecordCompanyLogin(req, res) {
     res.cookie('token', token);
 
     res.redirect('/record');
+}
+
+export async function getRecordCompanyArtistsPage(req, res) {
+    if(req.credentials && req.credentials.type === 'recordCompany'){
+        const recordCompanyId = req.credentials.id;
+        const recordCompany = await getRecordCompany(recordCompanyId);
+        const artists = await getRecordCompanyArtists(recordCompanyId);
+
+        res.render('gravadora_artists', { artistsPage: true, recordCompany: recordCompany, artists: artists });
+    }
 }

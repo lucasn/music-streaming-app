@@ -33,10 +33,10 @@ main .main-column:first-of-type {
     margin-left: 85px;
 }
 
-main .main-column:last-of-type {
+/* main .main-column:last-of-type {
     grid-column-start: 3;
     grid-column-end: 5;
-}
+} */
 
 main div h3 {
     font-size: 20pt;

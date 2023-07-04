@@ -1,19 +1,19 @@
 <div id="left-nav">
     <div id="record">
-        <img src="/images/warner-music-group.jpg" alt="Logo gravadora">
-        <h1>Warner Music</h1>
+        <img src="data:image/png;base64,{{recordCompany.recordCompanyPicture}}" alt="Logo gravadora">
+        <h1>{{recordCompany.name}}</h1>
     </div>
-
+    
     <div id="cards">
-        <a class="card-item card-item-selected" href="/record">
+        <a class="card-item {% if statsPage %} card-item-selected {% endif %}" href="/record">
             <img src="/images/estatisticas.png" alt="">
             <p>Estatísticas</p>
         </a>
-        <a class="card-item" href="/record/add">
+        <a class="card-item {% if addPage %} card-item-selected {% endif %}" href="/record/add">
             <img src="/images/botao-adicionar.png" alt="">
-            <p>Adicionar Artista</p>
+            <p>Criar Álbum</p>
         </a>
-        <a class="card-item" href="/record/artists">
+        <a class="card-item {% if artistsPage %} card-item-selected {% endif %}" href="/record/artists">
             <img src="/images/artists.png" alt="">
             <p>Artistas</p>
         </a>
@@ -39,7 +39,7 @@
 
 <script>
     function logout(){
-        document.cookie = "artist_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location.replace("http://localhost:8080/record");
     }
 </script>

@@ -1,0 +1,17 @@
+{% extends "base.njk" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/styles/gravadora.css">
+    <link rel="stylesheet" href="/styles/gravadora_artists.css">
+    <title>SoundSpace</title>
+{% endblock %}
+
+{% block content %}
+    {% include "partials/gravadora_left_nav.njk" %}
+
+    <main>
+        <h1>Artistas</h1>
+
+        {% include "partials/gravadora_artists.njk" %}
+    </main>
+{% endblock %}

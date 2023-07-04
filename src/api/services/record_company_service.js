@@ -97,8 +97,7 @@ async function getRecordCompanyArtists(recordCompanyId){
                 }
             }
         });
-        
-        return recordCompanyArtists
+        return recordCompanyArtists;
     } 
     catch (err) {
         if(err instanceof PrismaClientKnownRequestError && err.code === 'P2025')
