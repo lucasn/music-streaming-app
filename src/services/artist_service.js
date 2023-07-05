@@ -1,11 +1,16 @@
 import { apiBaseURL } from "../configs/server.js";
 
 export async function createArtistInDatabase(artist){
-    const createdArtist = await prisma.artist.create({
-        data: artist
+    const response = await fetch(`${apiBaseURL}/artist`, {
+        method: 'post',
+        body: JSON.stringify(artist),
+        headers: {'Content-Type': 'application/json'}
     });
 
-    return createdArtist;
+    if (response.status === 201) {
+        return await response.json();
+    }
+    return null;
 }
 
 export async function createAlbumInDatabase(album){

@@ -20,6 +20,11 @@ export default async function authenticationMiddleware(req, res, next) {
     } else {
         const credentials = await response.json();
 
+        if (credentials.type === 'user' && req.originalUrl.includes('artist')){
+            res.render('unauthorized');
+            return;
+        }
+
         req.credentials = credentials;
         req.token = token;
         next();

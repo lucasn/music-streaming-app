@@ -1,4 +1,3 @@
-import { parse } from "dotenv";
 import { apiBaseURL } from "../configs/server.js";
 
 async function login(email, password) {
@@ -9,6 +8,8 @@ async function login(email, password) {
     });
 
     if (response.status === 401) return null;
+    if (response.status !== 200) return null; 
+
 
     return (await response.json()).token;
 }

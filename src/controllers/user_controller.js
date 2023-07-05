@@ -24,6 +24,10 @@ export async function getIndexPage(req, res) {
         res.render('index_user', {playlists: playlists, userName: req.credentials.name});
         return;
     }
+    else if (req.credentials && req.credentials.type === 'artist') {
+        res.render('unauthorized');
+        return;
+    }
     res.render('index');
 }
 
@@ -48,7 +52,20 @@ export async function performLogin(req, res) {
 
     const token = await userService.login(email, password);
     
-    if (!token || token.type === 'artist') {
+    if (!token) {
+        res.render('login', {loginFailed: true});
+        return;
+    }
+
+    const response = await fetch(`http://localhost:8081/token/validate`, {
+        method: 'post',
+        body: JSON.stringify({token}),
+        headers: {'Content-Type': 'application/json'}
+    });
+
+    const credentials = await response.json();
+
+    if (!credentials || credentials.type === 'artist') {
         res.render('login', {loginFailed: true});
         return;
     }

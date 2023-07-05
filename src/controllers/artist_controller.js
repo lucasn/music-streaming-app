@@ -34,7 +34,7 @@ export async function createArtist(req, res) {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        profilePicture: profilePicture
+        profilePicture: profilePicture.toString('base64')
     }
 
     try {
@@ -51,7 +51,21 @@ export async function performArtistLogin(req, res) {
 
     const token = await userService.login(email, password);
 
-    if (!token || token.type === 'user') {
+    if (!token) {
+        res.render('artista_login', { loginFailed: true });
+        return;
+    }
+
+    const response = await fetch(`http://localhost:8081/token/validate`, {
+        method: 'post',
+        body: JSON.stringify({token}),
+        headers: {'Content-Type': 'application/json'}
+    });
+
+    const credentials = await response.json();
+
+
+    if (!credentials || credentials.type === 'user') {
         res.render('artista_login', { loginFailed: true });
         return;
     }
@@ -78,6 +92,10 @@ export async function getArtistIndexPage(req, res) {
             return;
         }
         res.render('index_artista');
+    }
+    else if (req.credentials && req.credentials.type === 'user'){
+        res.render('unauthorized');
+        return;
     }
     else res.render('index_artista');
 
