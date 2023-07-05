@@ -29,5 +29,5 @@ export default function configureArtistRoutes() {
     app.get('/artist/:artistId/album/:albumId/addSong', getAddSongPage)
     app.post('/artist/:artistId/album/:albumId/song', upload.single('audio'), createSong)
     app.get('/album/:albumId', getAlbum);
-    app.post('/artist/:artistId/album', upload.single('cover'), createAlbum);
+    app.post('/artist/album', upload.single('cover'), createAlbum);
 }

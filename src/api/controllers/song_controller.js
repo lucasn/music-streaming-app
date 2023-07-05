@@ -8,7 +8,7 @@ export async function createSong(req, res, next){
     const song = {
         title: req.body.title,
         albumId: parseInt(req.body.albumId),
-        audioFile:base64ToBytes(req.body.audio)
+        audioFile:base64ToBytes(req.body.audioFile)
     }
 
     try {

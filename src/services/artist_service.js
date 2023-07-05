@@ -14,17 +14,25 @@ export async function createArtistInDatabase(artist){
 }
 
 export async function createAlbumInDatabase(album){
-    const createdAlbum = await prisma.album.create({
-        data: album
+    const response = await fetch(`${apiBaseURL}/album`, {
+        method: 'post',
+        body: JSON.stringify(album),
+        headers: {'Content-Type': 'application/json'}
     });
-    return createdAlbum;
+
+    if (response.status === 201) return (await response.json());
+    return null;
 }
 
 export async function createSongInDatabase(song){
-    const createdSong = await prisma.song.create({
-        data: song
+    const response = await fetch(`${apiBaseURL}/song`, {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(song)
     });
-    return createdSong;
+
+    if (response.status === 201) return (await response.json());
+    return null;
 }
 
 export async function getArtistById(artistId){

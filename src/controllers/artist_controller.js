@@ -142,15 +142,15 @@ export async function createSong(req, res) {
 
     const song = {
         title: req.body.title,
-        audioFile: audio,
+        audioFile: audio.toString('base64'),
         albumId: albumId
     }
 
     await createSongInDatabase(song);
-    res.redirect(`/artist/${artistId}/albums`);
+    res.redirect(`/artist/albums`);
 }
 export async function createAlbum(req, res) {
-    const artistId = parseInt(req.params.artistId);
+    const artistId = req.credentials.id;
 
     let cover;
 
@@ -164,11 +164,11 @@ export async function createAlbum(req, res) {
         name: req.body.name,
         year: parseInt(req.body.year),
         artistId: artistId,
-        cover: cover
+        cover: cover.toString('base64')
     };
 
     await createAlbumInDatabase(album);
-    res.redirect(`/artist/${artistId}/albums`);
+    res.redirect(`/artist/albums`);
 }
 
 export async function getAlbumPage(req, res) {
