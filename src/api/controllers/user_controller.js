@@ -21,7 +21,7 @@ export async function deleteUser(req, res, next) {
     
     try{
         const deletedUser = await userService.deleteUser(userId);
-        return res.status(200).json(deletedUser);
+        return res.status(204).end();
     }
     catch(err) {
         if(err instanceof NotFoundError || err instanceof InternalServerError)
