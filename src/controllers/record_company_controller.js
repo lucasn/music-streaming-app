@@ -1,11 +1,13 @@
 import userService from "../services/user_service.js";
-import { 
+import {
+    createRecordCompany,
     getRecordCompany,
     getRecordCompanyTopArtists,
     getRecordCompanyArtists,
     searchArtists,
     addArtist
 } from "../services/record_company_service.js";
+import { getFileAsByte} from '../services/image_service.js';
 
 export function getRecordCompanyLoginPage(req, res) {
     res.render('gravadora_login');
@@ -13,6 +15,25 @@ export function getRecordCompanyLoginPage(req, res) {
 
 export function getRecordCompanySigninPage(req, res) {
     res.render('gravadora_signin');
+}
+
+export async function postRecordCompany(req, res) {
+    const recordCompanyPicture = await getFileAsByte(req.file.path);
+
+    const recordCompany = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        recordCompanyPicture: recordCompanyPicture
+    }
+
+    try {
+        await createRecordCompany(recordCompany);
+    } catch (err) {
+        console.log(err.message);
+        return;
+    }
+    res.render('gravadora_signin', { recordCompanyCreated: true });
 }
 
 export async function getRecordCompanyIndexPage(req, res) {
@@ -89,4 +110,13 @@ export async function addArtistToRecordCompany(req, res) {
 
         res.redirect('/record/artists');
     }
+}
+
+export async function getConfigPage(req, res) {
+    if(req.credentials && req.credentials.type === 'recordCompany'){
+        const recordCompanyId = req.credentials.id;
+        const recordCompany = await getRecordCompany(recordCompanyId);
+
+        res.render('gravadora_config', { recordCompany: recordCompany});
+    }   
 }

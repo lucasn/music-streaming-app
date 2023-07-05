@@ -1,6 +1,13 @@
 import { parse } from "dotenv";
 import { apiBaseURL } from "../configs/server.js";
 
+export async function createRecordCompany(recordCompany) {
+    const response = await fetch(`${apiBaseURL}/record`, {
+        method: 'post',
+        body: JSON.stringify(recordCompany),
+        headers: {'Content-Type': 'application/json'}
+    });
+}
 export async function getRecordCompany(recordCompanyId) {
     const response = await fetch(`${apiBaseURL}/record/${recordCompanyId}`);
 
@@ -44,5 +51,11 @@ export async function addArtist(artistId, recordCompanyId) {
         method: "POST",
         body: JSON.stringify({artistId}),
         headers: {'Content-Type': 'application/json'}
+    });
+}
+
+export async function deleteRecordCompany(recordCompanyId) {
+    const response = await fetch(`${apiBaseURL}/record/${recordCompanyId}`, {
+        method: 'delete'
     });
 }

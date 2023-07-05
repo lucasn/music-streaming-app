@@ -11,7 +11,7 @@
 
     <main>
 
-        {% if artistCreated %}
+        {% if recordCompanyCreated %}
             <div>
                 <h1>Usuário criado com sucesso!</h1>
                 <h2>Agora você pode se conectar</h2>
@@ -19,13 +19,13 @@
         {% else %}
             <form action="/record" method="post" enctype="multipart/form-data">
                 <label for="email">Email:</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
                 <label for="name">Nome:</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" required>
                 <label for="password">Senha:</label>
-                <input type="password" name="password" id="password">
-                <label for="profilePicture">Foto de perfil:</label>
-                <input type="file" name="profilePicture" value="" id="profilePicture" alt="">
+                <input type="password" name="password" id="password" required>
+                <label for="recordCompanyPicture">Foto de perfil:</label>
+                <input type="file" name="recordCompanyPicture" value="" id="recordCompanyPicture" alt="" required>
                 <input type="submit" value="Criar Conta">
             </form>
         {% endif %}

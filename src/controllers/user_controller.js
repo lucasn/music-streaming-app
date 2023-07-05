@@ -15,7 +15,7 @@ import {
 } from "../services/music_service.js";
 import userService from "../services/user_service.js";
 import { deleteArtist as deleteArtistInDatabase } from "../services/artist_service.js";
-
+import { deleteRecordCompany } from "../services/record_company_service.js";
  
 export async function getIndexPage(req, res) {
     if (req.credentials && req.credentials.type === 'user') {
@@ -204,10 +204,15 @@ export async function deleteUser(req, res) {
         
             return res.status(200).end();
         }
-        else {
+        else if(req.credentials.type === 'artist'){
             const artistId = req.credentials.id;
             await deleteArtistInDatabase(artistId);
 
+            return res.status(200).end();
+        }
+        else {
+            const recordCompanyId = req.credentials.id;
+            await deleteRecordCompany(recordCompanyId);
             return res.status(200).end();
         }
     }

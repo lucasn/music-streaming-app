@@ -120,6 +120,10 @@ body {
     margin-bottom: 30px;
 }
 
+#options a {
+    text-decoration: none;
+    color: var(--primary-text-color);
+}
 #high-contrast-button {
     color: var(--primary-text-color);
     background-color: var(--light-purple);
@@ -128,4 +132,43 @@ body {
     width: 60%;
     border-radius: 7px;
     cursor: pointer;
+}
+
+#change-password-form {
+    display: flex;
+    justify-content: left;
+    box-sizing: border-box;
+
+    margin-left: 68px;
+}
+
+#change-password-form input {
+    padding: 0 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: var(--light-purple);
+    color: var(--primary-text-color);
+
+    height: 30px;
+
+    margin-right: 10px;
+
+}
+
+#change-password-form input::placeholder {
+    color: var(--secondary-text-color);
+}
+
+#remove-user-button {
+    color: var(--primary-text-color);
+    background-color: #722121;
+
+    margin: 10px 0 0 68px;
+    border: none;
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    height: 30px;
+    padding: 0 10px;
 }

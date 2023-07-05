@@ -98,8 +98,6 @@ export async function addArtistToRecordCompany(req, res, next) {
     const recordCompanyId = parseInt(req.params.recordCompanyId);
     const artistId = parseInt(req.body.artistId);
 
-    console.log(recordCompanyId);
-    console.log(artistId);
     try{
         const recordCompany = await recordCompanyService.addArtistToRecordCompany(recordCompanyId, artistId);
 

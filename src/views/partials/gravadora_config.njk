@@ -1,0 +1,23 @@
+<h1>Configurações</h1>
+
+<div>
+    <button id="remove-user-button" onClick="deleteRecordCompany()">Excluir Gravadora</button>
+</div>
+
+<script>
+    function getToken() {
+        return document.cookie.split('=')[1];
+    }
+
+    function deleteRecordCompany() {
+        const token = getToken();
+
+        const confirmation = confirm('Essa operação não é reversível. Deseja mesmo continuar?');
+        if (!confirmation) return;
+
+        fetch(`${serverBaseURL}/record`, {
+            method: 'delete',
+            headers: {'Authorization': `Bearer ${token}`}
+        }).then(() => logout());
+    }
+</script>
