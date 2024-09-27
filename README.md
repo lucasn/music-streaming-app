@@ -1,4 +1,4 @@
-# Music Streamming App :headphones:
+# Music Streaming App :headphones:
 This is the final project of the Web Development course from the Computer Engineering Program at Federal University of Ceará (Brazil).
 
 ## The application :computer:
